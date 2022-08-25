@@ -1,7 +1,6 @@
 <!DOCTYPE html>
+@include('layouts.navbar')
 {{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -399,8 +398,8 @@
         }
     </style>
 </head>
-<body class="antialiased">
-<div class="row">
+<body style="padding-bottom: 60px" class="antialiased">
+<div class="row" style="margin-right: 15px">
     <div class="col-sm-8">
         <div class="relative flex items-top min-h-screen  py-4 sm:pt-0">
             <!DOCTYPE html>
@@ -579,7 +578,6 @@
             </html>
         </div>
     </div>
-
     <div class="relative flex items-top min-h-screen  py-4 sm:pt-0">
         <!DOCTYPE html>
         <html>
@@ -608,7 +606,10 @@
 
 </div>
 </body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+
 <script>
     // <block:setup:1>
     const premiAnnuiVal = $("#valPremiAnnui").val();
@@ -872,3 +873,5 @@
         config6
     );
 </script>
+
+

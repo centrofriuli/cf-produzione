@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@include('layouts.navbar')
 {{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
 <head>
     <meta charset="utf-8">
@@ -399,7 +400,7 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased" style="padding-bottom: 60px">
 <div class="relative flex items-top justify-center min-h-screen py-4 sm:pt-0">
     <!DOCTYPE html>
     <html>
@@ -533,4 +534,7 @@
         else
             document.getElementById("sensible-dnaPlus").style.backgroundColor = '#ff9999';
     })
+</script>
+<script>
+
 </script>

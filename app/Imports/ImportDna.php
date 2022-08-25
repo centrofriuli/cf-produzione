@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
 class ImportDna implements ToModel, WithHeadingRow
 {
@@ -18,6 +19,13 @@ class ImportDna implements ToModel, WithHeadingRow
      *
      * @return Model|null
      */
+
+    public function headingRow(): int
+    {
+        return 5;
+    }
+
+
     public function model(array $row)
     {
         if (is_float($row['premio_annualizzato']))
