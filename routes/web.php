@@ -31,10 +31,10 @@ Route::post('/produzione/rca-import', [ProductionController::class, 'rcaImport']
 Route::post('/produzione/fondiPensione-import', [ProductionController::class, 'fondiPensioneImport'])->name('produzione.fondiPensione-import');
 
 //gare
-Route::get('/produzione/gara-1-trimestre/', [ProductionController::class, 'garaPrimoTrimestre'])->name('produzione.gare.garaPrimoTrimestre');
-Route::get('/produzione/gara-2-trimestre/', [ProductionController::class, 'garaSecondoTrimestre'])->name('produzione.gare.garaSecondoTrimestre');
-Route::get('/produzione/gara-3-trimestre/', [ProductionController::class, 'garaTerzoTrimestre'])->name('produzione.gare.garaTerzoTrimestre');
-Route::get('/produzione/gara-4-trimestre/', [ProductionController::class, 'garaQuartoTrimestre'])->name('produzione.gare.garaQuartoTrimestre');
+Route::get('/produzione/gara-1-trimestre/', [ProductionController::class, 'garaPrimoTrimestre'])->name('produzione.gare.garaTrimestri');
+Route::get('/produzione/gara-2-trimestre/', [ProductionController::class, 'garaSecondoTrimestre'])->name('produzione.gare.garaTrimestri');
+Route::get('/produzione/gara-3-trimestre/', [ProductionController::class, 'garaTerzoTrimestre'])->name('produzione.gare.garaTrimestri');
+Route::get('/produzione/gara-4-trimestre/', [ProductionController::class, 'garaQuartoTrimestre'])->name('produzione.gare.garaTrimestri');
 
 //fileimport
 Route::controller(UserController::class)->group(function(){

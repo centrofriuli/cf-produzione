@@ -316,7 +316,7 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaPrimoTrimestre", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
     }
 
     public function garaSecondoTrimestre()
@@ -449,7 +449,7 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaPrimoTrimestre", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
     }
 
     public function garaTerzoTrimestre()
@@ -590,7 +590,7 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaPrimoTrimestre", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
     }
 
     public function garaQuartoTrimestre()
@@ -723,7 +723,7 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaPrimoTrimestre", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
     }
 
     public function dna()
