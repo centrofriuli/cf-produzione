@@ -400,7 +400,7 @@
         }
     </style>
 </head>
-<body class="antialiased" style="padding-bottom: 60px">
+<body class="antialiased" style="padding-top: 65px">
 <div class="relative flex items-top justify-center min-h-screen py-4 sm:pt-0">
     <!DOCTYPE html>
     <html>

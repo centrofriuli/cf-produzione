@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CF Produzione</title>
+    <title>CF Fondi Pensione</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -399,67 +399,68 @@
             font-family: 'Nunito', sans-serif;
         }
     </style>
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<body class="antialiased" style="padding-top: 65px">
-<div class="relative flex items-top justify-center min-h-screen py-4 sm:pt-0">
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Produzione</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    </head>
-    <body>
-    <div class="container mt-2">
-        <table class="table table-bordered mb-5">
-            <thead class="thead-dark">
-            <tr style="font-size: 14px">
-                <th scope="col" class="col-sm-3">Collaboratori</th>
-                <th scope="col" class="col-sm-1">Premi Annui</th>
-                <th scope="col" class="col-sm-1">Protection</th>
-                <th scope="col" class="col-sm-1">AVC</th>
-                <th scope="col" class="col-sm-1">DNA Retail</th>
-                <th scope="col" class="col-sm-1">DNA Middle</th>
-                <th scope="col" class="col-sm-1">RCA</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($listaCollaboratori as $lc => $collaboratore)
-                <tr>
-                    <th class="table-success">{{$lc}}</th>
-                    <td>{{number_format($collaboratore["PA"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Retail"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Middle"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["RCA"], 0, ',', '.')}}</td>
-                </tr>
-            @endforeach
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE RETE</th>
-                <td>{{ number_format($totaleRete["PA"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Retail"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Middle"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["RCA"], 0, ',', '.')}}</td>
-            </tr>
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE GENERALE</th>
-                <td>{{ number_format($premiAnnuiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($protectionTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($puIbridiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaRetailTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaMiddleMarketTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($rcaTot, 0, ',', '.')}}</td>
-            </tr>
-            </tbody>
-        </table>
+
+<body class="antialiased">
+
+<form style="padding-bottom: 20px; padding-top: 20px" action="{{ route('produzione.fondiPensione-import') }}" method="POST"
+      enctype="multipart/form-data">
+    <div style="padding-top: 65px" class="row">
+        <div class="col-sm-3">
+            @csrf
+            <input type="file" name="file" class="form-control">
+        </div>
+        <br>
+        <button class="btn btn-success">Importa Dati</button>
     </div>
-    </body>
-    </html>
+</form>
+
+<table class="table table-bordered mb-5">
+    <thead>
+    <tr class="table-success">
+        <th scope="col">Polizza</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Sotto Categoria</th>
+        <th scope="col">Prodotto Modello</th>
+        <th scope="col">Contraente</th>
+        <th scope="col">Acquisitore</th>
+        <th scope="col">Data Emissione</th>
+        <th scope="col">Data Registrazione</th>
+        <th scope="col">Data Statistica</th>
+        <th scope="col">Prod. Computata</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach($productionFondiPensione as $productionFondoPensione)
+        <tr>
+            <th scope="row">{{ $productionFondoPensione["num_polizza"] }}</th>
+            <td>{{ $productionFondoPensione["categ"] }}</td>
+            <td>{{ $productionFondoPensione["sotto_categ"] }}</td>
+            <td>{{ $productionFondoPensione["prodotto_modello"] }}</td>
+            <td>{{ $productionFondoPensione["contraente"] }}</td>
+            <td>{{ $productionFondoPensione["acquisitore"] }}</td>
+            <td>{{ $productionFondoPensione["data_emiss"] }}</td>
+            <td>{{ $productionFondoPensione["data_regist"] }}</td>
+            <td>{{ $productionFondoPensione["data_inserim"] }}</td>
+            <td>{{ $productionFondoPensione["prod_computata"] }}</td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>
+
+<div class="container mt-5">
+    {{-- Pagination --}}
+    <div class="d-flex justify-content-center">
+        {!! $productionFondiPensione->links() !!}
+    </div>
 </div>
+
 </body>
 </html>

@@ -11,7 +11,7 @@ class ProductionDanniAuto extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'danni_auto';
+    protected $table = 'rca';
     protected $primaryKey = 'polizza';
 
     protected $fillable = [

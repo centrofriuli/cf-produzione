@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductionRequest;
 use App\Http\Requests\UpdateProductionRequest;
 use App\Imports\ImportDna;
+use App\Imports\ImportFondiPensione;
 use App\Imports\ImportRca;
 use App\Imports\ImportUser;
 use App\Imports\ImportVita;
@@ -483,8 +484,23 @@ class ProductionController extends Controller
         $dnaMiddleMarketTotGara = 0;
 
         $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
+        $productionVitas2 = ProductionVita::whereBetween("data_statistica", ['2022-06-27', $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        //solo per la gara del terzo trimestre devo considerare giorni in più (2022)
+        foreach ($productionVitas2 as $productionVita2) {
+            if ($productionVita2["aggregazione_prodotti"] == "Protection") {
+                foreach ($listaCollaboratori as $c => $collaboratore) {
+                    if ($productionVita2["denominaz_acquisitore"] == $c) {
+                        $listaCollaboratori[$c]["Protection"] = $productionVita2["premio_emesso_annual"] + $collaboratore["Protection"];
+                        $listaCollaboratori[$c]["PuntiTot"] = $productionVita2["premio_emesso_annual"] * 4 + $collaboratore["PuntiTot"];
+                    }
+                }
+                $protectionTot = $productionVita2["premio_emesso_annual"] + $protectionTot;
+            }
+        }
+        //procedo poi con le produzioni vita del mese corretto
         foreach ($productionVitas as $productionVita) {
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PP" || $productionVita["aggregazione_prodotti"] == "Previdenza - PIP") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
@@ -495,15 +511,6 @@ class ProductionController extends Controller
                     }
                 }
                 $paNoProtTot = $productionVita["premio_emesso_annual"] + $paNoProtTot;
-            }
-            if ($productionVita["aggregazione_prodotti"] == "Protection") {
-                foreach ($listaCollaboratori as $c => $collaboratore) {
-                    if ($productionVita["denominaz_acquisitore"] == $c) {
-                        $listaCollaboratori[$c]["Protection"] = $productionVita["premio_emesso_annual"] + $collaboratore["Protection"];
-                        $listaCollaboratori[$c]["PuntiTot"] = $productionVita["premio_emesso_annual"] * 4 + $collaboratore["PuntiTot"];
-                    }
-                }
-                $protectionTot = $productionVita["premio_emesso_annual"] + $protectionTot;
             }
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PU" || $productionVita["aggregazione_prodotti"] == "Altri PU") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
@@ -555,15 +562,17 @@ class ProductionController extends Controller
             if ($productionVita["categoria"] == "PRODUZIONE VALORE") {
                 $premiAnnuiTotGara = $productionVita["premio_emesso_annual"] + $premiAnnuiTotGara;
             }
-            if ($productionVita["aggregazione_prodotti"] == "Protection") {
-                $protectionTotGara = $productionVita["premio_emesso_annual"] + $protectionTotGara;
-            }
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PU" || $productionVita["aggregazione_prodotti"] == "Altri PU") {
                 foreach ($prodottiIbridiPu as $prodottoIbridiPu) {
                     if ($productionVita["prodotto_modello"] == $prodottoIbridiPu) {
                         $puIbridiTotGara = $productionVita["premio_emesso_annual"] + $puIbridiTotGara;
                     }
                 }
+            }
+        }
+        foreach ($productionVitas2 as $productionVita2) {
+            if ($productionVita2["aggregazione_prodotti"] == "Protection") {
+                $protectionTotGara = $productionVita2["premio_emesso_annual"] + $protectionTotGara;
             }
         }
         foreach ($productionDanniNoAutos as $productionDanniNoAuto) {
@@ -765,6 +774,23 @@ class ProductionController extends Controller
     {
         ProductionVita::query()->truncate();
         Excel::import(new ImportVita, request()->file('file'));
+
+        return back();
+    }
+
+    public function fondiPensione(): Factory|View|Application
+    {
+        $productionFondiPensione = ProductionFondiPensione::paginate(8);
+        return view("produzione.fondiPensione", compact("productionFondiPensione"));
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function fondiPensioneImport(): \Illuminate\Http\RedirectResponse
+    {
+        ProductionFondiPensione::query()->truncate();
+        Excel::import(new ImportFondiPensione(), request()->file('file'));
 
         return back();
     }

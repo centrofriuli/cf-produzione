@@ -11,7 +11,7 @@ class ProductionVita extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'vita_indiv_';
+    protected $table = 'vita';
     protected $primaryKey = 'polizza';
 
     protected $fillable = [
