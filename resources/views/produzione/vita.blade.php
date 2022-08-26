@@ -410,11 +410,12 @@
 
 <body class="antialiased">
 
-<form style="padding-bottom: 20px; padding-top: 20px" action="{{ route('produzione.vita-import') }}" method="POST" enctype="multipart/form-data">
-    <div class="row">
+<form style="padding-bottom: 20px; padding-top: 20px" action="{{ route('produzione.vita-import') }}" method="POST"
+      enctype="multipart/form-data">
+    <div style="padding-top: 65px" class="row">
         <div class="col-sm-3">
-        @csrf
-        <input type="file" name="file" class="form-control">
+            @csrf
+            <input type="file" name="file" class="form-control">
         </div>
         <br>
         <button class="btn btn-success">Importa Dati</button>

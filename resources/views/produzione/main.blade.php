@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @include('layouts.navbar')
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -392,13 +392,14 @@
             }
         }
     </style>
+
     <style>
         body {
             font-family: 'Nunito', sans-serif;
         }
     </style>
 </head>
-<body style="padding-bottom: 60px" class="antialiased">
+<body style="padding-top: 65px" class="antialiased">
 <div class="row" style="margin-right: 15px">
     <div class="col-sm-8">
         <div class="relative flex items-top min-h-screen  py-4 sm:pt-0">
@@ -873,5 +874,6 @@
         config6
     );
 </script>
+
 
 

@@ -24,9 +24,11 @@ Route::get('/produzione-tab', [ProductionController::class, 'index'])->name('pro
 Route::get('/produzione/dna', [ProductionController::class, 'dna'])->name('produzione.dna');
 Route::get('/produzione/rca', [ProductionController::class, 'rca'])->name('produzione.rca');
 Route::get('/produzione/vita', [ProductionController::class, 'vita'])->name('produzione.vita');
+Route::get('/produzione/fondiPensione', [ProductionController::class, 'fondiPensione'])->name('produzione.fondiPensione');
 Route::post('/produzione/vita-import', [ProductionController::class, 'vitaImport'])->name('produzione.vita-import');
 Route::post('/produzione/dna-import', [ProductionController::class, 'dnaImport'])->name('produzione.dna-import');
 Route::post('/produzione/rca-import', [ProductionController::class, 'rcaImport'])->name('produzione.rca-import');
+Route::post('/produzione/fondiPensione-import', [ProductionController::class, 'fondiPensioneImport'])->name('produzione.fondiPensione-import');
 
 //gare
 Route::get('/produzione/gara-1-trimestre/', [ProductionController::class, 'garaPrimoTrimestre'])->name('produzione.gare.garaPrimoTrimestre');
