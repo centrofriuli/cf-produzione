@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductionController::class, 'main'])->name('produzione.main');
 
 Route::get('/produzione', [ProductionController::class, 'main'])->name('produzione.main');
 Route::get('/produzione-tab', [ProductionController::class, 'index'])->name('produzione.index');
