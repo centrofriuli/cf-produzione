@@ -43,16 +43,16 @@
                 <a class="nav-link" href={{route('produzione.index')}}>Riepilogo Commerciali</a>
             </li>
             <li class="nav-item {{ (request()->is('produzione/gara-1-trimestre')) ? 'active' : '' }}">
-                <a class="nav-link" href={{route('produzione.gare.garaPrimoTrimestre')}}>Gara 1° Trimestre</a>
+                <a class="nav-link" href={{url('produzione/gara-1-trimestre')}}>Gara 1° Trimestre</a>
             </li>
             <li class="nav-item {{ (request()->is('produzione/gara-2-trimestre')) ? 'active' : '' }}">
-                <a class="nav-link" href={{route('produzione.gare.garaSecondoTrimestre')}}>Gara 2° Trimestre</a>
+                <a class="nav-link" href={{url('produzione/gara-2-trimestre')}}>Gara 2° Trimestre</a>
             </li>
             <li class="nav-item {{ (request()->is('produzione/gara-3-trimestre')) ? 'active' : '' }}">
-                <a class="nav-link" href={{route('produzione.gare.garaTerzoTrimestre')}}>Gara 3° Trimestre</a>
+                <a class="nav-link" href={{url('produzione/gara-3-trimestre')}}>Gara 3° Trimestre</a>
             </li>
             <li class="nav-item {{ (request()->is('produzione/gara-4-trimestre')) ? 'active' : '' }}">
-                <a class="nav-link" href={{route('produzione.gare.garaQuartoTrimestre')}}>Gara 4° Trimestre</a>
+                <a class="nav-link" href={{url('produzione/gara-4-trimestre')}}>Gara 4° Trimestre</a>
             </li>
         </ul>
     </div>

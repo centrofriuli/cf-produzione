@@ -413,6 +413,16 @@
     </head>
     <body>
     <div class="container mt-2">
+
+        <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTotGara}} />
+        <input hidden type="text" id="residuoPremiAnnui" value={{150000-$premiAnnuiTotGara}} />
+        <input hidden type="text" id="valProtection" value={{$protectionTotGara}} />
+        <input hidden type="text" id="residuoProtection" value={{45000-$protectionTotGara}} />
+        <input hidden type="text" id="valPuIbridi" value={{$puIbridiTotGara}} />
+        <input hidden type="text" id="residuiPuIbridi" value={{2000000-$puIbridiTotGara}} />
+        <input hidden type="text" id="valDnaPlus" value={{$dnaPlusTotGara}} />
+        <input hidden type="text" id="residuoDnaPlus" value={{55000-$dnaPlusTotGara}} />
+
         <table class="table table-bordered">
             <thead class="thead-dark">
             <tr style="font-size: 14px">
@@ -459,6 +469,24 @@
             <tr>
             </tbody>
         </table>
+
+        <div style="width: 55vw">
+            <div class="row">
+                <div class="col-sm">
+                    <canvas id="premiAnnuiChart"></canvas>
+                </div>
+                <div class="col-sm">
+                    <canvas id="protectionChart"></canvas>
+                </div>
+                <div class="col-sm">
+                    <canvas id="raccoltaAVCchart"></canvas>
+                </div>
+                <div class="col-sm">
+                    <canvas id="dnaPlusChart"></canvas>
+                </div>
+            </div>
+        </div>
+
         <table class="table table-bordered mb-5">
             <thead class="thead-dark">
             <tr style="font-size: 14px">
@@ -506,32 +534,218 @@
 </html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+<script>
+    // <block:setup:1>
+    const premiAnnuiVal = $("#valPremiAnnui").val();
+    const premiAnnuiResVal = $("#residuoPremiAnnui").val();
 
+    const DATA_COUNT = 5;
+    const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+    const data = {
+        labels: [
+            'Raccolta',
+            'Residuo',
+        ],
+        datasets: [{
+            data: [premiAnnuiVal, premiAnnuiResVal],
+            backgroundColor: [
+                'rgb(0,199,9)',
+                'rgb(248,0,53)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+    // </block:setup>
+    // <block:setup:2>
+    const protectionVal = $("#valProtection").val();
+    const protectionResVal = $("#residuoProtection").val();
+
+    const data2 = {
+        labels: [
+            'Raccolta',
+            'Residuo',
+        ],
+        datasets: [{
+            data: [protectionVal, protectionResVal],
+            backgroundColor: [
+                'rgb(0,199,9)',
+                'rgb(248,0,53)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+    // </block:setup>
+    // <block:setup:3>
+
+    const puIbridiVal = $("#valPuIbridi").val();
+    const puIbridiResVal = $("#residuiPuIbridi").val();
+
+    const data3 = {
+        labels: [
+            'Raccolta',
+            'Residuo',
+        ],
+        datasets: [{
+            data: [puIbridiVal, puIbridiResVal],
+            backgroundColor: [
+                'rgb(0,199,9)',
+                'rgb(248,0,53)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+    // <block:setup:3>
+
+    const dnaPlusVal = $("#valDnaPlus").val();
+    const dnaPlusResVal = $("#residuoDnaPlus").val();
+
+    const data4 = {
+        labels: [
+            'Raccolta',
+            'Residuo',
+        ],
+        datasets: [{
+            data: [dnaPlusVal, dnaPlusResVal],
+            backgroundColor: [
+                'rgb(0,199,9)',
+                'rgb(248,0,53)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    // <block:config:0>
+    const config1 = {
+        type: 'doughnut',
+        data: data,
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Premi Annui',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                scales: {
+                    y: {
+                        min: 10,
+                        max: 100
+                    }
+                }
+            }
+        }
+    };
+    const config2 = {
+        type: 'doughnut',
+        data: data2,
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Protection',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        }
+    };
+    const config3 = {
+        type: 'doughnut',
+        data: data3,
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Raccolta A.V.C',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        }
+    };
+    // </block:config>
+    const config4 = {
+        type: 'doughnut',
+        data: data4,
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'DNA Plus',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        }
+    };
+
+    module.exports = {
+        actions: [],
+        config1: config1,
+        config2: config2,
+        config3: config3,
+        config4: config4,
+    };
+</script>
+<script>
+    const premiAnnuiChart = new Chart(
+        document.getElementById('premiAnnuiChart'),
+        config1
+    );
+    const protectionChart = new Chart(
+        document.getElementById('protectionChart'),
+        config2
+    );
+    const raccoltaAVCchart = new Chart(
+        document.getElementById('raccoltaAVCchart'),
+        config3
+    );
+    const dnaRetailChart = new Chart(
+        document.getElementById('dnaPlusChart'),
+        config4
+    );
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
-        const premiAnnuiVal = $("#resPremiAnnui").text().substring(2);
-        const protectionVal = $("#resProtection").text().substring(2);
-        const puIbridiVal = $("#resPuIbridi").text().substring(2);
-        const dnaPlusVal = $("#resDnaPlus").text().substring(2);
 
-        if(premiAnnuiVal < 0)
+        if (premiAnnuiVal < 0)
             document.getElementById("sensible-premiAnnui").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-premiAnnui").style.backgroundColor = '#ff9999';
 
-        if(protectionVal < 0)
+        if (protectionVal < 0)
             document.getElementById("sensible-protection").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-protection").style.backgroundColor = '#ff9999';
 
-        if(puIbridiVal < 0)
+        if (puIbridiVal < 0)
             document.getElementById("sensible-puIbridi").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-puIbridi").style.backgroundColor = '#ff9999';
 
-        if(dnaPlusVal < 0)
+        if (dnaPlusVal < 0)
             document.getElementById("sensible-dnaPlus").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-dnaPlus").style.backgroundColor = '#ff9999';
     })
 </script>
+
