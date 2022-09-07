@@ -27,6 +27,10 @@
 {{--        </li>--}}
 {{--    </ul>--}}
 {{--</nav>--}}
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+</head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <img src="{{URL::asset('/image/cf-logo.png')}}" height="50px" alt="logo CF">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
@@ -54,6 +58,17 @@
             <li class="nav-item {{ (request()->is('produzione/gara-4-trimestre')) ? 'active' : '' }}">
                 <a class="nav-link" href={{url('produzione/gara-4-trimestre')}}>Gara 4° Trimestre</a>
             </li>
+
         </ul>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Aggiornamento
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="{{route('produzione.vita')}}">Vita</a></li>
+                <li><a class="dropdown-item" href="{{route('produzione.dna')}}">DNA</a></li>
+                <li><a class="dropdown-item" href="{{route('produzione.rca')}}">RCA</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
