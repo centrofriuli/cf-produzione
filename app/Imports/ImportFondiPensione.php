@@ -22,6 +22,12 @@ class ImportFondiPensione implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
+
+        if (is_float($row['prod_computata']))
+            $row['prod_computata'] = number_format($row['prod_computata'], 3, '', '');
+        else
+            $row['prod_computata'] = number_format($row['prod_computata']);
+
         return new ProductionFondiPensione([
             'categ' => $row['categ'],
             'sotto_categ' => $row['sotto_categ'],
@@ -38,6 +44,7 @@ class ImportFondiPensione implements ToModel, WithHeadingRow
             'rateaz' => $row['rateaz'],
             'movimentotipo_adesione' => $row['movimentotipo_adesione'],
             'prod_computata' => $row['prod_computata'],
+            'base_incentiv' => $row['base_incentiv'],
             'data_emiss' => Carbon::createFromFormat('d/m/Y', $row['data_emiss'])->format('y-m-d'),
             'scad_rata' => Carbon::createFromFormat('d/m/Y', $row['scad_rata'])->format('y-m-d'),
             'data_regist' => Carbon::createFromFormat('d/m/Y', $row['data_regist'])->format('y-m-d'),
