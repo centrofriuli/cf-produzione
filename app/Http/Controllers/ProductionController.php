@@ -32,7 +32,7 @@ class ProductionController extends Controller
 
     public function index()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array("PA" => 0), "GUBIANI STEFANO" => array("PA" => 0), "MANTOANI KARIN" => array("PA" => 0), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array("PA" => 0), "GUBIANI STEFANO" => array("PA" => 0), "MANTOANI KARIN" => array("PA" => 0), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PA" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "RCA" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PA"] = 0;
@@ -188,7 +188,7 @@ class ProductionController extends Controller
 
     public function garaPrimoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -321,7 +321,7 @@ class ProductionController extends Controller
 
     public function garaSecondoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -349,10 +349,20 @@ class ProductionController extends Controller
         $protectionTotGara = 0;
         $dnaRetailTotGara = 0;
         $dnaMiddleMarketTotGara = 0;
-
         $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        foreach ($fondiPensione as $fondoPensione) {
+            foreach ($listaCollaboratori as $k => $collaboratore) {
+                if ($fondoPensione["acquisitore"] == $k)
+                    $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
+
+                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
+            }
+            $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
+        }
+
         foreach ($productionVitas as $productionVita) {
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PP" || $productionVita["aggregazione_prodotti"] == "Previdenza - PIP") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
@@ -454,7 +464,7 @@ class ProductionController extends Controller
 
     public function garaTerzoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -487,6 +497,16 @@ class ProductionController extends Controller
         $productionVitas2 = ProductionVita::whereBetween("data_statistica", ['2022-06-27', $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        foreach ($fondiPensione as $fondoPensione) {
+            foreach ($listaCollaboratori as $k => $collaboratore) {
+                if ($fondoPensione["acquisitore"] == $k)
+                    $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
+
+                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
+            }
+            $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
+        }
 
         //solo per la gara del terzo trimestre devo considerare giorni in più (2022)
         foreach ($productionVitas2 as $productionVita2) {
@@ -570,6 +590,7 @@ class ProductionController extends Controller
                 }
             }
         }
+
         foreach ($productionVitas2 as $productionVita2) {
             if ($productionVita2["aggregazione_prodotti"] == "Protection") {
                 $protectionTotGara = $productionVita2["premio_emesso_annual"] + $protectionTotGara;
@@ -595,7 +616,7 @@ class ProductionController extends Controller
 
     public function garaQuartoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -627,6 +648,17 @@ class ProductionController extends Controller
         $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        foreach ($fondiPensione as $fondoPensione) {
+            foreach ($listaCollaboratori as $k => $collaboratore) {
+                if ($fondoPensione["acquisitore"] == $k)
+                    $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
+
+                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
+            }
+            $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
+        }
+
         foreach ($productionVitas as $productionVita) {
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PP" || $productionVita["aggregazione_prodotti"] == "Previdenza - PIP") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
