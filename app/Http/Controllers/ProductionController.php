@@ -32,7 +32,7 @@ class ProductionController extends Controller
 
     public function index()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array("PA" => 0), "GUBIANI STEFANO" => array("PA" => 0), "MANTOANI KARIN" => array("PA" => 0), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array("PA" => 0), "GUBIANI STEFANO" => array("PA" => 0), "MANTOANI KARIN" => array("PA" => 0), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PA" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "RCA" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PA"] = 0;
@@ -188,7 +188,7 @@ class ProductionController extends Controller
 
     public function garaPrimoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -321,7 +321,7 @@ class ProductionController extends Controller
 
     public function garaSecondoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -349,10 +349,20 @@ class ProductionController extends Controller
         $protectionTotGara = 0;
         $dnaRetailTotGara = 0;
         $dnaMiddleMarketTotGara = 0;
-
         $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        foreach ($fondiPensione as $fondoPensione) {
+            foreach ($listaCollaboratori as $k => $collaboratore) {
+                if ($fondoPensione["acquisitore"] == $k)
+                    $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
+
+                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
+            }
+            $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
+        }
+
         foreach ($productionVitas as $productionVita) {
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PP" || $productionVita["aggregazione_prodotti"] == "Previdenza - PIP") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
@@ -454,7 +464,7 @@ class ProductionController extends Controller
 
     public function garaTerzoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -487,6 +497,16 @@ class ProductionController extends Controller
         $productionVitas2 = ProductionVita::whereBetween("data_statistica", ['2022-06-27', $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        foreach ($fondiPensione as $fondoPensione) {
+            foreach ($listaCollaboratori as $k => $collaboratore) {
+                if ($fondoPensione["acquisitore"] == $k)
+                    $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
+
+                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
+            }
+            $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
+        }
 
         //solo per la gara del terzo trimestre devo considerare giorni in più (2022)
         foreach ($productionVitas2 as $productionVita2) {
@@ -570,6 +590,7 @@ class ProductionController extends Controller
                 }
             }
         }
+
         foreach ($productionVitas2 as $productionVita2) {
             if ($productionVita2["aggregazione_prodotti"] == "Protection") {
                 $protectionTotGara = $productionVita2["premio_emesso_annual"] + $protectionTotGara;
@@ -595,7 +616,7 @@ class ProductionController extends Controller
 
     public function garaQuartoTrimestre()
     {
-        $listaCollaboratori = array("ALESSIO ELISA" => array(), "PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
@@ -627,6 +648,17 @@ class ProductionController extends Controller
         $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        foreach ($fondiPensione as $fondoPensione) {
+            foreach ($listaCollaboratori as $k => $collaboratore) {
+                if ($fondoPensione["acquisitore"] == $k)
+                    $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
+
+                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
+            }
+            $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
+        }
+
         foreach ($productionVitas as $productionVita) {
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PP" || $productionVita["aggregazione_prodotti"] == "Previdenza - PIP") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
@@ -724,6 +756,150 @@ class ProductionController extends Controller
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
         return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+    }
+
+    public function obiettivoSecondoSemestre()
+    {
+        $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
+        $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
+        foreach ($listaCollaboratori as $l => $coll) {
+            $listaCollaboratori[$l]["PANoProt"] = 0;
+            $listaCollaboratori[$l]["Protection"] = 0;
+            $listaCollaboratori[$l]["AVC"] = 0;
+            $listaCollaboratori[$l]["Retail"] = 0;
+            $listaCollaboratori[$l]["Middle"] = 0;
+            $listaCollaboratori[$l]["PuntiTot"] = 0;
+        }
+        $prodottiIbridiPu = array("GeneraSviluppo Sostenibile", "GENERALI PREMIUM - Abbinato", "GeneraSviluppo MultiPlan", "GenerAzione Previdente", "GeneraEquilibrio", "GeneraEquilibrio 2020", "GeneraValore 2021", "Genera PROevolution", "GeneraValore", "VALORE FUTURO");
+        $prodottiDnaRetail = array("GENERALI SEI A CASA", "GENERALI SEI IN SALUTE - ALTA PROTEZIONE", "GENERALI SEI IN SICUREZZA", "GENERALI SEI IN SICUREZZA STRADALE", "GENERALI SEI IN VIAGGIO", "IMMAGINA ADESSO", "IMMAGINA BENESSERE", "TERREMOTO");
+        $prodottiDnaMiddleMarket = array("AL COMPLETO", "ATTIVA ARTI & MESTIERI", "GENERAIMPRESA", "GENERALI SEI IN UFFICIO", "GENERATTIVITA'", "GENERATTIVITA  PLUS", "GLOBALE FABBRICATI CIVILI", "ATTIVA COMMERCIO", "NATURATTIVA", "OMNIA", "R.C PROFESSIONI SANITARIE", "R.C. COLPA GRAVE", "RESPONSABILITA' CIVILE ATTIVITA' PROFESSIONALI", "R.C.T. FABBRICATI", "VALORE AGRICOLTURA", "VALORE COMMERCIO PLUS");
+        $start = Carbon::create(2022, 10, 01);
+        $end = Carbon::create(2022, 12, 31);
+
+        $paNoProtTot = 0;
+        $protectionTot = 0;
+        $puIbridiTot = 0;
+        $dnaRetailTot = 0;
+        $dnaMiddleMarketTot = 0;
+
+        //gara valori tot
+        $puIbridiTotGara = 0;
+        $premiAnnuiTotGara = 0;
+        $protectionTotGara = 0;
+        $dnaRetailTotGara = 0;
+        $dnaMiddleMarketTotGara = 0;
+
+        $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
+        $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
+        $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+
+        foreach ($fondiPensione as $fondoPensione) {
+            foreach ($listaCollaboratori as $k => $collaboratore) {
+                if ($fondoPensione["acquisitore"] == $k)
+                    $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
+
+                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
+            }
+            $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
+        }
+
+        foreach ($productionVitas as $productionVita) {
+            if ($productionVita["aggregazione_prodotti"] == "Ibridi PP" || $productionVita["aggregazione_prodotti"] == "Previdenza - PIP") {
+                foreach ($listaCollaboratori as $c => $collaboratore) {
+                    if ($productionVita["denominaz_acquisitore"] == $c) {
+                        $listaCollaboratori[$c]["PANoProt"] = $productionVita["premio_emesso_annual"] + $collaboratore["PANoProt"];
+                        $listaCollaboratori[$c]["PuntiTot"] = $productionVita["premio_emesso_annual"] * 1.5 + $collaboratore["PuntiTot"];
+
+                    }
+                }
+                $paNoProtTot = $productionVita["premio_emesso_annual"] + $paNoProtTot;
+            }
+            if ($productionVita["aggregazione_prodotti"] == "Protection") {
+                foreach ($listaCollaboratori as $c => $collaboratore) {
+                    if ($productionVita["denominaz_acquisitore"] == $c) {
+                        $listaCollaboratori[$c]["Protection"] = $productionVita["premio_emesso_annual"] + $collaboratore["Protection"];
+                        $listaCollaboratori[$c]["PuntiTot"] = $productionVita["premio_emesso_annual"] * 4 + $collaboratore["PuntiTot"];
+                    }
+                }
+                $protectionTot = $productionVita["premio_emesso_annual"] + $protectionTot;
+            }
+            if ($productionVita["aggregazione_prodotti"] == "Ibridi PU" || $productionVita["aggregazione_prodotti"] == "Altri PU") {
+                foreach ($listaCollaboratori as $c => $collaboratore) {
+                    if ($productionVita["denominaz_acquisitore"] == $c) {
+                        foreach ($prodottiIbridiPu as $prodottoIbridiPu) {
+                            if ($productionVita["prodotto_modello"] == $prodottoIbridiPu) {
+                                $listaCollaboratori[$c]["AVC"] = $productionVita["premio_emesso_annual"] + $collaboratore["AVC"];
+                                $listaCollaboratori[$c]["PuntiTot"] = $productionVita["premio_emesso_annual"] * 0.1 + $collaboratore["PuntiTot"];
+                            }
+                        }
+                    }
+                }
+                $puIbridiTot = $productionVita["premio_emesso_annual"] + $puIbridiTot;
+            }
+        }
+
+        foreach ($productionDanniNoAutos as $productionDanniNoAuto) {
+            foreach ($listaCollaboratori as $c => $collaboratore) {
+                if ($productionDanniNoAuto["denominazione_acquisitore"] == $c) {
+                    foreach ($prodottiDnaRetail as $prodottoDnaRetail) {
+                        if ($productionDanniNoAuto["prodotto_modello"] == $prodottoDnaRetail) {
+                            $listaCollaboratori[$c]["Retail"] = $productionDanniNoAuto["premio_annualizzato"] + $collaboratore["Retail"];
+                            $listaCollaboratori[$c]["PuntiTot"] = $productionDanniNoAuto["premio_annualizzato"] * 3 + $collaboratore["PuntiTot"];
+                        }
+                        $dnaRetailTot = $productionDanniNoAuto["premio_annualizzato"] + $dnaRetailTot;
+                    }
+                    foreach ($prodottiDnaMiddleMarket as $prodottoDnaMiddleMarket) {
+                        if ($productionDanniNoAuto["prodotto_modello"] == $prodottoDnaMiddleMarket) {
+                            $listaCollaboratori[$c]["Middle"] = $productionDanniNoAuto["premio_annualizzato"] + $collaboratore["Middle"];
+                            $listaCollaboratori[$c]["PuntiTot"] = $productionDanniNoAuto["premio_annualizzato"] * 3 + $collaboratore["PuntiTot"];
+                        }
+                        $dnaMiddleMarketTot = $productionDanniNoAuto["premio_annualizzato"] + $dnaMiddleMarketTot;
+                    }
+                }
+            }
+        }
+
+        foreach ($listaCollaboratori as $collaboratore) {
+            $totaleRete["PANoProt"] = $collaboratore["PANoProt"] + $totaleRete["PANoProt"];
+            $totaleRete["Protection"] = $collaboratore["Protection"] + $totaleRete["Protection"];
+            $totaleRete["AVC"] = $collaboratore["AVC"] + $totaleRete["AVC"];
+            $totaleRete["Retail"] = $collaboratore["Retail"] + $totaleRete["Retail"];
+            $totaleRete["Middle"] = $collaboratore["Middle"] + $totaleRete["Middle"];
+            $totaleRete["PuntiTot"] = $collaboratore["PuntiTot"] + $totaleRete["PuntiTot"];
+        }
+
+        //gara valori totali
+        foreach ($productionVitas as $productionVita) {
+            if ($productionVita["categoria"] == "PRODUZIONE VALORE") {
+                $premiAnnuiTotGara = $productionVita["premio_emesso_annual"] + $premiAnnuiTotGara;
+            }
+            if ($productionVita["aggregazione_prodotti"] == "Protection") {
+                $protectionTotGara = $productionVita["premio_emesso_annual"] + $protectionTotGara;
+            }
+            if ($productionVita["aggregazione_prodotti"] == "Ibridi PU" || $productionVita["aggregazione_prodotti"] == "Altri PU") {
+                foreach ($prodottiIbridiPu as $prodottoIbridiPu) {
+                    if ($productionVita["prodotto_modello"] == $prodottoIbridiPu) {
+                        $puIbridiTotGara = $productionVita["premio_emesso_annual"] + $puIbridiTotGara;
+                    }
+                }
+            }
+        }
+        foreach ($productionDanniNoAutos as $productionDanniNoAuto) {
+            foreach ($prodottiDnaRetail as $prodottoDnaRetail) {
+                if ($productionDanniNoAuto["prodotto_modello"] == $prodottoDnaRetail) {
+                    $dnaRetailTotGara = $productionDanniNoAuto["premio_annualizzato"] + $dnaRetailTotGara;
+                }
+            }
+            foreach ($prodottiDnaMiddleMarket as $prodottoDnaMiddleMarket) {
+                if ($productionDanniNoAuto["prodotto_modello"] == $prodottoDnaMiddleMarket) {
+                    $dnaMiddleMarketTotGara = $productionDanniNoAuto["premio_annualizzato"] + $dnaMiddleMarketTotGara;
+                }
+            }
+        }
+
+        $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
+
+        return view("produzione.gare.obiettivoSemestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
     }
 
     public function dna()
