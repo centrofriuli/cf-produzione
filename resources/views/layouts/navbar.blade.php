@@ -58,7 +58,9 @@
             <li class="nav-item {{ (request()->is('produzione/gara-4-trimestre')) ? 'active' : '' }}">
                 <a class="nav-link" href={{url('produzione/gara-4-trimestre')}}>Gara 4° Trimestre</a>
             </li>
-
+            <li class="nav-item {{ (request()->is('produzione/obiettivo-2-semestre')) ? 'active' : '' }}">
+                <a class="nav-link" href={{url('produzione/obiettivo-2-semestre')}}>Obiettivo 2° Semestre</a>
+            </li>
         </ul>
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,6 +70,7 @@
                 <li><a class="dropdown-item" href="{{route('produzione.vita')}}">Vita</a></li>
                 <li><a class="dropdown-item" href="{{route('produzione.dna')}}">DNA</a></li>
                 <li><a class="dropdown-item" href="{{route('produzione.rca')}}">RCA</a></li>
+                <li><a class="dropdown-item" href="{{route('produzione.fondiPensione')}}">Fondi Pensione</a></li>
             </ul>
         </div>
     </div>

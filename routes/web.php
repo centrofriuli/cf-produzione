@@ -33,6 +33,7 @@ Route::get('/produzione/gara-1-trimestre/', [ProductionController::class, 'garaP
 Route::get('/produzione/gara-2-trimestre/', [ProductionController::class, 'garaSecondoTrimestre'])->name('produzione.gare.garaTrimestri');
 Route::get('/produzione/gara-3-trimestre/', [ProductionController::class, 'garaTerzoTrimestre'])->name('produzione.gare.garaTrimestri');
 Route::get('/produzione/gara-4-trimestre/', [ProductionController::class, 'garaQuartoTrimestre'])->name('produzione.gare.garaTrimestri');
+Route::get('/produzione/obiettivo-2-semestre/', [ProductionController::class, 'obiettivoSecondoSemestre'])->name('produzione.gare.obiettiviSemestre');
 
 //fileimport
 Route::controller(UserController::class)->group(function(){
