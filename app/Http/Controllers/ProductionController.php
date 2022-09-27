@@ -9,6 +9,7 @@ use App\Imports\ImportFondiPensione;
 use App\Imports\ImportRca;
 use App\Imports\ImportUser;
 use App\Imports\ImportVita;
+use App\Models\ObiettivoSemestre;
 use App\Models\ProductionDanniAuto;
 use App\Models\ProductionDanniNoAuto;
 use App\Models\ProductionFondiPensione;
@@ -19,6 +20,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use phpDocumentor\Reflection\DocBlock\Tags\Property;
 
@@ -761,26 +763,26 @@ class ProductionController extends Controller
     public function obiettivoSecondoSemestre()
     {
         $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
-        $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
+        $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
             $listaCollaboratori[$l]["PANoProt"] = 0;
             $listaCollaboratori[$l]["Protection"] = 0;
             $listaCollaboratori[$l]["AVC"] = 0;
             $listaCollaboratori[$l]["Retail"] = 0;
             $listaCollaboratori[$l]["Middle"] = 0;
-            $listaCollaboratori[$l]["PuntiTot"] = 0;
         }
         $prodottiIbridiPu = array("GeneraSviluppo Sostenibile", "GENERALI PREMIUM - Abbinato", "GeneraSviluppo MultiPlan", "GenerAzione Previdente", "GeneraEquilibrio", "GeneraEquilibrio 2020", "GeneraValore 2021", "Genera PROevolution", "GeneraValore", "VALORE FUTURO");
         $prodottiDnaRetail = array("GENERALI SEI A CASA", "GENERALI SEI IN SALUTE - ALTA PROTEZIONE", "GENERALI SEI IN SICUREZZA", "GENERALI SEI IN SICUREZZA STRADALE", "GENERALI SEI IN VIAGGIO", "IMMAGINA ADESSO", "IMMAGINA BENESSERE", "TERREMOTO");
         $prodottiDnaMiddleMarket = array("AL COMPLETO", "ATTIVA ARTI & MESTIERI", "GENERAIMPRESA", "GENERALI SEI IN UFFICIO", "GENERATTIVITA'", "GENERATTIVITA  PLUS", "GLOBALE FABBRICATI CIVILI", "ATTIVA COMMERCIO", "NATURATTIVA", "OMNIA", "R.C PROFESSIONI SANITARIE", "R.C. COLPA GRAVE", "RESPONSABILITA' CIVILE ATTIVITA' PROFESSIONALI", "R.C.T. FABBRICATI", "VALORE AGRICOLTURA", "VALORE COMMERCIO PLUS");
-        $start = Carbon::create(2022, 10, 01);
+        $start = Carbon::create(2022, 07, 01);
         $end = Carbon::create(2022, 12, 31);
 
-        $paNoProtTot = 0;
-        $protectionTot = 0;
-        $puIbridiTot = 0;
-        $dnaRetailTot = 0;
-        $dnaMiddleMarketTot = 0;
+        //obiettivi
+        $obiettivoPaNoProt = 0;
+        $obiettivoProt = 0;
+        $obiettivoAvc = 0;
+        $obiettivoDnaRetail = 0;
+        $obiettivoDnaMiddle = 0;
 
         //gara valori tot
         $puIbridiTotGara = 0;
@@ -789,6 +791,7 @@ class ProductionController extends Controller
         $dnaRetailTotGara = 0;
         $dnaMiddleMarketTotGara = 0;
 
+        $obiettiviSemestre = ObiettivoSemestre::all();
         $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
         $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
@@ -797,8 +800,6 @@ class ProductionController extends Controller
             foreach ($listaCollaboratori as $k => $collaboratore) {
                 if ($fondoPensione["acquisitore"] == $k)
                     $listaCollaboratori[$k]["PANoProt"] += $fondoPensione["prod_computata"];
-
-                $listaCollaboratori[$k]["PuntiTot"] = 1.5 * $listaCollaboratori[$k]["PANoProt"];
             }
             $premiAnnuiTotGara = $premiAnnuiTotGara + $fondoPensione["prod_computata"];
         }
@@ -808,20 +809,15 @@ class ProductionController extends Controller
                 foreach ($listaCollaboratori as $c => $collaboratore) {
                     if ($productionVita["denominaz_acquisitore"] == $c) {
                         $listaCollaboratori[$c]["PANoProt"] = $productionVita["premio_emesso_annual"] + $collaboratore["PANoProt"];
-                        $listaCollaboratori[$c]["PuntiTot"] = $productionVita["premio_emesso_annual"] * 1.5 + $collaboratore["PuntiTot"];
-
                     }
                 }
-                $paNoProtTot = $productionVita["premio_emesso_annual"] + $paNoProtTot;
             }
             if ($productionVita["aggregazione_prodotti"] == "Protection") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
                     if ($productionVita["denominaz_acquisitore"] == $c) {
                         $listaCollaboratori[$c]["Protection"] = $productionVita["premio_emesso_annual"] + $collaboratore["Protection"];
-                        $listaCollaboratori[$c]["PuntiTot"] = $productionVita["premio_emesso_annual"] * 4 + $collaboratore["PuntiTot"];
                     }
                 }
-                $protectionTot = $productionVita["premio_emesso_annual"] + $protectionTot;
             }
             if ($productionVita["aggregazione_prodotti"] == "Ibridi PU" || $productionVita["aggregazione_prodotti"] == "Altri PU") {
                 foreach ($listaCollaboratori as $c => $collaboratore) {
@@ -829,12 +825,10 @@ class ProductionController extends Controller
                         foreach ($prodottiIbridiPu as $prodottoIbridiPu) {
                             if ($productionVita["prodotto_modello"] == $prodottoIbridiPu) {
                                 $listaCollaboratori[$c]["AVC"] = $productionVita["premio_emesso_annual"] + $collaboratore["AVC"];
-                                $listaCollaboratori[$c]["PuntiTot"] = $productionVita["premio_emesso_annual"] * 0.1 + $collaboratore["PuntiTot"];
                             }
                         }
                     }
                 }
-                $puIbridiTot = $productionVita["premio_emesso_annual"] + $puIbridiTot;
             }
         }
 
@@ -844,16 +838,12 @@ class ProductionController extends Controller
                     foreach ($prodottiDnaRetail as $prodottoDnaRetail) {
                         if ($productionDanniNoAuto["prodotto_modello"] == $prodottoDnaRetail) {
                             $listaCollaboratori[$c]["Retail"] = $productionDanniNoAuto["premio_annualizzato"] + $collaboratore["Retail"];
-                            $listaCollaboratori[$c]["PuntiTot"] = $productionDanniNoAuto["premio_annualizzato"] * 3 + $collaboratore["PuntiTot"];
                         }
-                        $dnaRetailTot = $productionDanniNoAuto["premio_annualizzato"] + $dnaRetailTot;
                     }
                     foreach ($prodottiDnaMiddleMarket as $prodottoDnaMiddleMarket) {
                         if ($productionDanniNoAuto["prodotto_modello"] == $prodottoDnaMiddleMarket) {
                             $listaCollaboratori[$c]["Middle"] = $productionDanniNoAuto["premio_annualizzato"] + $collaboratore["Middle"];
-                            $listaCollaboratori[$c]["PuntiTot"] = $productionDanniNoAuto["premio_annualizzato"] * 3 + $collaboratore["PuntiTot"];
                         }
-                        $dnaMiddleMarketTot = $productionDanniNoAuto["premio_annualizzato"] + $dnaMiddleMarketTot;
                     }
                 }
             }
@@ -865,7 +855,15 @@ class ProductionController extends Controller
             $totaleRete["AVC"] = $collaboratore["AVC"] + $totaleRete["AVC"];
             $totaleRete["Retail"] = $collaboratore["Retail"] + $totaleRete["Retail"];
             $totaleRete["Middle"] = $collaboratore["Middle"] + $totaleRete["Middle"];
-            $totaleRete["PuntiTot"] = $collaboratore["PuntiTot"] + $totaleRete["PuntiTot"];
+        }
+
+        //tot obiettivi
+        foreach ($obiettiviSemestre as $obiettivoSemestre){
+            $obiettivoPaNoProt = $obiettivoSemestre['pa_no_protection'] + $obiettivoPaNoProt;
+            $obiettivoProt = $obiettivoSemestre['protection'] + $obiettivoProt;
+            $obiettivoAvc = $obiettivoSemestre['avc'] + $obiettivoAvc;
+            $obiettivoDnaMiddle = $obiettivoSemestre['dna_middle'] + $obiettivoDnaMiddle;
+            $obiettivoDnaRetail = $obiettivoSemestre['dna_retail'] + $obiettivoDnaRetail;
         }
 
         //gara valori totali
@@ -899,7 +897,7 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.obiettivoSemestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.obiettivoSemestri", compact('listaCollaboratori', 'totaleRete', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara', 'obiettiviSemestre', 'obiettivoDnaRetail', 'obiettivoDnaMiddle', 'obiettivoAvc', 'obiettivoProt', 'obiettivoPaNoProt'));
     }
 
     public function dna()
@@ -969,6 +967,31 @@ class ProductionController extends Controller
         Excel::import(new ImportFondiPensione(), request()->file('file'));
 
         return back();
+    }
+
+    public function updateObiettivoSemestrePaNoProt(Request $request): string
+    {
+        return json_encode(ObiettivoSemestre::where('collaboratore', $request->name)->update(['pa_no_protection' => $request->tdValue]));
+    }
+
+    public function updateObiettivoSemestreProt(Request $request): string
+    {
+        return json_encode(ObiettivoSemestre::where('collaboratore', $request->name)->update(['protection' => $request->tdValue]));
+    }
+
+    public function updateObiettivoSemestreAvc(Request $request): string
+    {
+        return json_encode(ObiettivoSemestre::where('collaboratore', $request->name)->update(['avc' => $request->tdValue]));
+    }
+
+    public function updateObiettivoSemestreDnaMiddle(Request $request): string
+    {
+        return json_encode(ObiettivoSemestre::where('collaboratore', $request->name)->update(['dna_middle' => $request->tdValue]));
+    }
+
+    public function updateObiettivoSemestreDnaRetail(Request $request): string
+    {
+        return json_encode(ObiettivoSemestre::where('collaboratore', $request->name)->update(['dna_retail' => $request->tdValue]));
     }
 
     /**

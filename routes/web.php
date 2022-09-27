@@ -35,6 +35,12 @@ Route::get('/produzione/gara-3-trimestre/', [ProductionController::class, 'garaT
 Route::get('/produzione/gara-4-trimestre/', [ProductionController::class, 'garaQuartoTrimestre'])->name('produzione.gare.garaTrimestri');
 Route::get('/produzione/obiettivo-2-semestre/', [ProductionController::class, 'obiettivoSecondoSemestre'])->name('produzione.gare.obiettiviSemestre');
 
+Route::get('/updateObiettivoSemestrePaNoProt/', [ProductionController::class, 'updateObiettivoSemestrePaNoProt'])->name('updateObiettivoSemestrePaNoProt');
+Route::get('/updateObiettivoSemestreProt/', [ProductionController::class, 'updateObiettivoSemestreProt'])->name('updateObiettivoSemestreProt');
+Route::get('/updateObiettivoSemestreAvc/', [ProductionController::class, 'updateObiettivoSemestreAvc'])->name('updateObiettivoSemestreAvc');
+Route::get('/updateObiettivoSemestreDnaMiddle/', [ProductionController::class, 'updateObiettivoSemestreDnaMiddle'])->name('updateObiettivoSemestreDnaMiddle');
+Route::get('/updateObiettivoSemestreDnaRetail/', [ProductionController::class, 'updateObiettivoSemestreDnaRetail'])->name('updateObiettivoSemestreDnaRetail');
+
 //fileimport
 Route::controller(UserController::class)->group(function(){
     Route::get('users', 'index');
