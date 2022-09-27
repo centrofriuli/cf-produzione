@@ -426,7 +426,10 @@
 
         <div class="row">
             <div class="col-sm">
-                <table class="table table-bordered">
+                <span class="text-center">
+                    <h4 class="lead" style="color:white;background-color: #ca3633">PA NO PROTECTION</h4>
+                </span>
+                <table class="table table-bordered" style="margin-top: -10px">
                     <thead class="thead-dark">
                     <tr style="font-size: 14px">
                         <th scope="col" class="col-sm">Collaboratori</th>
@@ -437,24 +440,34 @@
                     </thead>
                     <tbody>
                     @foreach($listaCollaboratori as $lc => $collaboratore)
-                        <tr>
-                            <th class="table-success">{{$lc}}</th>
-                            <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
+                        <tr style="text-align: right">
+                            <th style="text-align: left" class="table-success">{{$lc}}</th>
+                            <td>{{$collaboratore["PANoProt"], 0, ',', '.'}}</td>
+                            @foreach($obiettiviSemestre as $os => $obiettivoSemestre)
+                                @if($obiettivoSemestre["collaboratore"] == $lc)
+                                    <td>{{number_format(round($collaboratore["PANoProt"]/$obiettivoSemestre["pa_no_protection"]*100, 2),2, ',', '.')}}
+                                        %
+                                    </td>
+                                    <td contenteditable="true" id="1_obPaNoProt_{{$lc}}"
+                                        class="col-sm">{{number_format($obiettivoSemestre["pa_no_protection"], 0, ',', '.')}}</td>
+                                @endif
+                            @endforeach
                         </tr>
                     @endforeach
                     <tr class="table-warning" style="text-align: end">
                         <th>SOMMA RETE</th>
                         <td>{{ number_format($totaleRete["PANoProt"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
+                        <td>{{number_format(round($totaleRete["PANoProt"]/$obiettivoPaNoProt*100, 2),2, ',', '.')}}%
+                        <td>{{ number_format($obiettivoPaNoProt, 0, ',', '.')}}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-sm">
-                <table class="table table-bordered">
+               <span class="text-center">
+                    <h4 class="lead" style="color:white;background-color: #ca3633">PROTECTION</h4>
+                </span>
+                <table class="table table-bordered" style="margin-top: -10px">
                     <thead class="thead-dark">
                     <tr style="font-size: 14px">
                         <th scope="col" class="col-sm">Collaboratori</th>
@@ -465,76 +478,25 @@
                     </thead>
                     <tbody>
                     @foreach($listaCollaboratori as $lc => $collaboratore)
-                        <tr>
-                            <th class="table-success">{{$lc}}</th>
-                            <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
+                        <tr style="text-align: right">
+                            <th style="text-align: left" class="table-success">{{$lc}}</th>
                             <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
+                            @foreach($obiettiviSemestre as $os => $obiettivoSemestre)
+                                @if($obiettivoSemestre["collaboratore"] == $lc)
+                                    <td>{{number_format(round($collaboratore["Protection"]/$obiettivoSemestre["protection"]*100, 2),2, ',', '.')}}
+                                        %
+                                    </td>
+                                    <td contenteditable="true" id="2_obProt_{{$lc}}"
+                                        class="col-sm">{{number_format($obiettivoSemestre["protection"], 0, ',', '.')}}</td>
+                                @endif
+                            @endforeach
                         </tr>
                     @endforeach
                     <tr class="table-warning" style="text-align: end">
                         <th>SOMMA RETE</th>
-                        <td>{{ number_format($totaleRete["PANoProt"], 0, ',', '.')}}</td>
                         <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 14px">
-                        <th scope="col" class="col-sm">Collaboratori</th>
-                        <th scope="col" class="col-sm">V.A.</th>
-                        <th scope="col" class="col-sm">% Raggiunta</th>
-                        <th scope="col" class="col-sm">Obiettivo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($listaCollaboratori as $lc => $collaboratore)
-                        <tr>
-                            <th class="table-success">{{$lc}}</th>
-                            <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
-                        </tr>
-                    @endforeach
-                    <tr class="table-warning" style="text-align: end">
-                        <th>SOMMA RETE</th>
-                        <td>{{ number_format($totaleRete["PANoProt"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 14px">
-                        <th scope="col" class="col-sm">Collaboratori</th>
-                        <th scope="col" class="col-sm">V.A.</th>
-                        <th scope="col" class="col-sm">% Raggiunta</th>
-                        <th scope="col" class="col-sm">Obiettivo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($listaCollaboratori as $lc => $collaboratore)
-                        <tr>
-                            <th class="table-success">{{$lc}}</th>
-                            <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
-                        </tr>
-                    @endforeach
-                    <tr class="table-warning" style="text-align: end">
-                        <th>SOMMA RETE</th>
-                        <td>{{ number_format($totaleRete["PANoProt"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
+                        <td>{{number_format(round($totaleRete["Protection"]/$obiettivoProt*100, 2),2, ',', '.')}}%
+                        <td>{{ number_format($obiettivoProt, 0, ',', '.')}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -542,7 +504,10 @@
         </div>
         <div class="row">
             <div class="col-sm">
-                <table class="table table-bordered">
+                <span class="text-center">
+                    <h4 class="lead" style="color:white;background-color: #ca3633">A.V.C</h4>
+                </span>
+                <table class="table table-bordered" style="margin-top: -10px">
                     <thead class="thead-dark">
                     <tr style="font-size: 14px">
                         <th scope="col" class="col-sm">Collaboratori</th>
@@ -553,24 +518,122 @@
                     </thead>
                     <tbody>
                     @foreach($listaCollaboratori as $lc => $collaboratore)
-                        <tr>
-                            <th class="table-success">{{$lc}}</th>
-                            <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
+                        <tr style="text-align: right">
+                            <th style="text-align: left" class="table-success">{{$lc}}</th>
                             <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
+                            @foreach($obiettiviSemestre as $os => $obiettivoSemestre)
+                                @if($obiettivoSemestre["collaboratore"] == $lc)
+                                    @if($obiettivoSemestre["avc"] != 0)
+                                        <td>{{number_format(round($collaboratore["AVC"]/$obiettivoSemestre["avc"]*100, 2),2, ',', '.')}}
+                                            %
+                                        </td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    <td contenteditable="true" id="3_obAvc_{{$lc}}"
+                                        class="col-sm">{{number_format($obiettivoSemestre["avc"], 0, ',', '.')}}</td>
+                                @endif
+                            @endforeach
                         </tr>
                     @endforeach
                     <tr class="table-warning" style="text-align: end">
                         <th>SOMMA RETE</th>
-                        <td>{{ number_format($totaleRete["PANoProt"], 0, ',', '.')}}</td>
-                        <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
                         <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
+                        <td>{{number_format(round($totaleRete["AVC"]/$obiettivoAvc*100, 2),2, ',', '.')}}%
+                        <td>{{ number_format($obiettivoAvc, 0, ',', '.')}}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-sm">
-                <table class="table table-bordered">
+                <span class="text-center">
+                    <h4 class="lead" style="color:white;background-color: #ca3633">DNA MIDDLE</h4>
+                </span>
+                <table class="table table-bordered" style="margin-top: -10px">
+                    <thead class="thead-dark">
+                    <tr style="font-size: 14px">
+                        <th scope="col" class="col-sm">Collaboratori</th>
+                        <th scope="col" class="col-sm">V.A.</th>
+                        <th scope="col" class="col-sm">% Raggiunta</th>
+                        <th scope="col" class="col-sm">Obiettivo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($listaCollaboratori as $lc => $collaboratore)
+                        <tr style="text-align: right">
+                            <th style="text-align: left" class="table-success">{{$lc}}</th>
+                            <td>{{number_format($collaboratore["Middle"], 0, ',', '.')}}</td>
+                            @foreach($obiettiviSemestre as $os => $obiettivoSemestre)
+                                @if($obiettivoSemestre["collaboratore"] == $lc)
+                                    @if($obiettivoSemestre["dna_middle"])
+                                        <td>{{number_format(round($collaboratore["Middle"]/$obiettivoSemestre["dna_middle"]*100, 2),2, ',', '.')}}
+                                            %
+                                        </td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    <td contenteditable="true" id="4_obDnaMiddle_{{$lc}}"
+                                        class="col-sm">{{number_format($obiettivoSemestre["dna_middle"], 0, ',', '.')}}</td>
+                                @endif
+                            @endforeach
+                        </tr>
+                    @endforeach
+                    <tr class="table-warning" style="text-align: end">
+                        <th>SOMMA RETE</th>
+                        <td>{{ number_format($totaleRete["Middle"], 0, ',', '.')}}</td>
+                        <td>{{number_format(round($totaleRete["Middle"]/$obiettivoDnaMiddle*100, 2),2, ',', '.')}}%
+                        <td>{{ number_format($obiettivoDnaMiddle, 0, ',', '.')}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <span class="text-center">
+                    <h4 class="lead" style="color:white;background-color: #ca3633">DNA RETAIL</h4>
+                </span>
+                <table class="table table-bordered" style="margin-top: -10px">
+                    <thead class="thead-dark">
+                    <tr style="font-size: 14px">
+                        <th scope="col" class="col-sm">Collaboratori</th>
+                        <th scope="col" class="col-sm">V.A.</th>
+                        <th scope="col" class="col-sm">% Raggiunta</th>
+                        <th scope="col" class="col-sm">Obiettivo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($listaCollaboratori as $lc => $collaboratore)
+                        <tr style="text-align: right">
+                            <th style="text-align: left" class="table-success">{{$lc}}</th>
+                            <td>{{number_format($collaboratore["Retail"], 0, ',', '.')}}</td>
+                            @foreach($obiettiviSemestre as $os => $obiettivoSemestre)
+                                @if($obiettivoSemestre["collaboratore"] == $lc)
+                                    @if($obiettivoSemestre["dna_retail"])
+                                        <td>{{number_format(round($collaboratore["Retail"]/$obiettivoSemestre["dna_retail"]*100, 2),2, ',', '.')}}%
+                                        </td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    <td contenteditable="true" id="5_obDnaRetail_{{$lc}}" class="col-sm">{{number_format($obiettivoSemestre["dna_retail"], 0, ',', '.')}}</td>
+                                @endif
+                            @endforeach
+                        </tr>
+                    @endforeach
+                    <tr class="table-warning" style="text-align: end">
+                        <th>SOMMA RETE</th>
+                        <td>{{ number_format($totaleRete["Retail"], 0, ',', '.')}}</td>
+                        <td>{{number_format(round($totaleRete["Retail"]/$obiettivoDnaRetail*100, 2),2, ',', '.')}}%
+                        <td>{{ number_format($obiettivoDnaRetail, 0, ',', '.')}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm">
+                 <span class="text-center">
+                    <h4 class="lead" style="color:white;background-color: #ca3633">DNA RETAIL</h4>
+                </span>
+                <table class="table table-bordered" style="margin-top: -10px">
                     <thead class="thead-dark">
                     <tr style="font-size: 14px">
                         <th scope="col" class="col-sm">Collaboratori</th>
@@ -583,9 +646,6 @@
                     @foreach($listaCollaboratori as $lc => $collaboratore)
                         <tr>
                             <th class="table-success">{{$lc}}</th>
-                            <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                            <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
                         </tr>
                     @endforeach
                     <tr class="table-warning" style="text-align: end">
@@ -612,3 +672,62 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+
+<script>
+
+    $("td").blur(function () {
+        var dataType = this.id.charAt(0);
+
+        if (dataType == 1) {
+            var name = this.id.substring(13);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoSemestrePaNoProt', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 2) {
+            var name = this.id.substring(9);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoSemestreProt', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 3) {
+            var name = this.id.substring(8);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoSemestreAvc', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 4) {
+            var name = this.id.substring(14);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoSemestreDnaMiddle', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 5) {
+            var name = this.id.substring(14);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoSemestreDnaRetail', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        }
+    });
+</script>
