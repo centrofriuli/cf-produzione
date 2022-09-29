@@ -413,7 +413,7 @@
     </head>
     <body>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="font-size: 18px">
 
         <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTotGara}} />
         <input hidden type="text" id="residuoPremiAnnui" value={{150000-$premiAnnuiTotGara}} />

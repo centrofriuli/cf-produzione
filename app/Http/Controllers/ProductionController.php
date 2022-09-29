@@ -10,6 +10,7 @@ use App\Imports\ImportRca;
 use App\Imports\ImportUser;
 use App\Imports\ImportVita;
 use App\Models\ObiettivoSemestre;
+use App\Models\ObiettivoTrimestre;
 use App\Models\ProductionDanniAuto;
 use App\Models\ProductionDanniNoAuto;
 use App\Models\ProductionFondiPensione;
@@ -136,6 +137,10 @@ class ProductionController extends Controller
         return view("produzione.index", compact('totaleRete', 'listaCollaboratori', 'premiAnnuiTot', 'protectionTot', 'paNoPipProt', 'puNonIbridiTot', 'puIbridiTot', 'dnaRetailTot', 'dnaMiddleMarketTot', 'rcaTot'));
     }
 
+    public function opzioni(){
+        return view("produzione.opzioni");
+    }
+
     public function main()
     {
         $prodottiIbridiPu = array("GeneraSviluppo Sostenibile", "GENERALI PREMIUM - Abbinato", "GeneraSviluppo MultiPlan", "GenerAzione Previdente", "GeneraEquilibrio", "GeneraEquilibrio 2020", "GeneraValore 2021", "Genera PROevolution", "GeneraValore", "VALORE FUTURO");
@@ -153,6 +158,8 @@ class ProductionController extends Controller
         $fondiPensione = ProductionFondiPensione::all();
         $productionDanniNoAutos = ProductionDanniNoAuto::all();
         $productionAutos = ProductionDanniAuto::all();
+        $obiettiviAnnui = ObiettivoTrimestre::where('nome', 'annuo')->first();
+
         foreach ($productionVitas as $productionVita) {
             if ($productionVita["categoria"] == "PRODUZIONE VALORE") {
                 $premiAnnuiTot = $productionVita["premio_emesso_annual"] + $premiAnnuiTot;
@@ -185,11 +192,12 @@ class ProductionController extends Controller
             $rcaTot = $productionAuto["premio_annualizzato"] + $rcaTot;
         }
 
-        return view("produzione.main", compact('premiAnnuiTot', 'protectionTot', 'puNonIbridiTot', 'puIbridiTot', 'dnaRetailTot', 'dnaMiddleMarketTot', 'rcaTot'));
+        return view("produzione.main", compact('obiettiviAnnui', 'premiAnnuiTot', 'protectionTot', 'puNonIbridiTot', 'puIbridiTot', 'dnaRetailTot', 'dnaMiddleMarketTot', 'rcaTot'));
     }
 
     public function garaPrimoTrimestre()
     {
+        $trim = 'primo_trimestre';
         $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
@@ -205,6 +213,10 @@ class ProductionController extends Controller
         $prodottiDnaMiddleMarket = array("AL COMPLETO", "ATTIVA ARTI & MESTIERI", "GENERAIMPRESA", "GENERALI SEI IN UFFICIO", "GENERATTIVITA'", "GENERATTIVITA  PLUS", "GLOBALE FABBRICATI CIVILI", "ATTIVA COMMERCIO", "NATURATTIVA", "OMNIA", "R.C PROFESSIONI SANITARIE", "R.C. COLPA GRAVE", "RESPONSABILITA' CIVILE ATTIVITA' PROFESSIONALI", "R.C.T. FABBRICATI", "VALORE AGRICOLTURA", "VALORE COMMERCIO PLUS");
         $start = Carbon::create(2022, 1, 01);
         $end = Carbon::create(2022, 3, 31);
+
+        //obiettivi
+        $obGold = ObiettivoTrimestre::where('nome', 'primo_trimestre_gold')->first();
+        $obPlatinum = ObiettivoTrimestre::where('nome', 'primo_trimestre_platinum')->first();
 
         $paNoProtTot = 0;
         $protectionTot = 0;
@@ -318,11 +330,12 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('trim', 'listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara', 'obGold', 'obPlatinum'));
     }
 
     public function garaSecondoTrimestre()
     {
+        $trim = 'secondo_trimestre';
         $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
@@ -338,6 +351,10 @@ class ProductionController extends Controller
         $prodottiDnaMiddleMarket = array("AL COMPLETO", "ATTIVA ARTI & MESTIERI", "GENERAIMPRESA", "GENERALI SEI IN UFFICIO", "GENERATTIVITA'", "GENERATTIVITA  PLUS", "GLOBALE FABBRICATI CIVILI", "ATTIVA COMMERCIO", "NATURATTIVA", "OMNIA", "R.C PROFESSIONI SANITARIE", "R.C. COLPA GRAVE", "RESPONSABILITA' CIVILE ATTIVITA' PROFESSIONALI", "R.C.T. FABBRICATI", "VALORE AGRICOLTURA", "VALORE COMMERCIO PLUS");
         $start = Carbon::create(2022, 4, 01);
         $end = Carbon::create(2022, 6, 30);
+
+        //obiettivi
+        $obGold = ObiettivoTrimestre::where('nome', 'secondo_trimestre_gold')->first();
+        $obPlatinum = ObiettivoTrimestre::where('nome', 'secondo_trimestre_platinum')->first();
 
         $paNoProtTot = 0;
         $protectionTot = 0;
@@ -461,11 +478,12 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('trim', 'listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara', 'obGold', 'obPlatinum'));
     }
 
     public function garaTerzoTrimestre()
     {
+        $trim = 'terzo_trimestre';
         $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
@@ -481,6 +499,10 @@ class ProductionController extends Controller
         $prodottiDnaMiddleMarket = array("AL COMPLETO", "ATTIVA ARTI & MESTIERI", "GENERAIMPRESA", "GENERALI SEI IN UFFICIO", "GENERATTIVITA'", "GENERATTIVITA  PLUS", "GLOBALE FABBRICATI CIVILI", "ATTIVA COMMERCIO", "NATURATTIVA", "OMNIA", "R.C PROFESSIONI SANITARIE", "R.C. COLPA GRAVE", "RESPONSABILITA' CIVILE ATTIVITA' PROFESSIONALI", "R.C.T. FABBRICATI", "VALORE AGRICOLTURA", "VALORE COMMERCIO PLUS");
         $start = Carbon::create(2022, 7, 01);
         $end = Carbon::create(2022, 9, 30);
+
+        //obiettivi
+        $obGold = ObiettivoTrimestre::where('nome', 'terzo_trimestre_gold')->first();
+        $obPlatinum = ObiettivoTrimestre::where('nome', 'terzo_trimestre_platinum')->first();
 
         $paNoProtTot = 0;
         $protectionTot = 0;
@@ -613,11 +635,12 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('trim', 'listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara', 'obGold', 'obPlatinum'));
     }
 
     public function garaQuartoTrimestre()
     {
+        $trim = 'quarto_trimestre';
         $listaCollaboratori = array("PREVID. ASS. DI CASASOLA F. & C. SAS" => array(), "DE CLARA MARCO & C. SAS" => array(), "GENCO GIOVANNI MARCO" => array(), "GIACOMINI SANDRO" => array(), "GUBIANI STEFANO" => array(), "MANTOANI KARIN" => array(), "MARANZANA MANUEL" => array(), "PETRIS PATRIZIA" => array(), "RANZATO AURORA" => array(), "RE MARCO" => array(), "SANTONASTASO MICHELE" => array(), "TANADINI ANDREA" => array(), "URBANO FABIO" => array());
         $totaleRete = array("PANoProt" => 0, "Protection" => 0, "AVC" => 0, "Retail" => 0, "Middle" => 0, "PuntiTot" => 0);
         foreach ($listaCollaboratori as $l => $coll) {
@@ -633,6 +656,10 @@ class ProductionController extends Controller
         $prodottiDnaMiddleMarket = array("AL COMPLETO", "ATTIVA ARTI & MESTIERI", "GENERAIMPRESA", "GENERALI SEI IN UFFICIO", "GENERATTIVITA'", "GENERATTIVITA  PLUS", "GLOBALE FABBRICATI CIVILI", "ATTIVA COMMERCIO", "NATURATTIVA", "OMNIA", "R.C PROFESSIONI SANITARIE", "R.C. COLPA GRAVE", "RESPONSABILITA' CIVILE ATTIVITA' PROFESSIONALI", "R.C.T. FABBRICATI", "VALORE AGRICOLTURA", "VALORE COMMERCIO PLUS");
         $start = Carbon::create(2022, 10, 01);
         $end = Carbon::create(2022, 12, 31);
+
+        //obiettivi
+        $obGold = ObiettivoTrimestre::where('nome', 'quarto_trimestre_gold')->first();
+        $obPlatinum = ObiettivoTrimestre::where('nome', 'quarto_trimestre_platinum')->first();
 
         $paNoProtTot = 0;
         $protectionTot = 0;
@@ -757,7 +784,7 @@ class ProductionController extends Controller
 
         $dnaPlusTotGara = $dnaMiddleMarketTotGara + $dnaRetailTotGara;
 
-        return view("produzione.gare.garaTrimestri", compact('listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara'));
+        return view("produzione.gare.garaTrimestri", compact('trim', 'listaCollaboratori', 'totaleRete', 'protectionTot', 'dnaMiddleMarketTot', 'dnaRetailTot', 'puIbridiTot', 'premiAnnuiTotGara', 'protectionTotGara', 'puIbridiTotGara', 'dnaPlusTotGara', 'obGold', 'obPlatinum'));
     }
 
     public function obiettivoSecondoSemestre()
@@ -968,6 +995,64 @@ class ProductionController extends Controller
 
         return back();
     }
+
+    //obiettivi annuo
+
+    public function updateObiettivoAnnuoPaNoProt(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', 'annuo')->update(['ob_pa' => $request->tdValue]));
+    }
+
+    public function updateObiettivoAnnuoProt(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', 'annuo')->update(['ob_protection' => $request->tdValue]));
+    }
+
+    public function updateObiettivoAnnuoAvc(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', 'annuo')->update(['ob_avc' => $request->tdValue]));
+    }
+
+    public function updateObiettivoAnnuoDnaRetail(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', 'annuo')->update(['ob_dna_retail' => $request->tdValue]));
+    }
+
+    public function updateObiettivoAnnuoDnaMiddle(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', 'annuo')->update(['ob_dna_middle' => $request->tdValue]));
+    }
+
+    public function updateObiettivoAnnuoRca(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', 'annuo')->update(['ob_rca' => $request->tdValue]));
+    }
+
+
+
+    //obiettivi gara update
+
+    public function updateObiettivoGaraPaNoProt(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', $request->name)->update(['ob_pa' => $request->tdValue]));
+    }
+
+    public function updateObiettivoGaraProt(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', $request->name)->update(['ob_protection' => $request->tdValue]));
+    }
+
+    public function updateObiettivoGaraAvc(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', $request->name)->update(['ob_avc' => $request->tdValue]));
+    }
+
+    public function updateObiettivoGaraDnaPlus(Request $request): string
+    {
+        return json_encode(ObiettivoTrimestre::where('nome', $request->name)->update(['ob_dna_plus' => $request->tdValue]));
+    }
+
+    //obiettivi semestre update
 
     public function updateObiettivoSemestrePaNoProt(Request $request): string
     {

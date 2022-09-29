@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductionController;
+use App\Http\Controllers\TrattativaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ProductionController::class, 'main'])->name('produzione.main');
 
 Route::get('/produzione', [ProductionController::class, 'main'])->name('produzione.main');
-Route::get('/produzione-tab', [ProductionController::class, 'index'])->name('produzione.index');
+Route::get('/produzione/tab', [ProductionController::class, 'index'])->name('produzione.index');
+Route::get('/produzione/opzioni', [ProductionController::class, 'opzioni'])->name('produzione.opzioni');
 Route::get('/produzione/dna', [ProductionController::class, 'dna'])->name('produzione.dna');
 Route::get('/produzione/rca', [ProductionController::class, 'rca'])->name('produzione.rca');
 Route::get('/produzione/vita', [ProductionController::class, 'vita'])->name('produzione.vita');
@@ -35,11 +37,29 @@ Route::get('/produzione/gara-3-trimestre/', [ProductionController::class, 'garaT
 Route::get('/produzione/gara-4-trimestre/', [ProductionController::class, 'garaQuartoTrimestre'])->name('produzione.gare.garaTrimestri');
 Route::get('/produzione/obiettivo-2-semestre/', [ProductionController::class, 'obiettivoSecondoSemestre'])->name('produzione.gare.obiettiviSemestre');
 
+//update gare
+Route::get('/updateObiettivoGaraPaNoProt/', [ProductionController::class, 'updateObiettivoGaraPaNoProt'])->name('updateObiettivoGaraPaNoProt');
+Route::get('/updateObiettivoGaraProt/', [ProductionController::class, 'updateObiettivoGaraProt'])->name('updateObiettivoGaraProt');
+Route::get('/updateObiettivoGaraAvc/', [ProductionController::class, 'updateObiettivoGaraAvc'])->name('updateObiettivoGaraAvc');
+Route::get('/updateObiettivoGaraDnaPlus/', [ProductionController::class, 'updateObiettivoGaraDnaPlus'])->name('updateObiettivoGaraDnaPlus');
+
+//update obiettivi annuo
+Route::get('/updateObiettivoAnnuoPaNoProt/', [ProductionController::class, 'updateObiettivoAnnuoPaNoProt'])->name('updateObiettivoAnnuoPaNoProt');
+Route::get('/updateObiettivoAnnuoProt/', [ProductionController::class, 'updateObiettivoAnnuoProt'])->name('updateObiettivoAnnuoProt');
+Route::get('/updateObiettivoAnnuoAvc/', [ProductionController::class, 'updateObiettivoAnnuoAvc'])->name('updateObiettivoAnnuoAvc');
+Route::get('/updateObiettivoAnnuoDnaRetail/', [ProductionController::class, 'updateObiettivoAnnuoDnaRetail'])->name('updateObiettivoAnnuoDnaRetail');
+Route::get('/updateObiettivoAnnuoDnaMiddle/', [ProductionController::class, 'updateObiettivoAnnuoDnaMiddle'])->name('updateObiettivoAnnuoDnaMiddle');
+Route::get('/updateObiettivoAnnuoRca/', [ProductionController::class, 'updateObiettivoAnnuoRca'])->name('updateObiettivoAnnuoRca');
+
+//update semestre
 Route::get('/updateObiettivoSemestrePaNoProt/', [ProductionController::class, 'updateObiettivoSemestrePaNoProt'])->name('updateObiettivoSemestrePaNoProt');
 Route::get('/updateObiettivoSemestreProt/', [ProductionController::class, 'updateObiettivoSemestreProt'])->name('updateObiettivoSemestreProt');
 Route::get('/updateObiettivoSemestreAvc/', [ProductionController::class, 'updateObiettivoSemestreAvc'])->name('updateObiettivoSemestreAvc');
 Route::get('/updateObiettivoSemestreDnaMiddle/', [ProductionController::class, 'updateObiettivoSemestreDnaMiddle'])->name('updateObiettivoSemestreDnaMiddle');
 Route::get('/updateObiettivoSemestreDnaRetail/', [ProductionController::class, 'updateObiettivoSemestreDnaRetail'])->name('updateObiettivoSemestreDnaRetail');
+
+//trattativa
+Route::get('/trattativa', [TrattativaController::class, 'index'])->name('trattativa.index');
 
 //fileimport
 Route::controller(UserController::class)->group(function(){

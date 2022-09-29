@@ -412,52 +412,43 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <div class="container mt-2" style="font-size: 18px">
-        <table class="table table-bordered mb-5">
-            <thead class="thead-dark">
-            <tr style="font-size: 14px">
-                <th scope="col" class="col-sm-3">Collaboratori</th>
-                <th scope="col" class="col-sm-1">Premi Annui</th>
-                <th scope="col" class="col-sm-1">Protection</th>
-                <th scope="col" class="col-sm-1">AVC</th>
-                <th scope="col" class="col-sm-1">DNA Retail</th>
-                <th scope="col" class="col-sm-1">DNA Middle</th>
-                <th scope="col" class="col-sm-1">RCA</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($listaCollaboratori as $lc => $collaboratore)
-                <tr>
-                    <th class="table-success">{{$lc}}</th>
-                    <td>{{number_format($collaboratore["PA"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Retail"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Middle"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["RCA"], 0, ',', '.')}}</td>
-                </tr>
-            @endforeach
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE RETE</th>
-                <td>{{ number_format($totaleRete["PA"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Retail"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Middle"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["RCA"], 0, ',', '.')}}</td>
-            </tr>
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE GENERALE</th>
-                <td>{{ number_format($premiAnnuiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($protectionTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($puIbridiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaRetailTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaMiddleMarketTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($rcaTot, 0, ',', '.')}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <table style="width: 70%" class="table table-bordered border-primary">
+        <thead>
+        <tr>
+            <th scope="col">Importanza</th>
+            <th scope="col">1</th>
+            <th scope="col">2</th>
+            <th scope="col">3</th>
+            <th scope="col">4</th>
+            <th scope="col">5</th>
+            <th scope="col">6</th>
+            <th scope="col">7</th>
+            <th scope="col">8</th>
+            <th scope="col">9</th>
+            <th scope="col">10</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+
+    </table>
     </body>
     </html>
 </div>
