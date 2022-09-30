@@ -412,10 +412,18 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <table style="width: 70%" class="table table-bordered border-primary">
-        <thead>
+    <table style="width: 80%;height: 50%" class="table table-bordered">
+        <thead class="thead-light">
         <tr>
-            <th scope="col">Importanza</th>
+            <th scope="col">Bisogno</th>
+            <th colspan="10" scope="col">Grado importanza</th>
+            <th scope="col">Gestito</th>
+            <th scope="col">Voto</th>
+        </tr>
+        <thead class="thead-dark">
+        {{Form::open(array('route' => 'trattativa.salvaTabellaBisogni'))}}
+        <tr>
+            <th style="text-align: center" scope="col"><button class="btn btn-success" type="submit">Salva</button> </th>
             <th scope="col">1</th>
             <th scope="col">2</th>
             <th scope="col">3</th>
@@ -426,29 +434,29 @@
             <th scope="col">8</th>
             <th scope="col">9</th>
             <th scope="col">10</th>
+            <th scope="col">#</th>
+            <th scope="col">#</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+        @foreach($categorieImportanza as $categoriaImportanza)
+            <tr>
+                <td style="text-align: right">{{$categoriaImportanza->nome}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 1)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 2)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 3)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 4)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 5)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 6)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 7)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 8)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 9)}}</td>
+                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 10)}}</td>
+        @endforeach
+            </tr>
         </tbody>
-
     </table>
+    {{Form::close()}}
     </body>
     </html>
 </div>

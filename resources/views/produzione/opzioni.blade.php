@@ -413,7 +413,17 @@
     </head>
     <body>
     <div class="container mt-2" style="font-size: 18px">
+        <h3>Polizze escluse</h3>
+        @foreach($polizzeEscluse as $polizzaEsclusa)
+            <li style="display: inline">{{$polizzaEsclusa->polizza}},</li>
+        @endforeach
 
+        {{ Form::open(array('route' => 'produzione.savePolizzeEscluse')) }}
+        <div style="margin-top: 20px" class="form-group">
+            <h3>Nuova polizza da escludere</h3><input type="text" class="form-control col-sm-4" name="polizza" id="polizza">
+            <input type="submit" class="btn btn-dark btn-block col-sm-4">
+        </div>
+        {{ Form::close() }}
     </div>
     </body>
     </html>

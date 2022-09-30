@@ -11,6 +11,7 @@ use App\Imports\ImportUser;
 use App\Imports\ImportVita;
 use App\Models\ObiettivoSemestre;
 use App\Models\ObiettivoTrimestre;
+use App\Models\PolizzaEsclusa;
 use App\Models\ProductionDanniAuto;
 use App\Models\ProductionDanniNoAuto;
 use App\Models\ProductionFondiPensione;
@@ -137,10 +138,6 @@ class ProductionController extends Controller
         return view("produzione.index", compact('totaleRete', 'listaCollaboratori', 'premiAnnuiTot', 'protectionTot', 'paNoPipProt', 'puNonIbridiTot', 'puIbridiTot', 'dnaRetailTot', 'dnaMiddleMarketTot', 'rcaTot'));
     }
 
-    public function opzioni(){
-        return view("produzione.opzioni");
-    }
-
     public function main()
     {
         $prodottiIbridiPu = array("GeneraSviluppo Sostenibile", "GENERALI PREMIUM - Abbinato", "GeneraSviluppo MultiPlan", "GenerAzione Previdente", "GeneraEquilibrio", "GeneraEquilibrio 2020", "GeneraValore 2021", "Genera PROevolution", "GeneraValore", "VALORE FUTURO");
@@ -223,6 +220,8 @@ class ProductionController extends Controller
         $puIbridiTot = 0;
         $dnaRetailTot = 0;
         $dnaMiddleMarketTot = 0;
+
+        $polizzeEscluse = PolizzaEsclusa::pluck('polizza')->all();
 
         //gara valori tot
         $puIbridiTotGara = 0;
@@ -362,15 +361,17 @@ class ProductionController extends Controller
         $dnaRetailTot = 0;
         $dnaMiddleMarketTot = 0;
 
+        $polizzeEscluse = PolizzaEsclusa::pluck('polizza')->all();
+
         //gara valori tot
         $puIbridiTotGara = 0;
         $premiAnnuiTotGara = 0;
         $protectionTotGara = 0;
         $dnaRetailTotGara = 0;
         $dnaMiddleMarketTotGara = 0;
-        $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
+        $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->whereNotIn('polizza', $polizzeEscluse)->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
-        $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+        $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->whereNotIn('polizza', $polizzeEscluse)->get();
 
         foreach ($fondiPensione as $fondoPensione) {
             foreach ($listaCollaboratori as $k => $collaboratore) {
@@ -510,6 +511,8 @@ class ProductionController extends Controller
         $dnaRetailTot = 0;
         $dnaMiddleMarketTot = 0;
 
+        $polizzeEscluse = PolizzaEsclusa::pluck('polizza')->all();
+
         //gara valori tot
         $puIbridiTotGara = 0;
         $premiAnnuiTotGara = 0;
@@ -517,10 +520,12 @@ class ProductionController extends Controller
         $dnaRetailTotGara = 0;
         $dnaMiddleMarketTotGara = 0;
 
-        $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
-        $productionVitas2 = ProductionVita::whereBetween("data_statistica", ['2022-06-27', $end])->get();
+        $polizzeEscluse = PolizzaEsclusa::pluck('polizza')->all();
+
+        $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->whereNotIn('polizza', $polizzeEscluse)->get();
+        $productionVitas2 = ProductionVita::whereBetween("data_statistica", ['2022-06-27', $end])->whereNotIn('polizza', $polizzeEscluse)->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
-        $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+        $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->whereNotIn('polizza', $polizzeEscluse)->get();
 
         foreach ($fondiPensione as $fondoPensione) {
             foreach ($listaCollaboratori as $k => $collaboratore) {
@@ -667,6 +672,8 @@ class ProductionController extends Controller
         $dnaRetailTot = 0;
         $dnaMiddleMarketTot = 0;
 
+        $polizzeEscluse = PolizzaEsclusa::pluck('polizza')->all();
+
         //gara valori tot
         $puIbridiTotGara = 0;
         $premiAnnuiTotGara = 0;
@@ -674,9 +681,9 @@ class ProductionController extends Controller
         $dnaRetailTotGara = 0;
         $dnaMiddleMarketTotGara = 0;
 
-        $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->get();
+        $productionVitas = ProductionVita::whereBetween("data_statistica", [$start, $end])->whereNotIn('polizza', $polizzeEscluse)->get();
         $fondiPensione = ProductionFondiPensione::whereBetween("data_regist", [$start, $end])->get();
-        $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->get();
+        $productionDanniNoAutos = ProductionDanniNoAuto::whereBetween("data_statistica", [$start, $end])->whereNotIn('polizza', $polizzeEscluse)->get();
 
         foreach ($fondiPensione as $fondoPensione) {
             foreach ($listaCollaboratori as $k => $collaboratore) {
@@ -1077,6 +1084,22 @@ class ProductionController extends Controller
     public function updateObiettivoSemestreDnaRetail(Request $request): string
     {
         return json_encode(ObiettivoSemestre::where('collaboratore', $request->name)->update(['dna_retail' => $request->tdValue]));
+    }
+
+    //opzioni
+    public function opzioni(){
+        $polizzeEscluse = PolizzaEsclusa::all();
+        return view("produzione.opzioni", compact('polizzeEscluse'));
+    }
+
+    public function savePolizzeEscluse(Request $request): string
+    {
+        $nuovaPolizza = new PolizzaEsclusa();
+
+        $nuovaPolizza->polizza = $request->polizza;
+        $nuovaPolizza->save();
+
+        return back();
     }
 
     /**

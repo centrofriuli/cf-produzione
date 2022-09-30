@@ -21,6 +21,7 @@ Route::get('/', [ProductionController::class, 'main'])->name('produzione.main');
 Route::get('/produzione', [ProductionController::class, 'main'])->name('produzione.main');
 Route::get('/produzione/tab', [ProductionController::class, 'index'])->name('produzione.index');
 Route::get('/produzione/opzioni', [ProductionController::class, 'opzioni'])->name('produzione.opzioni');
+Route::post('/produzione/opzioni/savePolizzeEscluse', [ProductionController::class, 'savePolizzeEscluse'])->name('produzione.savePolizzeEscluse');
 Route::get('/produzione/dna', [ProductionController::class, 'dna'])->name('produzione.dna');
 Route::get('/produzione/rca', [ProductionController::class, 'rca'])->name('produzione.rca');
 Route::get('/produzione/vita', [ProductionController::class, 'vita'])->name('produzione.vita');
@@ -60,6 +61,7 @@ Route::get('/updateObiettivoSemestreDnaRetail/', [ProductionController::class, '
 
 //trattativa
 Route::get('/trattativa', [TrattativaController::class, 'index'])->name('trattativa.index');
+Route::post('/trattativa/salvaTabellaBisogni', [TrattativaController::class, 'salvaTabellaBisogni'])->name('trattativa.salvaTabellaBisogni');
 
 //fileimport
 Route::controller(UserController::class)->group(function(){
