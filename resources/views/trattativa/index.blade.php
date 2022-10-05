@@ -468,7 +468,7 @@
                     @if($datiBisogni['ge_'.str_replace(' ', '_', $categoriaImportanza->nome)])
                         <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select'))}}</td>
                     @elseif(!$datiBisogni['ge_'.str_replace(' ', '_', $categoriaImportanza->nome)])
-                        <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select', 'disabled'))}}</td>
+                        <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select', 'hidden'))}}</td>
                     @endif
                 @else
                     <td style="text-align: right">{{$categoriaImportanza->nome}}</td>
@@ -485,7 +485,7 @@
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 9)}}</td>
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 10)}}</td>
                     <td style="text-align: center"> {{Form::select('ge_'.str_replace(' ', '_', $categoriaImportanza->nome), array('0' => 'No', '1' => 'Sì'), 0, array('class' => 'form-select'))}}</td>
-                    <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), array('' => '...') + range(1,10), null, array('class'=> 'form-select', 'disabled'))}}</td>
+                    <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), array('' => '...') + range(1,10), null, array('class'=> 'form-select', 'hidden'))}}</td>
                 @endif
                 @endforeach
             </tr>
@@ -503,23 +503,19 @@
 
 <script>
 
-    $('select').on('change', function () {
+    $("select[name^='ge_']").on('change', function () {
         let catName = this.name.substring(3);
         switch (this.value) {
             case "1":
-                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("disabled", false);
+                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("hidden", false);
                 break;
             case "0":
-                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("disabled", true);
+                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("hidden", true);
                 $('select[name=vo_' + catName.replace(/ /g, "_") + ']').val(0);
                 break;
             default:
-                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("disabled", true);
+                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("hidden", true);
         }
-    });
-
-    $('form').bind('submit', function () {
-        $('td').find('select').prop('disabled', false);
     });
 
 </script>
