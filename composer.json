@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "ext-http": "*",
         "ext-pdo": "*",
+        "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "illuminate/cache": "^9.25",
         "laravel/framework": "^9.19",

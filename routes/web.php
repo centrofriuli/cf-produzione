@@ -60,8 +60,9 @@ Route::get('/updateObiettivoSemestreDnaMiddle/', [ProductionController::class, '
 Route::get('/updateObiettivoSemestreDnaRetail/', [ProductionController::class, 'updateObiettivoSemestreDnaRetail'])->name('updateObiettivoSemestreDnaRetail');
 
 //trattativa
-Route::get('/trattativa', [TrattativaController::class, 'index'])->name('trattativa.index');
-Route::post('/trattativa/salvaTabellaBisogni', [TrattativaController::class, 'salvaTabellaBisogni'])->name('trattativa.salvaTabellaBisogni');
+Route::get('/trattativa/{id?}', [TrattativaController::class, 'index'])->name('trattativa.index');
+Route::get('/trattativa/pdf/{idTrattativa}', [TrattativaController::class, 'pdf'])->name('trattativa.pdf');
+Route::post('/trattativa/salvaTabellaBisogni/{idTrattativa?}', [TrattativaController::class, 'salvaTabellaBisogni'])->name('trattativa.salvaTabellaBisogni');
 
 //fileimport
 Route::controller(UserController::class)->group(function(){

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CF Produzione</title>
+    <title>CF Trattativa</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -410,20 +410,29 @@
         <title>Produzione</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous">
     </head>
     <body>
     <table style="width: 80%;height: 50%" class="table table-bordered">
         <thead class="thead-light">
         <tr>
-            <th scope="col">Bisogno</th>
+            <th class="col-sm-4" scope="col">Bisogno</th>
             <th colspan="10" scope="col">Grado importanza</th>
-            <th scope="col">Gestito</th>
-            <th scope="col">Voto</th>
+            <th class="col-sm-1" scope="col">Gestito</th>
+            <th class="col-sm-1" scope="col">Voto</th>
         </tr>
         <thead class="thead-dark">
-        {{Form::open(array('route' => 'trattativa.salvaTabellaBisogni'))}}
+        {{Form::open(array('route' => array('trattativa.salvaTabellaBisogni', $id)))}}
         <tr>
-            <th style="text-align: center" scope="col"><button class="btn btn-success" type="submit">Salva</button> </th>
+            <th style="text-align: center" scope="col">
+                <button class="btn btn-success" type="submit">Salva</button>
+                @if($id)
+                    <a href="{{route('trattativa.pdf', [$id])}}" target="_blank" type="button"
+                       class="bi bi-file-pdf btn btn-danger">PDF</a>
+                @endif
+            </th>
             <th scope="col">1</th>
             <th scope="col">2</th>
             <th scope="col">3</th>
@@ -441,18 +450,44 @@
         <tbody>
         @foreach($categorieImportanza as $categoriaImportanza)
             <tr>
-                <td style="text-align: right">{{$categoriaImportanza->nome}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 1)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 2)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 3)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 4)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 5)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 6)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 7)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 8)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 9)}}</td>
-                <td style="text-align: center"> {{Form::radio('importanza_'.$categoriaImportanza->nome, 10)}}</td>
-        @endforeach
+                @if($datiBisogni)
+                    <td style="text-align: right">{{$categoriaImportanza->nome}}</td>
+                    <td hidden
+                        style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==1)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 2, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==2)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 3, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==3)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 4, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==4)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 5, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==5)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 6, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==6)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 7, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==7)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 8, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==8)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 9, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==9)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 10, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==10)??''}}</td>
+                    <td style="text-align: center"> {{Form::select('ge_'.str_replace(' ', '_', $categoriaImportanza->nome), array('0' => 'No', '1' => 'Sì'), $datiBisogni[str_replace(' ', '_', 'ge_'.$categoriaImportanza->nome)], array('class' => 'form-select'))}}</td>
+                    @if($datiBisogni['ge_'.str_replace(' ', '_', $categoriaImportanza->nome)])
+                        <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select'))}}</td>
+                    @elseif(!$datiBisogni['ge_'.str_replace(' ', '_', $categoriaImportanza->nome)])
+                        <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select', 'disabled'))}}</td>
+                    @endif
+                @else
+                    <td style="text-align: right">{{$categoriaImportanza->nome}}</td>
+                    <td hidden
+                        style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 2)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 3)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 4)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 5)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 6)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 7)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 8)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 9)}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 10)}}</td>
+                    <td style="text-align: center"> {{Form::select('ge_'.str_replace(' ', '_', $categoriaImportanza->nome), array('0' => 'No', '1' => 'Sì'), 0, array('class' => 'form-select'))}}</td>
+                    <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), array('' => '...') + range(1,10), null, array('class'=> 'form-select', 'disabled'))}}</td>
+                @endif
+                @endforeach
             </tr>
         </tbody>
     </table>
@@ -462,3 +497,29 @@
 </div>
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+
+<script>
+
+    $('select').on('change', function () {
+        let catName = this.name.substring(3);
+        switch (this.value) {
+            case "1":
+                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("disabled", false);
+                break;
+            case "0":
+                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("disabled", true);
+                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').val(0);
+                break;
+            default:
+                $('select[name=vo_' + catName.replace(/ /g, "_") + ']').prop("disabled", true);
+        }
+    });
+
+    $('form').bind('submit', function () {
+        $('td').find('select').prop('disabled', false);
+    });
+
+</script>

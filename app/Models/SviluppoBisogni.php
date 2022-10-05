@@ -11,16 +11,11 @@ class SviluppoBisogni extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'sviluppi_bisogni';
+    protected $table = 'sviluppo_bisogni';
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'cliente_id',
-        'categoria_id',
-        'gestita',
-        'importanza',
-        'voto',
-        'copertura',
+        'dati'
     ];
 
 }
