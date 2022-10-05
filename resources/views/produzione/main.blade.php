@@ -413,19 +413,19 @@
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
             </head>
             <body>
-            <div class="container">
+            <div class="container mt-2" style="font-size: 18px">
                 <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTot}} />
-                <input hidden type="text" id="residuoPremiAnnui" value={{800000-$premiAnnuiTot}} />
+                <input hidden type="text" id="residuoPremiAnnui" value={{$obiettiviAnnui['ob_pa']-$premiAnnuiTot}} />
                 <input hidden type="text" id="valProtection" value={{$protectionTot}} />
-                <input hidden type="text" id="residuoProtection" value={{210000-$protectionTot}} />
+                <input hidden type="text" id="residuoProtection" value={{$obiettiviAnnui['ob_protection']-$protectionTot}} />
                 <input hidden type="text" id="valPuIbridi" value={{$puIbridiTot}} />
-                <input hidden type="text" id="residuiPuIbridi" value={{8475000-$puIbridiTot}} />
+                <input hidden type="text" id="residuiPuIbridi" value={{$obiettiviAnnui['ob_avc']-$puIbridiTot}} />
                 <input hidden type="text" id="valDnaRetail" value={{$dnaRetailTot}} />
-                <input hidden type="text" id="residuoDnaRetail" value={{172000-$dnaRetailTot}} />
+                <input hidden type="text" id="residuoDnaRetail" value={{$obiettiviAnnui['ob_dna_retail']-$dnaRetailTot}} />
                 <input hidden type="text" id="valDnaMiddleMarket" value={{$dnaMiddleMarketTot}} />
-                <input hidden type="text" id="residuoDnaMiddleMarket" value={{123000-$dnaMiddleMarketTot}} />
+                <input hidden type="text" id="residuoDnaMiddleMarket" value={{$obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot}} />
                 <input hidden type="text" id="valRca" value={{$rcaTot}} />
-                <input hidden type="text" id="residuoRca" value={{270000-$rcaTot}} />
+                <input hidden type="text" id="residuoRca" value={{$obiettiviAnnui['ob_rca']-$rcaTot}} />
 
                 <table class="table table-bordered">
                     <thead class="thead-dark">
@@ -435,16 +435,16 @@
                     </thead>
                     <tbody>
                     <tr style="text-align: center">
-                        <th>Obiettivo</th>
+                        <th class="col-sm-3">Obiettivo</th>
                         <th>Raccolta</th>
                         <th>%</th>
                         <th>Residuo</th>
                     </tr>
                     <tr style="text-align: center">
-                        <th>€ 800.000</th>
+                        <th contenteditable id="1_obPaNoProt">{{ number_format($obiettiviAnnui['ob_pa'], 0, ',', '.')}}</th>
                         <th>€ {{ number_format($premiAnnuiTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($premiAnnuiTot/800000*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format((800000-$premiAnnuiTot), 0, ',', '.')}}</th>
+                        <th>{{number_format(round($premiAnnuiTot/$obiettiviAnnui['ob_pa']*100, 2),2, ',', '.')}}%</th>
+                        <th>€ {{number_format(($obiettiviAnnui['ob_pa']-$premiAnnuiTot), 0, ',', '.')}}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -456,16 +456,16 @@
                     </thead>
                     <tbody>
                     <tr style="text-align: center">
-                        <th>Obiettivo</th>
+                        <th class="col-sm-3">Obiettivo</th>
                         <th>Raccolta</th>
                         <th>%</th>
                         <th>Residuo</th>
                     </tr>
                     <tr style="text-align: center">
-                        <th>€ 210.000</th>
+                        <th contenteditable id="2_obProt">{{ number_format($obiettiviAnnui['ob_protection'], 0, ',', '.')}}</th>
                         <th>€ {{ number_format($protectionTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($protectionTot/210000*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format((210000-$protectionTot), 0, ',', '.')}}</th>
+                        <th>{{number_format(round($protectionTot/$obiettiviAnnui['ob_protection']*100, 2),2, ',', '.')}}%</th>
+                        <th>€ {{number_format(($obiettiviAnnui['ob_protection']-$protectionTot), 0, ',', '.')}}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -477,16 +477,16 @@
                     </thead>
                     <tbody>
                     <tr style="text-align: center">
-                        <th>Obiettivo</th>
+                        <th class="col-sm-3">Obiettivo</th>
                         <th>Raccolta</th>
                         <th>%</th>
                         <th>Residuo</th>
                     </tr>
                     <tr style="text-align: center">
-                        <th>€ 8.475.000</th>
+                        <th contenteditable id="3_obAvc">{{ number_format($obiettiviAnnui['ob_avc'], 0, ',', '.')}}</th>
                         <th>€ {{ number_format($puIbridiTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($puIbridiTot/8475000*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format((8475000-$puIbridiTot), 0, ',', '.')}}</th>
+                        <th>{{number_format(round($puIbridiTot/$obiettiviAnnui['ob_avc']*100, 2),2, ',', '.')}}%</th>
+                        <th>€ {{number_format(($obiettiviAnnui['ob_avc']-$puIbridiTot), 0, ',', '.')}}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -498,16 +498,16 @@
                     </thead>
                     <tbody>
                     <tr style="text-align: center">
-                        <th>Obiettivo</th>
+                        <th class="col-sm-3">Obiettivo</th>
                         <th>Raccolta</th>
                         <th>%</th>
                         <th>Residuo</th>
                     </tr>
                     <tr style="text-align: center">
-                        <th>€ 172.000</th>
+                        <th contenteditable id="5_obDnaRetail">{{ number_format($obiettiviAnnui['ob_dna_retail'], 0, ',', '.')}}</th>
                         <th>€ {{ number_format($dnaRetailTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($dnaRetailTot/172000*100, 2),2, ',', '.')}}%</th>
-                        <th id="residuoDnaRetail">€ {{number_format((172000-$dnaRetailTot), 0, ',', '.')}}</th>
+                        <th>{{number_format(round($dnaRetailTot/$obiettiviAnnui['ob_dna_retail']*100, 2),2, ',', '.')}}%</th>
+                        <th id="residuoDnaRetail">€ {{number_format(($obiettiviAnnui['ob_dna_retail']-$dnaRetailTot), 0, ',', '.')}}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -519,16 +519,16 @@
                     </thead>
                     <tbody>
                     <tr style="text-align: center">
-                        <th>Obiettivo</th>
+                        <th class="col-sm-3">Obiettivo</th>
                         <th>Raccolta</th>
                         <th>%</th>
                         <th>Residuo</th>
                     </tr>
                     <tr style="text-align: center">
-                        <th>€ 123.000</th>
+                        <th contenteditable id="4_obDnaMiddle">{{ number_format($obiettiviAnnui['ob_dna_middle'], 0, ',', '.')}}</th>
                         <th>€ {{ number_format($dnaMiddleMarketTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($dnaMiddleMarketTot/123000*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format((123000-$dnaMiddleMarketTot), 0, ',', '.')}}</th>
+                        <th>{{number_format(round($dnaMiddleMarketTot/$obiettiviAnnui['ob_dna_middle']*100, 2),2, ',', '.')}}%</th>
+                        <th>€ {{number_format(($obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot), 0, ',', '.')}}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -540,16 +540,16 @@
                     </thead>
                     <tbody>
                     <tr style="text-align: center">
-                        <th>Obiettivo</th>
+                        <th class="col-sm-3">Obiettivo</th>
                         <th>Raccolta</th>
                         <th>%</th>
                         <th>Residuo</th>
                     </tr>
                     <tr style="text-align: center">
-                        <th>€ 270.000</th>
+                        <th contenteditable id="6_obrca">{{ number_format($obiettiviAnnui['ob_rca'], 0, ',', '.')}}</th>
                         <th id="valRca">€ {{ number_format($rcaTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($rcaTot/270000*100, 2),2, ',', '.')}}%</th>
-                        <th id="residuoRca">€ {{number_format((270000-$rcaTot), 0, ',', '.')}}</th>
+                        <th>{{number_format(round($rcaTot/$obiettiviAnnui['ob_rca']*100, 2),2, ',', '.')}}%</th>
+                        <th id="residuoRca">€ {{number_format(($obiettiviAnnui['ob_rca']-$rcaTot), 0, ',', '.')}}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -561,7 +561,7 @@
                     </thead>
                     <tbody>
                     <tr style="text-align: center">
-                        <th>Obiettivo</th>
+                        <th class="col-sm-3">Obiettivo</th>
                         <th>Raccolta</th>
                         <th>%</th>
                         <th>Residuo</th>
@@ -874,6 +874,71 @@
         config6
     );
 </script>
+
+<script>
+
+    $("th").blur(function () {
+        var dataType = this.id.charAt(0);
+
+        if (dataType == 1) {
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoAnnuoPaNoProt', // This is what I have updated
+                type: "GET",
+                data: {tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 2) {
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoAnnuoProt', // This is what I have updated
+                type: "GET",
+                data: {tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 3) {
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoAnnuoAvc', // This is what I have updated
+                type: "GET",
+                data: {tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 4) {
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoAnnuoDnaMiddle', // This is what I have updated
+                type: "GET",
+                data: {tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 5) {
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoAnnuoDnaRetail', // This is what I have updated
+                type: "GET",
+                data: {tdValue}
+            }).done(function (msg) {
+                //
+            });
+        }
+        else if (dataType == 6) {
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoAnnuoRca', // This is what I have updated
+                type: "GET",
+                data: {tdValue}
+            }).done(function (msg) {
+                //
+            });
+        }
+    });
+</script>
+
 
 
 

@@ -412,7 +412,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <div class="container mt-2">
+    <div class="container mt-2" style="font-size: 18px">
 
         <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTotGara}} />
         <input hidden type="text" id="residuoPremiAnnui" value={{150000-$premiAnnuiTotGara}} />
@@ -439,32 +439,32 @@
                 <th>Premi Annui</th>
                 <td>€ {{number_format($premiAnnuiTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($premiAnnuiTotGara/150000*100, 2),2, ',', '.')}}%</td>
-                <td>€ 150.000</td>
-                <td>€ 180.000</td>
+                <td id="1_obPaNoProt_{{$trim}}_gold" contenteditable>{{number_format($obGold['ob_pa']??'', 0, ',', '.')}}</td>
+                <td id="1_obPaNoProt_{{$trim}}_platinum" contenteditable>{{number_format($obPlatinum['ob_pa']??'', 0, ',', '.')}}</td>
                 <td id="resPremiAnnui">€ {{number_format(150000-$premiAnnuiTotGara,0, ',', '.')}}</td>
             </tr>
             <tr id="sensible-protection">
                 <th>di cui Protection</th>
                 <td>€ {{number_format($protectionTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($protectionTotGara/45000*100, 2),2, ',', '.')}}%</td>
-                <td>€ 45.000</td>
-                <td>€ 57.000</td>
+                <td id="2_obProt_{{$trim}}_gold" contenteditable="">{{number_format($obGold['ob_protection']??'', 0, ',', '.')}}</td>
+                <td id="2_obProt_{{$trim}}_platinum" contenteditable="">{{number_format($obPlatinum['ob_protection']??'', 0, ',', '.')}}</td>
                 <td id="resProtection">€ {{number_format(45000-$protectionTotGara,0, ',', '.')}}</td>
             </tr>
             <tr id="sensible-puIbridi">
                 <th>A.V.C</th>
                 <td>€ {{number_format($puIbridiTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($puIbridiTotGara/2000000*100, 2),2, ',', '.')}}%</td>
-                <td>€ 2.000.000</td>
-                <td>€ 2.500.000</td>
+                <td id="3_obAvc_{{$trim}}_gold" contenteditable>{{number_format($obGold['ob_avc']??'', 0, ',', '.')}}</td>
+                <td id="3_obAvc_{{$trim}}_platinum" contenteditable>{{number_format($obPlatinum['ob_avc']??'', 0, ',', '.')}}</td>
                 <td id="resPuIbridi">€ {{number_format(2000000-$puIbridiTotGara,0, ',', '.')}}</td>
             </tr>
             <tr id="sensible-dnaPlus">
                 <th>DNA Plus</th>
                 <td>€ {{number_format($dnaPlusTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($dnaPlusTotGara/55000*100, 2),2, ',', '.')}}%</td>
-                <td>€ 55.000</td>
-                <td>€ 65.000</td>
+                <td id="4_obPaDnaPlus_{{$trim}}_gold" contenteditable>{{number_format($obGold['ob_dna_plus']??'', 0, ',', '.')}}</td>
+                <td id="4_obPaDnaPlus_{{$trim}}_platinum" contenteditable>{{number_format($obPlatinum['ob_dna_plus']??'', 0, ',', '.')}}</td>
                 <td id="resDnaPlus">€ {{number_format(55000-$dnaPlusTotGara,0, ',', '.')}}</td>
             <tr>
             </tbody>
@@ -727,25 +727,73 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        if (premiAnnuiVal < 0)
+        if (premiAnnuiResVal < 0)
             document.getElementById("sensible-premiAnnui").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-premiAnnui").style.backgroundColor = '#ff9999';
 
-        if (protectionVal < 0)
+        if (protectionResVal < 0)
             document.getElementById("sensible-protection").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-protection").style.backgroundColor = '#ff9999';
 
-        if (puIbridiVal < 0)
+        if (puIbridiResVal < 0)
             document.getElementById("sensible-puIbridi").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-puIbridi").style.backgroundColor = '#ff9999';
 
-        if (dnaPlusVal < 0)
+        if (dnaPlusResVal < 0)
             document.getElementById("sensible-dnaPlus").style.backgroundColor = '#33cc33';
         else
             document.getElementById("sensible-dnaPlus").style.backgroundColor = '#ff9999';
     })
+</script>
+<script>
+
+    $("td").blur(function () {
+        var dataType = this.id.charAt(0);
+
+        if (dataType == 1) {
+            var name = this.id.substring(13);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoGaraPaNoProt', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 2) {
+            var name = this.id.substring(9);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoGaraProt', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 3) {
+            var name = this.id.substring(8);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoGaraAvc', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        } else if (dataType == 4) {
+            var name = this.id.substring(14);
+            var tdValue = $(this).text();
+            $.ajax({
+                url: '/updateObiettivoGaraDnaPlus', // This is what I have updated
+                type: "GET",
+                data: {name, tdValue}
+            }).done(function (msg) {
+                //
+            });
+        }
+    });
 </script>
 

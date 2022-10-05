@@ -413,50 +413,17 @@
     </head>
     <body>
     <div class="container mt-2" style="font-size: 18px">
-        <table class="table table-bordered mb-5">
-            <thead class="thead-dark">
-            <tr style="font-size: 14px">
-                <th scope="col" class="col-sm-3">Collaboratori</th>
-                <th scope="col" class="col-sm-1">Premi Annui</th>
-                <th scope="col" class="col-sm-1">Protection</th>
-                <th scope="col" class="col-sm-1">AVC</th>
-                <th scope="col" class="col-sm-1">DNA Retail</th>
-                <th scope="col" class="col-sm-1">DNA Middle</th>
-                <th scope="col" class="col-sm-1">RCA</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($listaCollaboratori as $lc => $collaboratore)
-                <tr>
-                    <th class="table-success">{{$lc}}</th>
-                    <td>{{number_format($collaboratore["PA"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Retail"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Middle"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["RCA"], 0, ',', '.')}}</td>
-                </tr>
-            @endforeach
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE RETE</th>
-                <td>{{ number_format($totaleRete["PA"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Retail"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Middle"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["RCA"], 0, ',', '.')}}</td>
-            </tr>
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE GENERALE</th>
-                <td>{{ number_format($premiAnnuiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($protectionTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($puIbridiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaRetailTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaMiddleMarketTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($rcaTot, 0, ',', '.')}}</td>
-            </tr>
-            </tbody>
-        </table>
+        <h3>Polizze escluse</h3>
+        @foreach($polizzeEscluse as $polizzaEsclusa)
+            <li style="display: inline">{{$polizzaEsclusa->polizza}},</li>
+        @endforeach
+
+        {{ Form::open(array('route' => 'produzione.savePolizzeEscluse')) }}
+        <div style="margin-top: 20px" class="form-group">
+            <h3>Nuova polizza da escludere</h3><input type="text" class="form-control col-sm-4" name="polizza" id="polizza">
+            <input type="submit" class="btn btn-dark btn-block col-sm-4">
+        </div>
+        {{ Form::close() }}
     </div>
     </body>
     </html>

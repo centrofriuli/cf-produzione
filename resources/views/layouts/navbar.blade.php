@@ -28,6 +28,7 @@
 {{--    </ul>--}}
 {{--</nav>--}}
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </head>
@@ -73,5 +74,6 @@
                 <li><a class="dropdown-item" href="{{route('produzione.fondiPensione')}}">Fondi Pensione</a></li>
             </ul>
         </div>
+        <a href="{{route('produzione.opzioni')}}" type="button" class="bi bi-gear btn btn-outline-primary"></a>
     </div>
 </nav>
