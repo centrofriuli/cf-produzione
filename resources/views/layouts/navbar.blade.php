@@ -75,5 +75,6 @@
             </ul>
         </div>
         <a href="{{route('produzione.opzioni')}}" type="button" class="bi bi-gear btn btn-outline-primary"></a>
+
     </div>
 </nav>
