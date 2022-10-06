@@ -12,6 +12,38 @@
 
     <!-- Styles -->
     <style>
+
+        input[type='radio']:after {
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            top: -2px;
+            left: -1px;
+            position: relative;
+            background-color: #ffffff;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 1px solid #000000;
+        }
+
+        input[type='radio']:checked:after {
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            top: -2px;
+            left: -1px;
+            position: relative;
+            background-color: #de726f;
+            content: '\2713';
+            padding-left: 5px;
+            margin-bottom: -40px;
+            color: white;
+            display: inline-block;
+            visibility: visible;
+            border: 1px solid #000000;
+        }
+
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
         html {
             line-height: 1.15;
@@ -451,19 +483,23 @@
         @foreach($categorieImportanza as $categoriaImportanza)
             <tr>
                 @if($datiBisogni)
-                    <td style="text-align: right">{{$categoriaImportanza->nome}}</td>
+                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
+                                                                                    data-bs-placement="right"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    title="{{$categoriaImportanza->descrizione}}"></a>
+                    </td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==1)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 2, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==2)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 3, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==3)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 4, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==4)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 5, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==5)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 6, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==6)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 7, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==7)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 8, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==8)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 9, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==9)??''}}</td>
-                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 10, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==10)??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==1, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 2, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==2, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 3, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==3, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 4, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==4, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 5, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==5, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 6, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==6, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 7, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==7, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 8, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==8, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 9, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==9, array('class'=>'customRadio'))??''}}</td>
+                    <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 10, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==10, array('class'=>'customRadio'))??''}}</td>
                     <td style="text-align: center"> {{Form::select('ge_'.str_replace(' ', '_', $categoriaImportanza->nome), array('0' => 'No', '1' => 'Sì'), $datiBisogni[str_replace(' ', '_', 'ge_'.$categoriaImportanza->nome)], array('class' => 'form-select'))}}</td>
                     @if($datiBisogni['ge_'.str_replace(' ', '_', $categoriaImportanza->nome)])
                         <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select'))}}</td>
@@ -500,6 +536,12 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 <script>
 

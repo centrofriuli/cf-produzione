@@ -1,6 +1,11 @@
 <html>
 <head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <style>
+
         /** Define the margins of your page **/
         @page {
             margin: 80px 30px;
@@ -24,23 +29,20 @@
             left: 0px;
             right: 0px;
             height: 50px;
-            font-size: 16px !important;
+            font-size: 12px !important;
 
             /** Extra personal styles **/
-            background-color: #ca3633;
-            color: white;
+            background-color: #ffffff;
+            color: black;
             text-align: center;
             line-height: 35px;
         }
+
     </style>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Produzione</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous">
 </head>
 <body>
 <!-- Define header and footer blocks before your content -->
@@ -73,17 +75,25 @@
                     <td>{{str_replace('_',' ',$d)}}</td>
                     <td>
                         @if($datiBisognoNonGestite['im']>6)
-                            {{$datiBisognoNonGestite['im']}}<span style="margin-left: 10px" class="badge badge-success">alta</span>
+                            {{$datiBisognoNonGestite['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-success">alta</span>
                         @elseif($datiBisognoNonGestite['im']==6)
-                            {{$datiBisognoNonGestite['im']}}<span style="margin-left: 10px" class="badge badge-warning">media</span>
+                            {{$datiBisognoNonGestite['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-warning">media</span>
                         @else
-                            {{$datiBisognoNonGestite['im']}}<span style="margin-left: 10px" class="badge badge-danger">bassa</span>
+                            {{$datiBisognoNonGestite['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">bassa</span>
                         @endif
                     </td>
                     @if($datiBisognoNonGestite['vo'] == 0)
-                        <td>non gestito</td>
+                        <td>non gestito<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">x</span></td>
                     @else
-                        <td>{{$datiBisognoNonGestite['vo']}}</td>
+                        <td>
+                            @if($datiBisognoNonGestite['vo']>6)
+                                {{$datiBisognoNonGestite['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-success">alta</span>
+                            @elseif($datiBisognoNonGestite['vo']==6)
+                                {{$datiBisognoNonGestite['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-warning">media</span>
+                            @else
+                                {{$datiBisognoNonGestite['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">bassa</span>
+                            @endif
+                        </td>
                     @endif
                 </tr>
             @endforeach
@@ -108,17 +118,31 @@
                     <td>{{str_replace('_',' ',$d)}}</td>
                     <td>
                         @if($datiBisognoGestiteDaMigliorare['im']>6)
-                            {{$datiBisognoGestiteDaMigliorare['im']}}<span style="margin-left: 10px" class="badge badge-success">alta</span>
+                            {{$datiBisognoGestiteDaMigliorare['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                           class="badge badge-success">alta</span>
                         @elseif($datiBisognoGestiteDaMigliorare['im']==6)
-                            {{$datiBisognoGestiteDaMigliorare['im']}}<span style="margin-left: 10px" class="badge badge-warning">media</span>
+                            {{$datiBisognoGestiteDaMigliorare['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                           class="badge badge-warning">media</span>
                         @else
-                            {{$datiBisognoGestiteDaMigliorare['im']}}<span style="margin-left: 10px" class="badge badge-danger">bassa</span>
+                            {{$datiBisognoGestiteDaMigliorare['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                           class="badge badge-danger">bassa</span>
                         @endif
                     </td>
                     @if($datiBisognoGestiteDaMigliorare['vo'] == 0)
-                        <td>non gestito</td>
+                        <td>non gestito<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">x</span></td>
                     @else
-                        <td>{{$datiBisognoGestiteDaMigliorare['vo']}}</td>
+                        <td>
+                            @if($datiBisognoGestiteDaMigliorare['vo']>6)
+                                {{$datiBisognoGestiteDaMigliorare['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                               class="badge badge-success">alta</span>
+                            @elseif($datiBisognoGestiteDaMigliorare['vo']==6)
+                                {{$datiBisognoGestiteDaMigliorare['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                               class="badge badge-warning">media</span>
+                            @else
+                                {{$datiBisognoGestiteDaMigliorare['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                               class="badge badge-danger">bassa</span>
+                            @endif
+                        </td>
                     @endif
                 </tr>
             @endforeach
@@ -142,17 +166,29 @@
                     <td>{{str_replace('_',' ',$d)}}</td>
                     <td>
                         @if($datiBisognoGestiteBene['im']>6)
-                            {{$datiBisognoGestiteBene['im']}}<span style="margin-left: 10px" class="badge badge-success">alta</span>
+                            {{$datiBisognoGestiteBene['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                   class="badge badge-success">alta</span>
                         @elseif($datiBisognoGestiteBene['im']==6)
-                            {{$datiBisognoGestiteBene['im']}}<span style="margin-left: 10px" class="badge badge-warning">media</span>
+                            {{$datiBisognoGestiteBene['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                   class="badge badge-warning">media</span>
                         @else
-                            {{$datiBisognoGestiteBene['im']}}<span style="margin-left: 10px" class="badge badge-danger">bassa</span>
+                            {{$datiBisognoGestiteBene['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">bassa</span>
                         @endif
                     </td>
                     @if($datiBisognoGestiteBene['vo'] == 0)
-                        <td>non gestito</td>
+                        <td>non gestito<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">x</span></td>
                     @else
-                        <td>{{$datiBisognoGestiteBene['vo']}}</td>
+                        <td>
+                            @if($datiBisognoGestiteBene['vo']>6)
+                                {{$datiBisognoGestiteBene['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                       class="badge badge-success">alta</span>
+                            @elseif($datiBisognoGestiteBene['vo']==6)
+                                {{$datiBisognoGestiteBene['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                       class="badge badge-warning">media</span>
+                            @else
+                                {{$datiBisognoGestiteBene['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">bassa</span>
+                            @endif
+                        </td>
                     @endif
                 </tr>
             @endforeach
@@ -177,17 +213,31 @@
                     <td>{{str_replace('_',' ',$d)}}</td>
                     <td>
                         @if($datiBisognoNonConsiderato['im']>6)
-                            {{$datiBisognoNonConsiderato['im']}}<span style="margin-left: 10px" class="badge badge-success">alta</span>
+                            {{$datiBisognoNonConsiderato['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                      class="badge badge-success">alta</span>
                         @elseif($datiBisognoNonConsiderato['im']==6)
-                            {{$datiBisognoNonConsiderato['im']}}<span style="margin-left: 10px" class="badge badge-warning">media</span>
+                            {{$datiBisognoNonConsiderato['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                      class="badge badge-warning">media</span>
                         @else
-                            {{$datiBisognoNonConsiderato['im']}}<span style="margin-left: 10px" class="badge badge-danger">bassa</span>
+                            {{$datiBisognoNonConsiderato['im']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                      class="badge badge-danger">bassa</span>
                         @endif
                     </td>
                     @if($datiBisognoNonConsiderato['vo'] == 0)
-                        <td>non gestito</td>
+                        <td>non gestito<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;" class="badge badge-danger">x</span></td>
                     @else
-                        <td>{{$datiBisognoNonConsiderato['vo']}}</td>
+                        <td>
+                            @if($datiBisognoNonConsiderato['vo']>6)
+                                {{$datiBisognoNonConsiderato['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                          class="badge badge-success">alta</span>
+                            @elseif($datiBisognoNonConsiderato['vo']==6)
+                                {{$datiBisognoNonConsiderato['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                          class="badge badge-warning">media</span>
+                            @else
+                                {{$datiBisognoNonConsiderato['vo']}}<span style="margin-left: 10px; margin-bottom: -5px; border: 1px solid #000000;"
+                                                                          class="badge badge-danger">bassa</span>
+                            @endif
+                        </td>
                     @endif
                 </tr>
             @endforeach
