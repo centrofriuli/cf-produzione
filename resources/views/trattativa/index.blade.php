@@ -483,11 +483,7 @@
         @foreach($categorieImportanza as $categoriaImportanza)
             <tr>
                 @if($datiBisogni)
-                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
-                                                                                    data-bs-placement="right"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    title="{{$categoriaImportanza->descrizione}}"></a>
-                    </td>
+                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info" data-bs-placement="right" data-bs-toggle="tooltip" title="{{$categoriaImportanza->descrizione}}"></a></td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==1, array('class'=>'customRadio'))??''}}</td>
@@ -507,7 +503,7 @@
                         <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select', 'hidden'))}}</td>
                     @endif
                 @else
-                    <td style="text-align: right">{{$categoriaImportanza->nome}}</td>
+                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info" data-bs-placement="right" data-bs-toggle="tooltip" title="{{$categoriaImportanza->descrizione}}"></a></td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1)}}</td>
@@ -521,7 +517,7 @@
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 9)}}</td>
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 10)}}</td>
                     <td style="text-align: center"> {{Form::select('ge_'.str_replace(' ', '_', $categoriaImportanza->nome), array('0' => 'No', '1' => 'Sì'), 0, array('class' => 'form-select'))}}</td>
-                    <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), array('' => '...') + range(1,10), null, array('class'=> 'form-select', 'hidden'))}}</td>
+                    <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), null, array('class'=> 'form-select', 'hidden'))}}</td>
                 @endif
                 @endforeach
             </tr>
