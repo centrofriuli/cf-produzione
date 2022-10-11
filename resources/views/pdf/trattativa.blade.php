@@ -284,14 +284,14 @@
     @endif
 
     <div class="text-center" style="padding-bottom: 20px">
-        <img src="{{$pieChartUrl}}" class="img-fluid" style="max-width: 80%" alt="Responsive image">
+        <img src="{{$pieChartUrl}}" class="img-fluid" style="max-width: 80%">
     </div>
 
     <div class="float-left" style="margin-right: -130px">
-        <img src="{{$insuranceIndexUrl}}" class="img-fluid" style="padding-left:15px;max-width: 80%" alt="Responsive image">
+        <img src="{{$insuranceIndexUrl}}" class="img-fluid" style="padding-left:15px;max-width: 80%">
     </div>
 
-    <img src="{{$qualityIndexUrl}}" class="img-fluid" style="max-width: 80%" alt="Responsive image">
+    <img src="{{$qualityIndexUrl}}" class="img-fluid" style="max-width: 80%">
 
 
 

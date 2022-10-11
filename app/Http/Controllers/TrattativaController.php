@@ -96,10 +96,13 @@ class TrattativaController extends Controller
         }
 
         //configurazione grafico
-        //https://quickchart.io/chart-maker/edit/zm-27bd53e9-5bc9-45ed-9cbb-d57d7266891d
-        $pieChartUrl = "https://quickchart.io/chart/render/zm-f2c09825-2aa9-4631-acad-90735d51fba9"."?data1=".count($datiBisogniNonGestite).",".count($datiBisogniGestiteDaMigliorare).",".count($datiBisogniGestiteBene).",".count($datiBisogniNonGestite);
-        $insuranceIndexUrl = "https://quickchart.io/chart/render/zm-c5f19d75-17af-4aa2-a3dd-89f661189aa0"."?data1=".count($datiBisogniGestiteBene)."&data2=".count($datiBisogniGestiteDaMigliorare)."&data3=".count($datiBisogniNonGestite)+count($datiBisogniNonConsiderate);
-        $qualityIndexUrl = "https://quickchart.io/chart/render/zm-12d08832-9f33-42a7-89f2-8128803df631"."?data1=".count($datiBisogniGestiteBene).",".count($datiBisogniGestiteDaMigliorare);
+        //https://quickchart.io/chart-maker/edit/zm-f2c09825-2aa9-4631-acad-90735d51fba9
+        //https://quickchart.io/chart-maker/edit/zm-075d735f-74f7-4db3-aed2-45566de06d2b
+        //https://quickchart.io/chart-maker/edit/zm-12d08832-9f33-42a7-89f2-8128803df631
+
+        $pieChartUrl = "https://quickchart.io/chart/render/zm-a639a26d-3942-4488-aebb-70e732fc6941"."?data1=".count($datiBisogniNonGestite).",".count($datiBisogniGestiteDaMigliorare).",".count($datiBisogniGestiteBene).",".count($datiBisogniNonConsiderate);
+        $insuranceIndexUrl = "https://quickchart.io/chart/render/zm-038cfc44-0f38-41a7-927f-b3f66470a3b3"."?data1=".count($datiBisogniGestiteBene)."&data2=".count($datiBisogniGestiteDaMigliorare)."&data3=".count($datiBisogniNonGestite)+count($datiBisogniNonConsiderate);
+        $qualityIndexUrl = "https://quickchart.io/chart/render/zm-654d3804-ebdd-4678-82e1-e9c689574434"."?data1=".count($datiBisogniGestiteBene).",".count($datiBisogniGestiteDaMigliorare);
 
         $pdf = Pdf::loadView('pdf.trattativa', array("datiBisogniNonGestite" => $datiBisogniNonGestite, "datiBisogniGestiteDaMigliorare" => $datiBisogniGestiteDaMigliorare, "datiBisogniNonConsiderate" => $datiBisogniNonConsiderate, "datiBisogniGestiteBene" => $datiBisogniGestiteBene, "pieChartUrl" => $pieChartUrl, 'insuranceIndexUrl' => $insuranceIndexUrl, "qualityIndexUrl" => $qualityIndexUrl));
 
