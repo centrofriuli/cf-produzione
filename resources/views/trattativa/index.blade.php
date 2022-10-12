@@ -446,44 +446,99 @@
               integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
               crossorigin="anonymous">
     </head>
+    <!-- Modale lista -->
+    <div class="modal" id="exampleModalCenter"
+         tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Lista Trattative</h5>
+                    <button id="exampleModalCenterTitleButton" type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Ora</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($trattativeAll as $trattativaSingle)
+                            <tr>
+                                <td class="col-sm-3">{{$trattativaSingle->id}}</td>
+                                <td class="col-sm-3">{{$trattativaSingle->created_at->format('d/m/Y')}}</td>
+                                <td class="col-sm-3">{{$trattativaSingle->created_at->format('H:i')}}</td>
+                                <td class="col-sm-3"><a href="{{route('trattativa.index', [$trattativaSingle->id])}}"
+                                                        target="_blank" type="button"
+                                                        class="bi-edit">modifica</a></td>
+                            </tr>
+                        @endforeach
+                        <div id="pagination">
+                            {{$trattativeAll->links()}}
+                        </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <body>
     <table style="width: 80%;height: 50%" class="table table-bordered">
         <thead class="thead-light">
         <tr>
-            <th class="col-sm-4" scope="col">Bisogno</th>
-            <th colspan="10" scope="col">Grado importanza</th>
-            <th class="col-sm-1" scope="col">Gestito</th>
-            <th class="col-sm-1" scope="col">Voto</th>
+            <th class="col-sm-4" scope="col">Bisogno <a id="aggiungiAnagrafica" href="" data-toggle="modal" data-target="#modalAnagrafica" class="small" type="button">(clicca
+                    per aggiungere o modificare dati anagrafici facoltativi)</a></th>
+            <th style="text-align: center" colspan="10" scope="col">Grado importanza</th>
+            <th style="text-align: center" class="col-sm-1" scope="col">Gestito</th>
+            <th style="text-align: center" class="col-sm-1" scope="col">Voto</th>
         </tr>
         <thead class="thead-dark">
         {{Form::open(array('route' => array('trattativa.salvaTabellaBisogni', $id)))}}
         <tr>
-            <th style="text-align: center" scope="col">
+            <th scope="col" style="text-align: right">
+                <button id="listaTrattative" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#exampleModalCenter">
+                    Lista
+                </button>
                 <button class="btn btn-success" type="submit">Salva</button>
                 @if($id)
                     <a href="{{route('trattativa.pdf', [$id])}}" target="_blank" type="button"
                        class="bi bi-file-pdf btn btn-danger">PDF</a>
                 @endif
             </th>
-            <th scope="col">1</th>
-            <th scope="col">2</th>
-            <th scope="col">3</th>
-            <th scope="col">4</th>
-            <th scope="col">5</th>
-            <th scope="col">6</th>
-            <th scope="col">7</th>
-            <th scope="col">8</th>
-            <th scope="col">9</th>
-            <th scope="col">10</th>
-            <th scope="col">#</th>
-            <th scope="col">#</th>
+            <th style="text-align: center" scope="col">1</th>
+            <th style="text-align: center" scope="col">2</th>
+            <th style="text-align: center" scope="col">3</th>
+            <th style="text-align: center" scope="col">4</th>
+            <th style="text-align: center" scope="col">5</th>
+            <th style="text-align: center" scope="col">6</th>
+            <th style="text-align: center" scope="col">7</th>
+            <th style="text-align: center" scope="col">8</th>
+            <th style="text-align: center" scope="col">9</th>
+            <th style="text-align: center" scope="col">10</th>
+            <th style="text-align: center" scope="col">#</th>
+            <th style="text-align: center" scope="col">#</th>
         </tr>
         </thead>
         <tbody>
         @foreach($categorieImportanza as $categoriaImportanza)
             <tr>
                 @if($datiBisogni)
-                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info" data-bs-placement="right" data-bs-toggle="tooltip" title="{{$categoriaImportanza->descrizione}}"></a></td>
+                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
+                                                                                    data-bs-placement="right"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    title="{{$categoriaImportanza->descrizione}}"></a>
+                    </td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1, $datiBisogni[str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)]==1, array('class'=>'customRadio'))??''}}</td>
@@ -503,7 +558,11 @@
                         <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select', 'hidden'))}}</td>
                     @endif
                 @else
-                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info" data-bs-placement="right" data-bs-toggle="tooltip" title="{{$categoriaImportanza->descrizione}}"></a></td>
+                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
+                                                                                    data-bs-placement="right"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    title="{{$categoriaImportanza->descrizione}}"></a>
+                    </td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
                     <td style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 1)}}</td>
@@ -523,6 +582,33 @@
             </tr>
         </tbody>
     </table>
+    {{--    Modale anagrafica utente--}}
+    <div class="modal" id="modalAnagrafica" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inserimento dati anagrafici (facoltativi)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {{Form::label('nomeLabel', 'Nome')}}
+                        {{Form::text('ut_Nome', $datiBisogni["ut_Nome"]??null, array('class'=>'form-control'))}}
+                        {{Form::label('cognomeLabel', 'Cognome')}}
+                        {{Form::text('ut_Cognome', $datiBisogni["ut_Cognome"]??null, array('class'=>'form-control'))}}
+                        {{Form::label('dataNascitaLabel', 'Data di nascita')}}
+                        {{Form::date('ut_Data_nascita', $datiBisogni["ut_Data_nascita"]??null, array('class'=>'form-control'))}}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit">Salva</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
     {{Form::close()}}
     </body>
     </html>
@@ -532,6 +618,12 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
 
 <script>
     $(document).ready(function () {
@@ -556,4 +648,35 @@
         }
     });
 
+</script>
+
+<script>
+    $('#exampleModalCenterTitleButton').on('click', function () {
+            $('#exampleModalCenter').modal('hide');
+        }
+    );
+</script>
+
+<script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
+    };
+
+    var page = getUrlParameter('page');
+
+    if (page) {
+        $('#exampleModalCenter').modal('show');
+    }
 </script>
