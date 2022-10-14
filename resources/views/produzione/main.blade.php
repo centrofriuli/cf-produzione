@@ -400,209 +400,233 @@
     </style>
 </head>
 <body style="padding-top: 65px" class="antialiased">
-<div class="row" style="margin-right: 15px">
-    <div class="col-sm-8">
-        <div class="relative flex items-top min-h-screen  py-4 sm:pt-0">
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="utf-8"/>
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <title>Produzione</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-            </head>
-            <body>
-            <div class="container mt-2" style="font-size: 18px">
-                <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTot}} />
-                <input hidden type="text" id="residuoPremiAnnui" value={{$obiettiviAnnui['ob_pa']-$premiAnnuiTot}} />
-                <input hidden type="text" id="valProtection" value={{$protectionTot}} />
-                <input hidden type="text" id="residuoProtection" value={{$obiettiviAnnui['ob_protection']-$protectionTot}} />
-                <input hidden type="text" id="valPuIbridi" value={{$puIbridiTot}} />
-                <input hidden type="text" id="residuiPuIbridi" value={{$obiettiviAnnui['ob_avc']-$puIbridiTot}} />
-                <input hidden type="text" id="valDnaRetail" value={{$dnaRetailTot}} />
-                <input hidden type="text" id="residuoDnaRetail" value={{$obiettiviAnnui['ob_dna_retail']-$dnaRetailTot}} />
-                <input hidden type="text" id="valDnaMiddleMarket" value={{$dnaMiddleMarketTot}} />
-                <input hidden type="text" id="residuoDnaMiddleMarket" value={{$obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot}} />
-                <input hidden type="text" id="valRca" value={{$rcaTot}} />
-                <input hidden type="text" id="residuoRca" value={{$obiettiviAnnui['ob_rca']-$rcaTot}} />
+<div class="row">
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Produzione</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    </head>
+    <body>
+    <div class="container-fluid" style="font-size: 18px">
+        <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTot}} />
+        <input hidden type="text" id="residuoPremiAnnui" value={{$obiettiviAnnui['ob_pa']-$premiAnnuiTot}} />
+        <input hidden type="text" id="valProtection" value={{$protectionTot}} />
+        <input hidden type="text" id="residuoProtection" value={{$obiettiviAnnui['ob_protection']-$protectionTot}} />
+        <input hidden type="text" id="valPuIbridi" value={{$puIbridiTot}} />
+        <input hidden type="text" id="residuiPuIbridi" value={{$obiettiviAnnui['ob_avc']-$puIbridiTot}} />
+        <input hidden type="text" id="valDnaRetail" value={{$dnaRetailTot}} />
+        <input hidden type="text" id="residuoDnaRetail" value={{$obiettiviAnnui['ob_dna_retail']-$dnaRetailTot}} />
+        <input hidden type="text" id="valDnaMiddleMarket" value={{$dnaMiddleMarketTot}} />
+        <input hidden type="text" id="residuoDnaMiddleMarket"
+               value={{$obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot}} />
+        <input hidden type="text" id="valRca" value={{$rcaTot}} />
+        <input hidden type="text" id="residuoRca" value={{$obiettiviAnnui['ob_rca']-$rcaTot}} />
 
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 18px">
-                        <th colspan="4" style="text-align: center" scope="col" class="col-sm">Premi Annui</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align: center">
-                        <th class="col-sm-3">Obiettivo</th>
-                        <th>Raccolta</th>
-                        <th>%</th>
-                        <th>Residuo</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th contenteditable id="1_obPaNoProt">{{ number_format($obiettiviAnnui['ob_pa'], 0, ',', '.')}}</th>
-                        <th>€ {{ number_format($premiAnnuiTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($premiAnnuiTot/$obiettiviAnnui['ob_pa']*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format(($obiettiviAnnui['ob_pa']-$premiAnnuiTot), 0, ',', '.')}}</th>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 18px">
-                        <th colspan="4" style="text-align: center" scope="col" class="col-sm">di cui Protection</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align: center">
-                        <th class="col-sm-3">Obiettivo</th>
-                        <th>Raccolta</th>
-                        <th>%</th>
-                        <th>Residuo</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th contenteditable id="2_obProt">{{ number_format($obiettiviAnnui['ob_protection'], 0, ',', '.')}}</th>
-                        <th>€ {{ number_format($protectionTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($protectionTot/$obiettiviAnnui['ob_protection']*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format(($obiettiviAnnui['ob_protection']-$protectionTot), 0, ',', '.')}}</th>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 18px">
-                        <th colspan="4" style="text-align: center" scope="col" class="col-sm">Raccolta A.V.C</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align: center">
-                        <th class="col-sm-3">Obiettivo</th>
-                        <th>Raccolta</th>
-                        <th>%</th>
-                        <th>Residuo</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th contenteditable id="3_obAvc">{{ number_format($obiettiviAnnui['ob_avc'], 0, ',', '.')}}</th>
-                        <th>€ {{ number_format($puIbridiTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($puIbridiTot/$obiettiviAnnui['ob_avc']*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format(($obiettiviAnnui['ob_avc']-$puIbridiTot), 0, ',', '.')}}</th>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 18px">
-                        <th colspan="4" style="text-align: center" scope="col" class="col-sm">DNA Retail</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align: center">
-                        <th class="col-sm-3">Obiettivo</th>
-                        <th>Raccolta</th>
-                        <th>%</th>
-                        <th>Residuo</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th contenteditable id="5_obDnaRetail">{{ number_format($obiettiviAnnui['ob_dna_retail'], 0, ',', '.')}}</th>
-                        <th>€ {{ number_format($dnaRetailTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($dnaRetailTot/$obiettiviAnnui['ob_dna_retail']*100, 2),2, ',', '.')}}%</th>
-                        <th id="residuoDnaRetail">€ {{number_format(($obiettiviAnnui['ob_dna_retail']-$dnaRetailTot), 0, ',', '.')}}</th>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 18px">
-                        <th colspan="4" style="text-align: center" scope="col" class="col-sm">DNA Middle Market</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align: center">
-                        <th class="col-sm-3">Obiettivo</th>
-                        <th>Raccolta</th>
-                        <th>%</th>
-                        <th>Residuo</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th contenteditable id="4_obDnaMiddle">{{ number_format($obiettiviAnnui['ob_dna_middle'], 0, ',', '.')}}</th>
-                        <th>€ {{ number_format($dnaMiddleMarketTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($dnaMiddleMarketTot/$obiettiviAnnui['ob_dna_middle']*100, 2),2, ',', '.')}}%</th>
-                        <th>€ {{number_format(($obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot), 0, ',', '.')}}</th>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 18px">
-                        <th colspan="4" style="text-align: center" scope="col" class="col-sm">RCA</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align: center">
-                        <th class="col-sm-3">Obiettivo</th>
-                        <th>Raccolta</th>
-                        <th>%</th>
-                        <th>Residuo</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th contenteditable id="6_obrca">{{ number_format($obiettiviAnnui['ob_rca'], 0, ',', '.')}}</th>
-                        <th id="valRca">€ {{ number_format($rcaTot, 0, ',', '.')}}</th>
-                        <th>{{number_format(round($rcaTot/$obiettiviAnnui['ob_rca']*100, 2),2, ',', '.')}}%</th>
-                        <th id="residuoRca">€ {{number_format(($obiettiviAnnui['ob_rca']-$rcaTot), 0, ',', '.')}}</th>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr style="font-size: 18px">
-                        <th colspan="4" style="text-align: center" scope="col" class="col-sm">Incassi Retail</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="text-align: center">
-                        <th class="col-sm-3">Obiettivo</th>
-                        <th>Raccolta</th>
-                        <th>%</th>
-                        <th>Residuo</th>
-                    </tr>
-                    <tr style="text-align: center">
-                        <th>€ 1.782.000</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            </body>
-            </html>
-        </div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr style="font-size: 18px">
+                <th colspan="5" style="text-align: center" scope="col" class="col-sm">Premi Annui</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="text-align: center">
+                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
+                <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
+                <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
+                <th rowspan="2">
+                    <div class="chart-container" style="position: relative;width:80px; margin:auto">
+                        <canvas id="premiAnnuiChart"></canvas>
+                    </div>
+                </th>
+            </tr>
+            <tr style="text-align: center; background-color: #cbd5e0">
+                <th contenteditable id="1_obPaNoProt">{{ number_format($obiettiviAnnui['ob_pa'], 0, ',', '.')}}</th>
+                <th>€ {{ number_format($premiAnnuiTot, 0, ',', '.')}}</th>
+                <th>{{number_format(round($premiAnnuiTot/$obiettiviAnnui['ob_pa']*100, 2),2, ',', '.')}}%</th>
+                <th>€ {{number_format(($obiettiviAnnui['ob_pa']-$premiAnnuiTot), 0, ',', '.')}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr style="font-size: 18px">
+                <th colspan="5" style="text-align: center" scope="col" class="col-sm">di cui Protection</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="text-align: center">
+                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
+                <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
+                <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
+                <th rowspan="2">
+                    <div class="chart-container" style="position: relative;width:80px; margin:auto">
+                        <canvas id="protectionChart"></canvas>
+                    </div>
+                </th>
+            </tr>
+            <tr style="text-align: center; background-color: #cbd5e0">
+                <th contenteditable id="2_obProt">{{ number_format($obiettiviAnnui['ob_protection'], 0, ',', '.')}}</th>
+                <th>€ {{ number_format($protectionTot, 0, ',', '.')}}</th>
+                <th>{{number_format(round($protectionTot/$obiettiviAnnui['ob_protection']*100, 2),2, ',', '.')}}%</th>
+                <th>€ {{number_format(($obiettiviAnnui['ob_protection']-$protectionTot), 0, ',', '.')}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr style="font-size: 18px">
+                <th colspan="5" style="text-align: center" scope="col" class="col-sm">Raccolta A.V.C</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="text-align: center">
+                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
+                <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
+                <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
+                <th rowspan="2">
+                    <div class="chart-container" style="position: relative;width:80px; margin:auto">
+                        <canvas id="raccoltaAVCchart"></canvas>
+                    </div>
+                </th>
+            </tr>
+            <tr style="text-align: center; background-color: #cbd5e0">
+                <th contenteditable id="3_obAvc">{{ number_format($obiettiviAnnui['ob_avc'], 0, ',', '.')}}</th>
+                <th>€ {{ number_format($puIbridiTot, 0, ',', '.')}}</th>
+                <th>{{number_format(round($puIbridiTot/$obiettiviAnnui['ob_avc']*100, 2),2, ',', '.')}}%</th>
+                <th>€ {{number_format(($obiettiviAnnui['ob_avc']-$puIbridiTot), 0, ',', '.')}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr style="font-size: 18px">
+                <th colspan="5" style="text-align: center" scope="col" class="col-sm">DNA Retail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="text-align: center">
+                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
+                <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
+                <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
+                <th rowspan="2">
+                    <div class="chart-container" style="position: relative;width:80px; margin:auto">
+                        <canvas id="dnaRetailChart"></canvas>
+                    </div>
+                </th>
+            </tr>
+            <tr style="text-align: center; background-color: #cbd5e0">
+                <th contenteditable
+                    id="5_obDnaRetail">{{ number_format($obiettiviAnnui['ob_dna_retail'], 0, ',', '.')}}</th>
+                <th>€ {{ number_format($dnaRetailTot, 0, ',', '.')}}</th>
+                <th>{{number_format(round($dnaRetailTot/$obiettiviAnnui['ob_dna_retail']*100, 2),2, ',', '.')}}%</th>
+                <th id="residuoDnaRetail">
+                    € {{number_format(($obiettiviAnnui['ob_dna_retail']-$dnaRetailTot), 0, ',', '.')}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr style="font-size: 18px">
+                <th colspan="5" style="text-align: center" scope="col" class="col-sm">DNA Middle Market</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="text-align: center">
+                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
+                <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
+                <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
+                <th rowspan="2">
+                    <div class="chart-container" style="position: relative;width:80px; margin:auto">
+                        <canvas id="dnaMiddleMarketChart"></canvas>
+                    </div>
+                </th>
+            </tr>
+            <tr style="text-align: center; background-color: #cbd5e0">
+                <th contenteditable
+                    id="4_obDnaMiddle">{{ number_format($obiettiviAnnui['ob_dna_middle'], 0, ',', '.')}}</th>
+                <th>€ {{ number_format($dnaMiddleMarketTot, 0, ',', '.')}}</th>
+                <th>{{number_format(round($dnaMiddleMarketTot/$obiettiviAnnui['ob_dna_middle']*100, 2),2, ',', '.')}}%
+                </th>
+                <th>€ {{number_format(($obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot), 0, ',', '.')}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr style="font-size: 18px">
+                <th colspan="5" style="text-align: center" scope="col" class="col-sm">RCA</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="text-align: center">
+                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
+                <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
+                <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
+                <th rowspan="2">
+                    <div class="chart-container" style="position: relative;width:80px; margin:auto">
+                        <canvas id="rcaChart"></canvas>
+                    </div>
+                </th>
+            </tr>
+            <tr style="text-align: center; background-color: #cbd5e0">
+                <th contenteditable id="6_obrca">{{ number_format($obiettiviAnnui['ob_rca'], 0, ',', '.')}}</th>
+                <th id="valRca">€ {{ number_format($rcaTot, 0, ',', '.')}}</th>
+                <th>{{number_format(round($rcaTot/$obiettiviAnnui['ob_rca']*100, 2),2, ',', '.')}}%</th>
+                <th id="residuoRca">€ {{number_format(($obiettiviAnnui['ob_rca']-$rcaTot), 0, ',', '.')}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr style="font-size: 18px">
+                <th colspan="5" style="text-align: center" scope="col" class="col-sm">Incassi Retail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="text-align: center">
+                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
+                <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
+                <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
+{{--                <th rowspan="2">--}}
+{{--                    <div class="chart-container" style="position: relative;width:5vw; margin:auto">--}}
+{{--                        <canvas id="incassiRetailChart"></canvas>--}}
+{{--                    </div>--}}
+{{--                </th>--}}
+            </tr>
+            <tr style="text-align: center; background-color: #cbd5e0">
+                <th>€ 1.782.000</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="relative flex items-top min-h-screen  py-4 sm:pt-0">
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8"/>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <title>Produzione</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        </head>
-        <body>
-            <div class="col-sm">
-                <canvas id="premiAnnuiChart" width="80"></canvas>
-                <canvas id="protectionChart" width="80"></canvas>
-                <canvas id="raccoltaAVCchart" width="80"></canvas>
-            </div>
-            <div class="col-sm">
-                <canvas id="dnaRetailChart" width="80"></canvas>
-                <canvas id="dnaMiddleMarketChart" width="80"></canvas>
-                <canvas id="rcaChart" width="80"></canvas>
-            </div>
-        </body>
-        </html>
+    <div class="container-lg"></div>
+    <div class="col-sm">
+        <canvas id="premiAnnuiChart"></canvas>
+        <canvas id="protectionChart" width="80"></canvas>
+        <canvas id="raccoltaAVCchart" width="80"></canvas>
     </div>
+    <div class="col-sm">
+        <canvas id="dnaRetailChart" width="80"></canvas>
+        <canvas id="dnaMiddleMarketChart" width="80"></canvas>
+        <canvas id="rcaChart" width="80"></canvas>
+    </div>
+    </body>
+    </html>
+
 </div>
 
 </div>
@@ -738,18 +762,13 @@
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Premi Annui',
                 },
                 legend: {
+                    display:false,
                     position: 'bottom',
                 },
-                scales: {
-                    y: {
-                        min: 10,
-                        max: 100
-                    }
-                }
             }
         }
     };
@@ -759,18 +778,13 @@
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Protection',
                 },
                 legend: {
+                    display:false,
                     position: 'bottom',
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }
             }
         }
     };
@@ -780,10 +794,11 @@
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Raccolta A.V.C',
                 },
                 legend: {
+                    display:false,
                     position: 'bottom',
                 },
             }
@@ -796,10 +811,11 @@
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'DNA Retail',
                 },
                 legend: {
+                    display:false,
                     position: 'bottom',
                 },
             }
@@ -812,10 +828,11 @@
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'DNA Middle Market',
                 },
                 legend: {
+                    display:false,
                     position: 'bottom',
                 },
             }
@@ -828,10 +845,11 @@
         options: {
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'RCA',
                 },
                 legend: {
+                    display:false,
                     position: 'bottom',
                 },
             }
@@ -925,8 +943,7 @@
             }).done(function (msg) {
                 //
             });
-        }
-        else if (dataType == 6) {
+        } else if (dataType == 6) {
             var tdValue = $(this).text();
             $.ajax({
                 url: '/updateObiettivoAnnuoRca', // This is what I have updated
