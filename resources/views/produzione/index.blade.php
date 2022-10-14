@@ -412,7 +412,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <div class="container mt-2" style="font-size: 18px">
+    <div class="container-fluid" style="font-size: 18px">
         <table class="table table-bordered mb-5">
             <thead class="thead-dark">
             <tr style="font-size: 14px">

@@ -493,10 +493,10 @@
         </div>
     </div>
     <body>
-    <table style="width: 80%;height: 50%" class="table table-bordered">
+    <table style="width: 100%;height: 50%" class="table table-bordered">
         <thead class="thead-light">
         <tr>
-            <th class="col-sm-4" scope="col">Bisogno <a id="aggiungiAnagrafica" href="" data-toggle="modal" data-target="#modalAnagrafica" class="small" type="button">(clicca
+            <th style="text-align: right" class="col-sm-4" scope="col">Bisogno <a id="aggiungiAnagrafica" href="" data-toggle="modal" data-target="#modalAnagrafica" class="small" type="button">(clicca
                     per aggiungere o modificare dati anagrafici facoltativi)</a></th>
             <th style="text-align: center" colspan="10" scope="col">Grado importanza</th>
             <th style="text-align: center" class="col-sm-1" scope="col">Gestito</th>

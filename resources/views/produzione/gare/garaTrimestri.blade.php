@@ -412,8 +412,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <div class="container mt-2" style="font-size: 18px">
-
+    <div class="container-fluid" style="font-size: 18px">
         <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTotGara}} />
         <input hidden type="text" id="residuoPremiAnnui" value={{150000-$premiAnnuiTotGara}} />
         <input hidden type="text" id="valProtection" value={{$protectionTotGara}} />
@@ -439,96 +438,102 @@
                 <th>Premi Annui</th>
                 <td>€ {{number_format($premiAnnuiTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($premiAnnuiTotGara/150000*100, 2),2, ',', '.')}}%</td>
-                <td id="1_obPaNoProt_{{$trim}}_gold" contenteditable>{{number_format($obGold['ob_pa']??'', 0, ',', '.')}}</td>
-                <td id="1_obPaNoProt_{{$trim}}_platinum" contenteditable>{{number_format($obPlatinum['ob_pa']??'', 0, ',', '.')}}</td>
+                <td id="1_obPaNoProt_{{$trim}}_gold"
+                    contenteditable>{{number_format($obGold['ob_pa']??'', 0, ',', '.')}}</td>
+                <td id="1_obPaNoProt_{{$trim}}_platinum"
+                    contenteditable>{{number_format($obPlatinum['ob_pa']??'', 0, ',', '.')}}</td>
                 <td id="resPremiAnnui">€ {{number_format(150000-$premiAnnuiTotGara,0, ',', '.')}}</td>
             </tr>
             <tr id="sensible-protection">
                 <th>di cui Protection</th>
                 <td>€ {{number_format($protectionTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($protectionTotGara/45000*100, 2),2, ',', '.')}}%</td>
-                <td id="2_obProt_{{$trim}}_gold" contenteditable="">{{number_format($obGold['ob_protection']??'', 0, ',', '.')}}</td>
-                <td id="2_obProt_{{$trim}}_platinum" contenteditable="">{{number_format($obPlatinum['ob_protection']??'', 0, ',', '.')}}</td>
+                <td id="2_obProt_{{$trim}}_gold"
+                    contenteditable="">{{number_format($obGold['ob_protection']??'', 0, ',', '.')}}</td>
+                <td id="2_obProt_{{$trim}}_platinum"
+                    contenteditable="">{{number_format($obPlatinum['ob_protection']??'', 0, ',', '.')}}</td>
                 <td id="resProtection">€ {{number_format(45000-$protectionTotGara,0, ',', '.')}}</td>
             </tr>
             <tr id="sensible-puIbridi">
                 <th>A.V.C</th>
                 <td>€ {{number_format($puIbridiTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($puIbridiTotGara/2000000*100, 2),2, ',', '.')}}%</td>
-                <td id="3_obAvc_{{$trim}}_gold" contenteditable>{{number_format($obGold['ob_avc']??'', 0, ',', '.')}}</td>
-                <td id="3_obAvc_{{$trim}}_platinum" contenteditable>{{number_format($obPlatinum['ob_avc']??'', 0, ',', '.')}}</td>
+                <td id="3_obAvc_{{$trim}}_gold"
+                    contenteditable>{{number_format($obGold['ob_avc']??'', 0, ',', '.')}}</td>
+                <td id="3_obAvc_{{$trim}}_platinum"
+                    contenteditable>{{number_format($obPlatinum['ob_avc']??'', 0, ',', '.')}}</td>
                 <td id="resPuIbridi">€ {{number_format(2000000-$puIbridiTotGara,0, ',', '.')}}</td>
             </tr>
             <tr id="sensible-dnaPlus">
                 <th>DNA Plus</th>
                 <td>€ {{number_format($dnaPlusTotGara, 0, ',', '.')}}</td>
                 <td>{{number_format(round($dnaPlusTotGara/55000*100, 2),2, ',', '.')}}%</td>
-                <td id="4_obPaDnaPlus_{{$trim}}_gold" contenteditable>{{number_format($obGold['ob_dna_plus']??'', 0, ',', '.')}}</td>
-                <td id="4_obPaDnaPlus_{{$trim}}_platinum" contenteditable>{{number_format($obPlatinum['ob_dna_plus']??'', 0, ',', '.')}}</td>
+                <td id="4_obPaDnaPlus_{{$trim}}_gold"
+                    contenteditable>{{number_format($obGold['ob_dna_plus']??'', 0, ',', '.')}}</td>
+                <td id="4_obPaDnaPlus_{{$trim}}_platinum"
+                    contenteditable>{{number_format($obPlatinum['ob_dna_plus']??'', 0, ',', '.')}}</td>
                 <td id="resDnaPlus">€ {{number_format(55000-$dnaPlusTotGara,0, ',', '.')}}</td>
             <tr>
             </tbody>
         </table>
 
-        <div style="width: 55vw">
-            <div class="row">
-                <div class="col-sm">
-                    <canvas id="premiAnnuiChart"></canvas>
-                </div>
-                <div class="col-sm">
-                    <canvas id="protectionChart"></canvas>
-                </div>
-                <div class="col-sm">
-                    <canvas id="raccoltaAVCchart"></canvas>
-                </div>
-                <div class="col-sm">
-                    <canvas id="dnaPlusChart"></canvas>
-                </div>
+        <div class="row d-flex justify-content-center">
+            <div class="chart-container" style="position: relative; width: 300px">
+                <canvas id="premiAnnuiChart"></canvas>
+            </div>
+            <div class="chart-container" style="position: relative; width: 300px">
+            <canvas id="protectionChart"></canvas>
+            </div>
+            <div class="chart-container" style="position: relative; width: 300px">
+            <canvas id="raccoltaAVCchart"></canvas>
+            </div>
+            <div class="chart-container" style="position: relative; width: 300px">
+            <canvas id="dnaPlusChart"></canvas>
             </div>
         </div>
 
-        <table class="table table-bordered mb-5">
-            <thead class="thead-dark">
-            <tr style="font-size: 14px">
-                <th scope="col" class="col-sm-3">Collaboratori</th>
-                <th scope="col" class="col-sm-1">PA no Protection</th>
-                <th scope="col" class="col-sm-1">Protection</th>
-                <th scope="col" class="col-sm-1">AVC</th>
-                <th scope="col" class="col-sm-1">DNA Retail</th>
-                <th scope="col" class="col-sm-1">DNA Middle</th>
-                <th scope="col" class="col-sm-1">Punti Raggiunti</th>
+    <table class="table table-bordered mb-5">
+        <thead class="thead-dark">
+        <tr style="font-size: 14px">
+            <th scope="col" class="col-sm-3">Collaboratori</th>
+            <th scope="col" class="col-sm-1">PA no Protection</th>
+            <th scope="col" class="col-sm-1">Protection</th>
+            <th scope="col" class="col-sm-1">AVC</th>
+            <th scope="col" class="col-sm-1">DNA Retail</th>
+            <th scope="col" class="col-sm-1">DNA Middle</th>
+            <th scope="col" class="col-sm-1">Punti Raggiunti</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($listaCollaboratori as $lc => $collaboratore)
+            <tr>
+                <th class="table-success">{{$lc}}</th>
+                <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
+                <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
+                <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
+                <td>{{number_format($collaboratore["Retail"], 0, ',', '.')}}</td>
+                <td>{{number_format($collaboratore["Middle"], 0, ',', '.')}}</td>
+                <td>{{number_format($collaboratore["PuntiTot"], 0, ',', '.')}}</td>
             </tr>
-            </thead>
-            <tbody>
-            @foreach($listaCollaboratori as $lc => $collaboratore)
-                <tr>
-                    <th class="table-success">{{$lc}}</th>
-                    <td>{{number_format($collaboratore["PANoProt"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Retail"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Middle"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["PuntiTot"], 0, ',', '.')}}</td>
-                </tr>
-            @endforeach
-            <tr class="table-warning" style="text-align: end">
-                <th>SOMMA RETE</th>
-                <td>{{ number_format($totaleRete["PANoProt"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Retail"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Middle"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["PuntiTot"], 0, ',', '.')}}</td>
-            </tr>
-            </tbody>
-        </table>
-        {{-- Pagination --}}
-        <div class="d-flex justify-content-center">
-            {{--                    {!! $productionDanniNoAutos->links() !!}--}}
-        </div>
+        @endforeach
+        <tr class="table-warning" style="text-align: end">
+            <th>SOMMA RETE</th>
+            <td>{{ number_format($totaleRete["PANoProt"], 0, ',', '.')}}</td>
+            <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
+            <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
+            <td>{{ number_format($totaleRete["Retail"], 0, ',', '.')}}</td>
+            <td>{{ number_format($totaleRete["Middle"], 0, ',', '.')}}</td>
+            <td>{{ number_format($totaleRete["PuntiTot"], 0, ',', '.')}}</td>
+        </tr>
+        </tbody>
+    </table>
+    {{-- Pagination --}}
+    <div class="d-flex justify-content-center">
+        {{--                    {!! $productionDanniNoAutos->links() !!}--}}
     </div>
-    </body>
-    </html>
+</div>
+</body>
+</html>
 </div>
 </body>
 </html>
