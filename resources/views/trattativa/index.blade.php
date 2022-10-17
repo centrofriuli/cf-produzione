@@ -432,8 +432,16 @@
         }
     </style>
 </head>
+
 <body class="antialiased" style="padding-top: 65px">
-<div class="relative flex items-top justify-center min-h-screen py-4 sm:pt-0">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul style="text-align: center">
+            Completare tutti i campi richiesti evidenziati
+        </ul>
+    </div>
+@endif
+<div class="relative flex items-top justify-center min-h-screen">
     <!DOCTYPE html>
     <html>
     <head>
@@ -496,7 +504,7 @@
     <table style="width: 100%;height: 50%" class="table table-bordered">
         <thead class="thead-light">
         <tr>
-            <th style="text-align: right" class="col-sm-4" scope="col">Bisogno <a id="aggiungiAnagrafica" href="" data-toggle="modal" data-target="#modalAnagrafica" class="small" type="button">(clicca
+            <th style="text-align: right" class="col-sm-3" scope="col">Bisogno <a id="aggiungiAnagrafica" href="" data-toggle="modal" data-target="#modalAnagrafica" class="small" type="button">(clicca
                     per aggiungere o modificare dati anagrafici facoltativi)</a></th>
             <th style="text-align: center" colspan="10" scope="col">Grado importanza</th>
             <th style="text-align: center" class="col-sm-1" scope="col">Gestito</th>
@@ -534,10 +542,9 @@
         @foreach($categorieImportanza as $categoriaImportanza)
             <tr>
                 @if($datiBisogni)
-                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
-                                                                                    data-bs-placement="right"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    title="{{$categoriaImportanza->descrizione}}"></a>
+                    <td style="text-align: right">
+                        {{$categoriaImportanza->nome}}
+                        <a href="#" class="bi bi-info" data-bs-placement="right" data-bs-toggle="tooltip" title="{{$categoriaImportanza->descrizione}}"></a>
                     </td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
@@ -558,7 +565,7 @@
                         <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select', 'hidden'))}}</td>
                     @endif
                 @else
-                    <td style="text-align: right">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
+                    <td style="text-align: right; {{$errors->has(str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)) ?'color:red;font-weight:bold':'' }}">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
                                                                                     data-bs-placement="right"
                                                                                     data-bs-toggle="tooltip"
                                                                                     title="{{$categoriaImportanza->descrizione}}"></a>
