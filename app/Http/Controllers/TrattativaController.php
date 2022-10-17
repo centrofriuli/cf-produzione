@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use function Composer\Autoload\includeFile;
 
 class TrattativaController extends Controller
@@ -31,6 +32,25 @@ class TrattativaController extends Controller
 
     public function salvaTabellaBisogni(Request $request): RedirectResponse
     {
+
+        $validate = Validator::make($request->all(), [
+            'im_Auto' => 'required|numeric|gt:0',
+            'im_Infortuni' => 'required|gt:0',
+            'im_Responsabilità_Civile' => 'required|gt:0',
+            'im_Copertura_Morte' => 'required|gt:0',
+            'im_Casa' => 'required|gt:0',
+            'im_Non_Autosufficienza' => 'required|gt:0',
+            'im_Copertura_Sanitaria' => 'required|gt:0',
+            'im_Tutela_Legale' => 'required|gt:0',
+            'im_Previdenziale' => 'required|gt:0',
+            'im_Risparmio_Fiscale' => 'required|gt:0',
+            'im_Accumulo_Finanziario' => 'required|gt:0',
+            'im_Gestione_Patrimonio_Finanziario' => 'required|gt:0',
+        ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }
+
         $datiBisogno = json_encode($request->all());
 
         if ($request->route('idTrattativa')) {
