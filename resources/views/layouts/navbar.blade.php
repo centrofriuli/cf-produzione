@@ -1,32 +1,3 @@
-{{--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">--}}
-{{--    <div class="container-fluid">--}}
-{{--        <a class="navbar-brand" href="#">Produzione Centrofriuli 2022</a>--}}
-{{--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"--}}
-{{--                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">--}}
-{{--            <span class="navbar-toggler-icon"></span>--}}
-{{--        </button>--}}
-{{--    </div>--}}
-{{--    <ul class="navbar-nav mr-auto">--}}
-{{--        <li class="nav-item active">--}}
-{{--            <a class="nav-link" href={{route('produzione.main')}}>Riepilogo Agenzia</a>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href={{route('produzione.index')}}>Riepilogo Commerciali</a>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href={{route('produzione.gare.garaPrimoTrimestre')}}>Gara 1° Trimestre</a>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href={{route('produzione.gare.garaSecondoTrimestre')}}>Gara 2° Trimestre</a>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href={{route('produzione.gare.garaTerzoTrimestre')}}>Gara 3° Trimestre</a>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href={{route('produzione.gare.garaQuartoTrimestre')}}>Gara 4° Trimestre</a>--}}
-{{--        </li>--}}
-{{--    </ul>--}}
-{{--</nav>--}}
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
