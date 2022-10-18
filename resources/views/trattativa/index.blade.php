@@ -504,7 +504,10 @@
     <table style="width: 100%;height: 50%" class="table table-bordered">
         <thead class="thead-light">
         <tr>
-            <th style="text-align: right" class="col-sm-3" scope="col">Bisogno <a id="aggiungiAnagrafica" href="" data-toggle="modal" data-target="#modalAnagrafica" class="small" type="button">(clicca
+            <th style="text-align: right" class="col-sm-3" scope="col">Bisogno <a id="aggiungiAnagrafica" href=""
+                                                                                  data-toggle="modal"
+                                                                                  data-target="#modalAnagrafica"
+                                                                                  class="small" type="button">(clicca
                     per aggiungere o modificare dati anagrafici facoltativi)</a></th>
             <th style="text-align: center" colspan="10" scope="col">Grado importanza</th>
             <th style="text-align: center" class="col-sm-1" scope="col">Gestito</th>
@@ -514,15 +517,17 @@
         {{Form::open(array('route' => array('trattativa.salvaTabellaBisogni', $id)))}}
         <tr>
             <th scope="col" style="text-align: right">
-                <button id="listaTrattative" type="button" class="btn btn-primary" data-toggle="modal"
+                @if($id)
+                    <a href="{{route('trattativa.index')}}" target="_blank" type="button"
+                       class="bi bi-plus btn btn-primary">Nuovo</a>
+                    <a href="{{route('trattativa.pdf', [$id])}}" target="_blank" type="button"
+                       class="bi bi-file-pdf btn btn-danger">PDF</a>
+                @endif
+                <button id="listaTrattative" type="button" class="btn btn-warning" data-toggle="modal"
                         data-target="#exampleModalCenter">
                     Lista
                 </button>
                 <button class="btn btn-success" type="submit">Salva</button>
-                @if($id)
-                    <a href="{{route('trattativa.pdf', [$id])}}" target="_blank" type="button"
-                       class="bi bi-file-pdf btn btn-danger">PDF</a>
-                @endif
             </th>
             <th style="text-align: center" scope="col">1</th>
             <th style="text-align: center" scope="col">2</th>
@@ -544,7 +549,8 @@
                 @if($datiBisogni)
                     <td style="text-align: right">
                         {{$categoriaImportanza->nome}}
-                        <a href="#" class="bi bi-info" data-bs-placement="right" data-bs-toggle="tooltip" title="{{$categoriaImportanza->descrizione}}"></a>
+                        <a href="#" class="bi bi-info" data-bs-placement="right" data-bs-toggle="tooltip"
+                           title="{{$categoriaImportanza->descrizione}}"></a>
                     </td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
@@ -565,10 +571,11 @@
                         <td style="text-align: center"> {{Form::select('vo_'.str_replace(' ', '_', $categoriaImportanza->nome), range(0,10), $datiBisogni[str_replace(' ', '_', 'vo_'.$categoriaImportanza->nome)], array('class'=> 'form-select', 'hidden'))}}</td>
                     @endif
                 @else
-                    <td style="text-align: right; {{$errors->has(str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)) ?'color:red;font-weight:bold':'' }}">{{$categoriaImportanza->nome}} <a href="#" class="bi bi-info"
-                                                                                    data-bs-placement="right"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    title="{{$categoriaImportanza->descrizione}}"></a>
+                    <td style="text-align: right; {{$errors->has(str_replace(' ', '_', 'im_'.$categoriaImportanza->nome)) ?'color:red;font-weight:bold':'' }}">{{$categoriaImportanza->nome}}
+                        <a href="#" class="bi bi-info"
+                           data-bs-placement="right"
+                           data-bs-toggle="tooltip"
+                           title="{{$categoriaImportanza->descrizione}}"></a>
                     </td>
                     <td hidden
                         style="text-align: center"> {{Form::radio('im_'.str_replace(' ', '_', $categoriaImportanza->nome), 0, true)}}</td>
