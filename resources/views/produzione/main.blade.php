@@ -411,21 +411,21 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <div class="container-fluid" style="font-size: 18px">
-        <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTot}} />
-        <input hidden type="text" id="residuoPremiAnnui" value={{$obiettiviAnnui['ob_pa']-$premiAnnuiTot}} />
-        <input hidden type="text" id="valProtection" value={{$protectionTot}} />
-        <input hidden type="text" id="residuoProtection" value={{$obiettiviAnnui['ob_protection']-$protectionTot}} />
-        <input hidden type="text" id="valPuIbridi" value={{$puIbridiTot}} />
-        <input hidden type="text" id="residuiPuIbridi" value={{$obiettiviAnnui['ob_avc']-$puIbridiTot}} />
-        <input hidden type="text" id="valDnaRetail" value={{$dnaRetailTot}} />
-        <input hidden type="text" id="residuoDnaRetail" value={{$obiettiviAnnui['ob_dna_retail']-$dnaRetailTot}} />
-        <input hidden type="text" id="valDnaMiddleMarket" value={{$dnaMiddleMarketTot}} />
-        <input hidden type="text" id="residuoDnaMiddleMarket"
-               value={{$obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot}} />
-        <input hidden type="text" id="valRca" value={{$rcaTot}} />
-        <input hidden type="text" id="residuoRca" value={{$obiettiviAnnui['ob_rca']-$rcaTot}} />
+    <input hidden type="text" id="valPremiAnnui" value={{$premiAnnuiTot}} />
+    <input hidden type="text" id="residuoPremiAnnui" value={{$obiettiviAnnui['ob_pa']-$premiAnnuiTot}} />
+    <input hidden type="text" id="valProtection" value={{$protectionTot}} />
+    <input hidden type="text" id="residuoProtection" value={{$obiettiviAnnui['ob_protection']-$protectionTot}} />
+    <input hidden type="text" id="valPuIbridi" value={{$puIbridiTot}} />
+    <input hidden type="text" id="residuiPuIbridi" value={{$obiettiviAnnui['ob_avc']-$puIbridiTot}} />
+    <input hidden type="text" id="valDnaRetail" value={{$dnaRetailTot}} />
+    <input hidden type="text" id="residuoDnaRetail" value={{$obiettiviAnnui['ob_dna_retail']-$dnaRetailTot}} />
+    <input hidden type="text" id="valDnaMiddleMarket" value={{$dnaMiddleMarketTot}} />
+    <input hidden type="text" id="residuoDnaMiddleMarket"
+           value={{$obiettiviAnnui['ob_dna_middle']-$dnaMiddleMarketTot}} />
+    <input hidden type="text" id="valRca" value={{$rcaTot}} />
+    <input hidden type="text" id="residuoRca" value={{$obiettiviAnnui['ob_rca']-$rcaTot}} />
 
+    <div class="container-fluid" style="font-size: 18px">
         <table class="table table-bordered">
             <thead class="thead-dark">
             <tr style="font-size: 18px">
@@ -598,11 +598,11 @@
                 <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
                 <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
                 <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>
-{{--                <th rowspan="2">--}}
-{{--                    <div class="chart-container" style="position: relative;width:5vw; margin:auto">--}}
-{{--                        <canvas id="incassiRetailChart"></canvas>--}}
-{{--                    </div>--}}
-{{--                </th>--}}
+                {{--                <th rowspan="2">--}}
+                {{--                    <div class="chart-container" style="position: relative;width:5vw; margin:auto">--}}
+                {{--                        <canvas id="incassiRetailChart"></canvas>--}}
+                {{--                    </div>--}}
+                {{--                </th>--}}
             </tr>
             <tr style="text-align: center; background-color: #cbd5e0">
                 <th>€ 1.782.000</th>
@@ -613,17 +613,7 @@
             </tbody>
         </table>
     </div>
-    <div class="container-lg"></div>
-    <div class="col-sm">
-        <canvas id="premiAnnuiChart"></canvas>
-        <canvas id="protectionChart" width="80"></canvas>
-        <canvas id="raccoltaAVCchart" width="80"></canvas>
-    </div>
-    <div class="col-sm">
-        <canvas id="dnaRetailChart" width="80"></canvas>
-        <canvas id="dnaMiddleMarketChart" width="80"></canvas>
-        <canvas id="rcaChart" width="80"></canvas>
-    </div>
+
     </body>
     </html>
 
@@ -766,7 +756,7 @@
                     text: 'Premi Annui',
                 },
                 legend: {
-                    display:false,
+                    display: false,
                     position: 'bottom',
                 },
             }
@@ -782,7 +772,7 @@
                     text: 'Protection',
                 },
                 legend: {
-                    display:false,
+                    display: false,
                     position: 'bottom',
                 },
             }
@@ -798,7 +788,7 @@
                     text: 'Raccolta A.V.C',
                 },
                 legend: {
-                    display:false,
+                    display: false,
                     position: 'bottom',
                 },
             }
@@ -815,7 +805,7 @@
                     text: 'DNA Retail',
                 },
                 legend: {
-                    display:false,
+                    display: false,
                     position: 'bottom',
                 },
             }
@@ -832,7 +822,7 @@
                     text: 'DNA Middle Market',
                 },
                 legend: {
-                    display:false,
+                    display: false,
                     position: 'bottom',
                 },
             }
@@ -849,7 +839,7 @@
                     text: 'RCA',
                 },
                 legend: {
-                    display:false,
+                    display: false,
                     position: 'bottom',
                 },
             }
