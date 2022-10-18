@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acaa917143e5ad66bf9c2dc52693e03a",
+    "content-hash": "eeb554235b96ab2404a440771c5ac6d9",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -571,6 +571,53 @@
                 }
             ],
             "time": "2022-06-18T20:57:19+00:00"
+        },
+        {
+            "name": "elic-dev/laravel-site-protection",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elic-dev/laravel-site-protection.git",
+                "reference": "9b4f6eef8a6918ed62871f87033613fc5da503ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elic-dev/laravel-site-protection/zipball/9b4f6eef8a6918ed62871f87033613fc5da503ae",
+                "reference": "9b4f6eef8a6918ed62871f87033613fc5da503ae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ElicDev\\SiteProtection\\SiteProtectionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ElicDev\\SiteProtection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Lill",
+                    "email": "m.lill@gmx.de"
+                }
+            ],
+            "description": "Protect your site with a simple password form",
+            "support": {
+                "issues": "https://github.com/elic-dev/laravel-site-protection/issues",
+                "source": "https://github.com/elic-dev/laravel-site-protection/tree/1.1.0"
+            },
+            "time": "2022-03-29T08:01:02+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -3797,6 +3844,75 @@
                 }
             ],
             "time": "2022-09-07T10:01:34+00:00"
+        },
+        {
+            "name": "spatie/laravel-littlegatekeeper",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-littlegatekeeper.git",
+                "reference": "634fae90e8f8eb1949390cdafbab3c962034e35f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-littlegatekeeper/zipball/634fae90e8f8eb1949390cdafbab3c962034e35f",
+                "reference": "634fae90e8f8eb1949390cdafbab3c962034e35f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "^8.74|^9.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.23|^7.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\LittleGateKeeper\\LittleGateKeeperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LittleGateKeeper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Protect pages from access with a universal username/password",
+            "homepage": "https://github.com/spatie/laravel-littlegatekeeper",
+            "keywords": [
+                "laravel-littlegatekeeper",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-littlegatekeeper/issues",
+                "source": "https://github.com/spatie/laravel-littlegatekeeper/tree/2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-01-19T10:38:28+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
