@@ -57,17 +57,17 @@
 </header>
 
 <footer>
-    Copyright © <?php echo date("Y");?> centrofriuli.eu
+    Copyright © <?php echo date("Y");?> Agenzia Generale Codroipo Giardini - Via C. Battisti n. 5 - 33033 Codroipo (UD)
 </footer>
 
 <!-- Wrap the content of your PDF inside a main tag -->
 <main>
     <h4 class="text-uppercase" style="margin-top: -50px; padding-bottom: 20px; text-align: center;">Sviluppo bisogni</h4>
     @if($datiBisogniNonGestite)
-        <table style="margin-top: 10px" class="table table-striped">
+        <table style="margin-top: 10px; border: 2px solid #e78e1c;" class="table table-striped">
             <thead>
             <tr>
-                <th class="col-sm-7" scope="col">Non Gestite<br><small>Bisogni che reputo importanti ma non ho ancora
+                <th style="background-color: #f9695e" class="col-sm-7" scope="col">Importanti Non Gestite<br><small>Bisogni che reputo importanti ma non ho ancora
                         preso a cuore</small>
                 </th>
                 <th class="col-sm-2" scope="col">Importanza</th>
@@ -121,10 +121,10 @@
     @endif
     {{--migliorabili--}}
     @if($datiBisogniGestiteDaMigliorare)
-        <table style="margin-top: 10px" class="table table-striped">
+        <table style="margin-top: 10px; border: 2px solid #e78e1c;" class="table table-striped">
             <thead>
             <tr>
-                <th class="col-sm-7" scope="col">Gestite Da Migliorare<br><small>Sono aree di bisogno dove ho preso
+                <th style="background-color: #e78e1c" class="col-sm-7" scope="col">Gestite Da Migliorare<br><small>Sono aree di bisogno dove ho preso
                         decisioni
                         migliorabili</small></th>
                 <th class="col-sm-2" scope="col">Importanza</th>
@@ -178,10 +178,10 @@
     @endif
     {{--gestite bene--}}
     @if($datiBisogniGestiteBene)
-        <table style="margin-top: 10px" class="table table-striped">
+        <table style="margin-top: 10px; border: 2px solid #44af44;" class="table table-striped">
             <thead>
             <tr>
-                <th class="col-sm-7" scope="col">Gestite Bene<br><small>Ho deciso e ho fatto una scelta adeguata</small>
+                <th style="background-color: #44af44" class="col-sm-7" scope="col">Gestite Bene<br><small>Ho deciso e ho fatto una scelta adeguata</small>
                 </th>
                 <th class="col-sm-2" scope="col">Importanza</th>
                 <th scope="col">Grado Copertura</th>
@@ -234,10 +234,10 @@
     @endif
     {{--    aree non considerate--}}
     @if($datiBisogniNonConsiderate)
-        <table style="margin-top: 10px" class="table table-striped">
+        <table style="margin-top: 10px; border: 2px solid #9facc5;" class="table table-striped">
             <thead>
             <tr>
-                <th class="col-sm-7" scope="col">Aree non considerate<br><small>Sono bisogni a cui non ho dato
+                <th style="background-color: #9facc5" class="col-sm-7" scope="col">Aree importanti al momento per me<br><small>Sono bisogni a cui non ho dato
                         importanza finora</small>
                 </th>
                 <th class="col-sm-2" scope="col">Importanza</th>
