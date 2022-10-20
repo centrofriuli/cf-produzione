@@ -434,7 +434,7 @@
             </thead>
             <tbody>
             <tr style="text-align: center">
-                <th style="color: white; background-color: #718096" class="col-sm-3">Obiettivo</th>
+                <th style="background-color: #718096 color: white; " class="col-sm-3">Obiettivo</th>
                 <th style="background-color: #00B309; color: white;" class="col-sm-3">Raccolta</th>
                 <th style="background-color: #718096; color: white" class="col-sm-3">%</th>
                 <th style="background-color: #DF0030; color: white" class="col-sm-3">Residuo</th>

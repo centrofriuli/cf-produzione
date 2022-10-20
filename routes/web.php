@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\TrattativaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VivereDiRenditaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +64,8 @@ Route::get('/updateObiettivoSemestreDnaRetail/', [ProductionController::class, '
 Route::get('/trattativa/{id?}', [TrattativaController::class, 'index'])->name('trattativa.index');
 Route::get('/trattativa/pdf/{idTrattativa}', [TrattativaController::class, 'pdf'])->name('trattativa.pdf');
 Route::post('/trattativa/salvaTabellaBisogni/{idTrattativa?}', [TrattativaController::class, 'salvaTabellaBisogni'])->name('trattativa.salvaTabellaBisogni');
+
+Route::get('/rendita/{id?}', [VivereDiRenditaController::class, 'index'])->name('vivereDiRendita.index');
 
 //fileimport
 Route::controller(UserController::class)->group(function(){

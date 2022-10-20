@@ -106,6 +106,9 @@ class TrattativaController extends Controller
             }
         }
 
+        $columns = array_column($datiBisogniNew, 'im');
+        array_multisort($columns, SORT_DESC, $datiBisogniNew);
+
         foreach ($datiBisogniNew as $ds => $datiBisognoSplit) {
             if($datiBisognoSplit["im"] > 6 && $datiBisognoSplit['ge'] == 0){
                 $datiBisogniNonGestite[$ds] = $datiBisognoSplit;
