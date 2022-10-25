@@ -31,7 +31,7 @@
                             <a class="dropdown-item" href={{url('produzione/gara-1-trimestre')}}>Gara 1° Trimestre</a>
                         </li>
                         <li class="nav-item {{ (request()->is('produzione/gara-2-trimestre')) ? 'active' : '' }}">
-                            <a class="dropdown-item"" href={{url('produzione/gara-2-trimestre')}}>Gara 2° Trimestre</a>
+                            <a class="dropdown-item" href={{url('produzione/gara-2-trimestre')}}>Gara 2° Trimestre</a>
                         </li>
                         <li class="nav-item {{ (request()->is('produzione/gara-3-trimestre')) ? 'active' : '' }}">
                             <a class="dropdown-item" href={{url('produzione/gara-3-trimestre')}}>Gara 3° Trimestre</a>
@@ -45,6 +45,8 @@
                         </li>
                     </ul>
                 </div>
+                <a class="nav-link" href={{route('vivereDiRendita.index')}}><i class="bi-arrow-left-right"></i>
+                    Vivere di Rendita</a>
             @endif
         </ul>
         @if(request()->routeIs('produzione.*'))
