@@ -45,9 +45,15 @@
                         </li>
                     </ul>
                 </div>
-                <a class="nav-link" href={{route('vivereDiRendita.index')}}><i class="bi-arrow-left-right"></i>
-                    Vivere di Rendita</a>
             @endif
+            @if(request()->routeIs('trattativa.index'))
+                <a class="nav-link" href={{route('produzione.main')}}><i class="bi-arrow-left-right"></i> Produzione</a>
+            @else
+                <a class="nav-link" href={{route('trattativa.index')}}><i class="bi-arrow-left-right"></i>
+                    Trattativa</a>
+            @endif
+            <a class="nav-link" href={{route('vivereDiRendita.index')}}><i class="bi-arrow-left-right"></i>
+                Vivere di Rendita</a>
         </ul>
         @if(request()->routeIs('produzione.*'))
             <div class="nav-item dropdown">
@@ -64,13 +70,5 @@
             </div>
         @endif
         <a href="{{route('produzione.opzioni')}}" type="button" class="bi bi-gear btn btn-outline-primary"></a>
-        <div>
-            @if(request()->routeIs('trattativa.index'))
-                <a class="nav-link" href={{route('produzione.main')}}><i class="bi-arrow-left-right"></i> Produzione</a>
-            @else
-                <a class="nav-link" href={{route('trattativa.index')}}><i class="bi-arrow-left-right"></i>
-                    Trattativa</a>
-            @endif
-        </div>
     </div>
 </nav>
