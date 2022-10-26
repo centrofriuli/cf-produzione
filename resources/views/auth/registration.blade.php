@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 @include('layouts.navbar')
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -400,8 +399,8 @@
         }
     </style>
 </head>
-<body class="antialiased" style="padding-top: 65px">
-<div class="relative flex items-top justify-center min-h-screen py-4 sm:pt-0">
+<body style="padding-top: 65px" class="antialiased">
+<div class="row">
     <!DOCTYPE html>
     <html>
     <head>
@@ -412,59 +411,61 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <div class="container-fluid" style="font-size: 18px">
-        @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session()->get('message') }}
+
+    <div class="container-sm" style="font-size: 18px">
+        <main class="signup-form" style="padding-top: 10px">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <h3 class="card-header text-center">Registra Utente</h3>
+                            <div class="card-body">
+                                <form action="{{ route('register.custom') }}" method="POST">
+                                    @csrf
+                                    <div class="form-group mb-3">
+                                        <input type="text" placeholder="Nome" id="name" class="form-control" name="name"
+                                               required autofocus>
+                                        @if ($errors->has('name'))
+                                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input type="text" placeholder="Email" id="email_address" class="form-control"
+                                               name="email" required autofocus>
+                                        @if ($errors->has('email'))
+                                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input type="password" placeholder="Password" id="password" class="form-control"
+                                               name="password" required>
+                                        @if ($errors->has('password'))
+                                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" name="remember"> Ricordami</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid mx-auto">
+                                        <button type="submit" class="btn btn-dark btn-block">Registrati</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
-        <table class="table table-bordered mb-5">
-            <thead class="thead-dark">
-            <tr style="font-size: 14px">
-                <th scope="col" class="col-sm-3">Collaboratori</th>
-                <th scope="col" class="col-sm-1">Premi Annui</th>
-                <th scope="col" class="col-sm-1">Protection</th>
-                <th scope="col" class="col-sm-1">AVC</th>
-                <th scope="col" class="col-sm-1">DNA Retail</th>
-                <th scope="col" class="col-sm-1">DNA Middle</th>
-                <th scope="col" class="col-sm-1">RCA</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($listaCollaboratori as $lc => $collaboratore)
-                <tr>
-                    <th class="table-success">{{$lc}}</th>
-                    <td>{{number_format($collaboratore["PA"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Protection"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["AVC"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Retail"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["Middle"], 0, ',', '.')}}</td>
-                    <td>{{number_format($collaboratore["RCA"], 0, ',', '.')}}</td>
-                </tr>
-            @endforeach
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE RETE</th>
-                <td>{{ number_format($totaleRete["PA"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Protection"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["AVC"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Retail"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["Middle"], 0, ',', '.')}}</td>
-                <td>{{ number_format($totaleRete["RCA"], 0, ',', '.')}}</td>
-            </tr>
-            <tr class="table-warning" style="text-align: end">
-                <th>TOTALE GENERALE</th>
-                <td>{{ number_format($premiAnnuiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($protectionTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($puIbridiTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaRetailTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($dnaMiddleMarketTot, 0, ',', '.')}}</td>
-                <td>{{ number_format($rcaTot, 0, ',', '.')}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        </main>    </div>
+
     </body>
     </html>
+
+</div>
+
 </div>
 </body>
-</html>
+
+
+

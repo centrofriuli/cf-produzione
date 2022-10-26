@@ -21,10 +21,10 @@ use Dflydev\DotAccessData\Data;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use phpDocumentor\Reflection\DocBlock\Tags\Property;
 
 class ProductionController extends Controller
 {
@@ -140,6 +140,7 @@ class ProductionController extends Controller
 
     public function main()
     {
+
         $prodottiIbridiPu = array("GeneraSviluppo Sostenibile", "GENERALI PREMIUM - Abbinato", "GeneraSviluppo MultiPlan", "GenerAzione Previdente", "GeneraEquilibrio", "GeneraEquilibrio 2020", "GeneraValore 2021", "Genera PROevolution", "GeneraValore", "VALORE FUTURO");
         $prodottiDnaRetail = array("GENERALI SEI A CASA", "GENERALI SEI IN SALUTE - ALTA PROTEZIONE", "GENERALI SEI IN SICUREZZA", "GENERALI SEI IN SICUREZZA STRADALE", "GENERALI SEI IN VIAGGIO", "IMMAGINA ADESSO", "IMMAGINA BENESSERE", "TERREMOTO");
         $prodottiDnaMiddleMarket = array("AL COMPLETO", "ATTIVA ARTI & MESTIERI", "GENERAIMPRESA", "GENERALI SEI IN UFFICIO", "GENERATTIVITA'", "GENERATTIVITA  PLUS", "GLOBALE FABBRICATI CIVILI", "ATTIVA COMMERCIO", "NATURATTIVA", "OMNIA", "R.C PROFESSIONI SANITARIE", "R.C. COLPA GRAVE", "RESPONSABILITA' CIVILE ATTIVITA' PROFESSIONALI", "R.C.T. FABBRICATI", "VALORE AGRICOLTURA", "VALORE COMMERCIO PLUS");

@@ -426,7 +426,7 @@
     <input hidden type="text" id="residuoRca" value={{$obiettiviAnnui['ob_rca']-$rcaTot}} />
 
     <div class="container-fluid" style="font-size: 18px">
-        <table class="table table-bordered">
+               <table class="table table-bordered">
             <thead class="thead-dark">
             <tr style="font-size: 18px">
                 <th colspan="5" style="text-align: center" scope="col" class="col-sm">Premi Annui</th>
@@ -452,7 +452,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-bordered">
+           <table class="table table-bordered">
             <thead class="thead-dark">
             <tr style="font-size: 18px">
                 <th colspan="5" style="text-align: center" scope="col" class="col-sm">di cui Protection</th>
