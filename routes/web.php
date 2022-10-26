@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\TrattativaController;
 use App\Http\Controllers\UserController;
@@ -15,6 +16,22 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Start Login
+|--------------------------------------------------------------------------
+*/
+Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
+Route::get('registrazione', [CustomAuthController::class, 'registration'])->name('register-user');
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
+Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+/*
+|--------------------------------------------------------------------------
+| End login
+|--------------------------------------------------------------------------
 */
 
 Route::get('/', [ProductionController::class, 'main'])->name('produzione.main');
