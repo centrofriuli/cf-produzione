@@ -13,6 +13,11 @@ use function Composer\Autoload\includeFile;
 
 class TrattativaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $trattativeAll = SviluppoBisogni::orderBy('id','desc')->paginate(10);

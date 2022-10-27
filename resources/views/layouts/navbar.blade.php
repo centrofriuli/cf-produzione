@@ -45,6 +45,20 @@
                         </li>
                     </ul>
                 </div>
+                @if(request()->routeIs('produzione.*'))
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Aggiornamento
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="{{route('produzione.vita')}}">Vita</a></li>
+                            <li><a class="dropdown-item" href="{{route('produzione.dna')}}">DNA</a></li>
+                            <li><a class="dropdown-item" href="{{route('produzione.rca')}}">RCA</a></li>
+                            <li><a class="dropdown-item" href="{{route('produzione.fondiPensione')}}">Fondi Pensione</a></li>
+                        </ul>
+                    </div>
+                @endif
             @endif
             @if(request()->routeIs('trattativa.index'))
                 <a class="nav-link" href={{route('produzione.main')}}><i class="bi-arrow-left-right"></i> Produzione</a>
@@ -57,20 +71,14 @@
                     Vivere di Rendita</a>
             @endif
         </ul>
-        @if(request()->routeIs('produzione.*'))
+        <a href="{{route('produzione.opzioni')}}" type="button" class="bi bi-gear btn btn-outline-primary"></a>
+        @if(Auth::user())
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-expanded="false">
-                    Aggiornamento
-                </a>
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{\Illuminate\Support\Facades\Auth::user()->email}}</a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a class="dropdown-item" href="{{route('produzione.vita')}}">Vita</a></li>
-                    <li><a class="dropdown-item" href="{{route('produzione.dna')}}">DNA</a></li>
-                    <li><a class="dropdown-item" href="{{route('produzione.rca')}}">RCA</a></li>
-                    <li><a class="dropdown-item" href="{{route('produzione.fondiPensione')}}">Fondi Pensione</a></li>
+                    <a style="margin-left: 10px" href="{{route('signout')}}" type="text">Logout</a>
                 </ul>
             </div>
         @endif
-        <a href="{{route('produzione.opzioni')}}" type="button" class="bi bi-gear btn btn-outline-primary"></a>
     </div>
 </nav>

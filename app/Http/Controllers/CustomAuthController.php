@@ -20,7 +20,7 @@ class CustomAuthController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, true)) {
             return redirect()->intended('../produzione');
         }
 

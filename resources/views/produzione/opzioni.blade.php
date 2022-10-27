@@ -401,7 +401,7 @@
     </style>
 </head>
 <body class="antialiased" style="padding-top: 65px">
-<div class="relative flex items-top justify-center min-h-screen py-4 sm:pt-0">
+<div class="container-xl">
     <!DOCTYPE html>
     <html>
     <head>
@@ -412,21 +412,81 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     </head>
     <body>
-    <div class="container mt-2" style="font-size: 18px">
-        <h3>Polizze escluse</h3>
-        @foreach($polizzeEscluse as $polizzaEsclusa)
-            <li style="display: inline">{{$polizzaEsclusa->polizza}},</li>
-        @endforeach
+    {{--    <div class="container-sm" style="font-size: 18px">--}}
+    {{--        <h3>Polizze escluse</h3>--}}
+    {{--        @foreach($polizzeEscluse as $polizzaEsclusa)--}}
+    {{--            <li style="display: inline">{{$polizzaEsclusa->polizza}},</li>--}}
+    {{--        @endforeach--}}
 
-        {{ Form::open(array('route' => 'produzione.savePolizzeEscluse')) }}
-        <div style="margin-top: 20px" class="form-group">
-            <h3>Nuova polizza da escludere</h3><input type="text" class="form-control col-sm-4" name="polizza" id="polizza">
-            <input type="submit" class="btn btn-dark btn-block col-sm-4">
+    {{--        {{ Form::open(array('route' => 'produzione.savePolizzeEscluse')) }}--}}
+    {{--        <div style="margin-top: 20px" class="form-group">--}}
+    {{--            <h3>Nuova polizza da escludere</h3><input type="text" class="form-control col-sm-4" name="polizza" id="polizza">--}}
+    {{--            <input type="submit" class="btn btn-dark btn-block col-sm-4">--}}
+    {{--        </div>--}}
+    {{--        {{ Form::close() }}--}}
+
+    {{--    </div>--}}
+    <div class="card text-center" style="margin-top: 15px">
+        <div class="card-header">
+            Lista utenti
         </div>
-        {{ Form::close() }}
+
+        <div class="card-body">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Data creazione</th>
+                    <th scope="col">Admin</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($users as $user)
+                <tr>
+                        <th>{{$user->id}}</th>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{\Carbon\Carbon::parse($user->created_at)->format('d/m/Y')}}</td>
+                        @if($user->is_admin == true)
+                            <td><input checked type="checkbox" value="{{$user->id}}" id="adminCheck"></td>
+                        @else
+                            <td><input type="checkbox" value="{{$user->id}}" id="adminCheck"></td>
+                @endif
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     </body>
     </html>
 </div>
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+<script>
+    $('#adminCheck').click(function () {
+        const id = $(this).val();
+        if ($(this).is(':checked')) {
+            var val = 1;
+            $.ajax({
+                url: '/updateAdmin', // This is what I have updated
+                type: "GET",
+                data: {id, val}
+            }).done(function (msg) {
+                //
+            });
+        } else {
+            var val = 0;
+            $.ajax({
+                url: '/updateAdmin', // This is what I have updated
+                type: "GET",
+                data: {id, val}
+            }).done(function (msg) {
+                //
+            });
+        }
+    });
+</script>
