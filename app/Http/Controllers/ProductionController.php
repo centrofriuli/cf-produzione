@@ -16,6 +16,7 @@ use App\Models\ProductionDanniAuto;
 use App\Models\ProductionDanniNoAuto;
 use App\Models\ProductionFondiPensione;
 use App\Models\ProductionVita;
+use App\Models\User;
 use Carbon\Carbon;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Contracts\Foundation\Application;
@@ -33,6 +34,11 @@ class ProductionController extends Controller
      *
      * @return Application|Factory|View
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -1090,7 +1096,16 @@ class ProductionController extends Controller
     //opzioni
     public function opzioni(){
         $polizzeEscluse = PolizzaEsclusa::all();
-        return view("produzione.opzioni", compact('polizzeEscluse'));
+        $users = User::all();
+
+        return view("produzione.opzioni", compact('polizzeEscluse', 'users'));
+    }
+
+    public function updateAdmin(Request $request){
+        $user = User::where('id', $request->id);
+        $val = intval($request->val);
+
+        return $user->update(['is_admin' => $val]);
     }
 
     public function savePolizzeEscluse(Request $request): string

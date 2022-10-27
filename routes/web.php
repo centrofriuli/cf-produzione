@@ -61,6 +61,7 @@ Route::get('/updateObiettivoGaraPaNoProt/', [ProductionController::class, 'updat
 Route::get('/updateObiettivoGaraProt/', [ProductionController::class, 'updateObiettivoGaraProt'])->name('updateObiettivoGaraProt');
 Route::get('/updateObiettivoGaraAvc/', [ProductionController::class, 'updateObiettivoGaraAvc'])->name('updateObiettivoGaraAvc');
 Route::get('/updateObiettivoGaraDnaPlus/', [ProductionController::class, 'updateObiettivoGaraDnaPlus'])->name('updateObiettivoGaraDnaPlus');
+Route::get('/updateAdmin', [ProductionController::class, 'updateAdmin'])->name('updateAdmin');
 
 //update obiettivi annuo
 Route::get('/updateObiettivoAnnuoPaNoProt/', [ProductionController::class, 'updateObiettivoAnnuoPaNoProt'])->name('updateObiettivoAnnuoPaNoProt');
