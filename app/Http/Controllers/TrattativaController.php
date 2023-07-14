@@ -15,7 +15,7 @@ class TrattativaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -130,13 +130,13 @@ class TrattativaController extends Controller
         }
 
         //configurazione grafico
-        //https://quickchart.io/chart-maker/edit/zm-f2c09825-2aa9-4631-acad-90735d51fba9
-        //https://quickchart.io/chart-maker/edit/zm-075d735f-74f7-4db3-aed2-45566de06d2b
-        //https://quickchart.io/chart-maker/edit/zm-12d08832-9f33-42a7-89f2-8128803df631
+        //https://quickchart.io/chart-maker/edit/zm-d7198f46-d1e5-4f9e-ab91-f8f43c3aef2f
+        //https://quickchart.io/chart-maker/edit/zm-15330b61-7883-4ddd-9423-8f8a0f2d118a
+        //https://quickchart.io/chart-maker/edit/zm-9970faac-f022-43eb-a05b-0af38bba8ff7
 
-        $pieChartUrl = "https://quickchart.io/chart/render/zm-12e5267b-0833-4d83-b4df-b7b2b7548b47"."?data1=".count($datiBisogniNonGestite).",".count($datiBisogniGestiteDaMigliorare).",".count($datiBisogniGestiteBene).",".count($datiBisogniNonConsiderate);
-        $insuranceIndexUrl = "https://quickchart.io/chart/render/zm-426279c9-8f58-4c2b-9c6d-4bb177a69c0b"."?data1=".count($datiBisogniGestiteBene)."&data2=".count($datiBisogniGestiteDaMigliorare)."&data3=".count($datiBisogniNonGestite)+count($datiBisogniNonConsiderate);
-        $qualityIndexUrl = "https://quickchart.io/chart/render/zm-654d3804-ebdd-4678-82e1-e9c689574434"."?data1=".count($datiBisogniGestiteBene).",".count($datiBisogniGestiteDaMigliorare);
+        $pieChartUrl = "https://quickchart.io/chart/render/zm-d7198f46-d1e5-4f9e-ab91-f8f43c3aef2f?data1=".count($datiBisogniNonGestite).",".count($datiBisogniGestiteDaMigliorare).",".count($datiBisogniGestiteBene).",".count($datiBisogniNonConsiderate);
+        $insuranceIndexUrl = "https://quickchart.io/chart/render/zm-9b5243de-0cdc-48c9-9bb2-c51429623eef?data1=".count($datiBisogniGestiteBene)."&data2=".count($datiBisogniGestiteDaMigliorare)."&data3=".count($datiBisogniNonGestite)+count($datiBisogniNonConsiderate);
+        $qualityIndexUrl = "https://quickchart.io/chart/render/zm-9095a832-ad01-4e33-971b-6d4d6da7308d?data1=".count($datiBisogniGestiteBene).",".count($datiBisogniGestiteDaMigliorare);
         $pdf = Pdf::loadView('pdf.trattativa', array("datiBisogniNonGestite" => $datiBisogniNonGestite, "datiBisogniGestiteDaMigliorare" => $datiBisogniGestiteDaMigliorare, "datiBisogniNonConsiderate" => $datiBisogniNonConsiderate, "datiBisogniGestiteBene" => $datiBisogniGestiteBene, "pieChartUrl" => $pieChartUrl, 'insuranceIndexUrl' => $insuranceIndexUrl, "qualityIndexUrl" => $qualityIndexUrl, 'datiBisogni'=>$datiBisogni));
 
         return $pdf->stream('trattativa' . $idBisogno . '.pdf');

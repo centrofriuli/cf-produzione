@@ -38,9 +38,17 @@
             text-align: center;
             line-height: 35px;
         }
+        
         body {
             font-family: "Times-Bold", sans-serif;
             font-size: 15px;
+        }
+
+        .customGraph {
+            max-width: 100%;
+            max-height: 30%;
+            margin: 0 auto;
+                        display: block;
         }
 
     </style>
@@ -290,17 +298,11 @@
         </table>
     @endif
 
-    <div class="text-center" style="padding-bottom: 20px">
-        <img src="{{$pieChartUrl}}" class="img-fluid" style="max-width: 90%">
+    <div style="padding-top:40px">
+        <img class="customGraph" src="{{$pieChartUrl}}">
+        <img class="customGraph" src="{{$insuranceIndexUrl}}">
+        <img class="customGraph center" src="{{$qualityIndexUrl}}">
     </div>
-
-    <div class="float-left" style="margin-right: -130px">
-        <img src="{{$insuranceIndexUrl}}" class="img-fluid" style="padding-left:15px;max-width: 80%">
-    </div>
-
-    <img src="{{$qualityIndexUrl}}" class="img-fluid" style="max-width: 80%">
-
-
 
 </main>
 
