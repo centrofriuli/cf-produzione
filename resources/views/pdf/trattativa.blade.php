@@ -44,8 +44,15 @@
             font-size: 15px;
         }
 
-        .customGraph {
+        .customGraphHor {
             max-width: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .customGraphVert {
+            max-width: 50%;
+            max-height: 60%;
             margin: 0 auto;
             display: block;
         }
@@ -302,9 +309,9 @@
     <div class="page_break"></div>
 
     <div style="padding-top:20px">
-        <img class="customGraph" src="{{$pieChartUrl}}">
-        <img class="customGraph" src="{{$insuranceIndexUrl}}">
-        <img class="customGraph center" src="{{$qualityIndexUrl}}">
+        <img class="customGraphHor" src="{{$pieChartUrl}}">
+        <img class="customGraphVer" src="{{$insuranceIndexUrl}}">
+        <img class="customGraphHor" src="{{$qualityIndexUrl}}">
     </div>
 
 </main>
