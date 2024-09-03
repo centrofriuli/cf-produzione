@@ -78,10 +78,10 @@ Route::get('/updateObiettivoSemestreAvc/', [ProductionController::class, 'update
 Route::get('/updateObiettivoSemestreDnaMiddle/', [ProductionController::class, 'updateObiettivoSemestreDnaMiddle'])->name('updateObiettivoSemestreDnaMiddle');
 Route::get('/updateObiettivoSemestreDnaRetail/', [ProductionController::class, 'updateObiettivoSemestreDnaRetail'])->name('updateObiettivoSemestreDnaRetail');
 
-//trattativa
-Route::get('/trattativa/{id?}', [TrattativaController::class, 'index'])->name('trattativa.index');
-Route::get('/trattativa/pdf/{idTrattativa}', [TrattativaController::class, 'pdf'])->name('trattativa.pdf');
-Route::post('/trattativa/salvaTabellaBisogni/{idTrattativa?}', [TrattativaController::class, 'salvaTabellaBisogni'])->name('trattativa.salvaTabellaBisogni');
+//consulenza
+Route::get('/consulenza/{id?}', [TrattativaController::class, 'index'])->name('trattativa.index');
+Route::get('/consulenza/pdf/{idTrattativa}', [TrattativaController::class, 'pdf'])->name('trattativa.pdf');
+Route::post('/consulenza/salvaTabellaBisogni/{idTrattativa?}', [TrattativaController::class, 'salvaTabellaBisogni'])->name('trattativa.salvaTabellaBisogni');
 
 Route::get('/vivere-di-rendita/simulazione.php')->name('vivereDiRendita.index');
 
