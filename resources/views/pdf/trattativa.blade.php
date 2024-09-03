@@ -46,9 +46,8 @@
 
         .customGraph {
             max-width: 100%;
-            max-height: 30%;
             margin: 0 auto;
-                        display: block;
+            display: block;
         }
 
     </style>
