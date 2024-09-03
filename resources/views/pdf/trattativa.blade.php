@@ -45,7 +45,8 @@
         }
 
         .customGraph {
-            max-width: 40%;
+            max-width: 50%;
+            max-height: 60%;
             margin: 0 auto;
             display: block;
         }
@@ -297,7 +298,7 @@
         </table>
     @endif
 
-    <div style="padding-top:40px">
+    <div style="padding-top:10px">
         <img class="customGraph" src="{{$pieChartUrl}}">
         <img class="customGraph" src="{{$insuranceIndexUrl}}">
         <img class="customGraph center" src="{{$qualityIndexUrl}}">
