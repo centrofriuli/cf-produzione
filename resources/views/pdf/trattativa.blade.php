@@ -52,7 +52,7 @@
 
         .customGraphVer {
             max-width: 50%;
-            max-height: 60%;
+            max-height: 30%;
             margin: 0 auto;
             display: block;
         }
@@ -311,7 +311,7 @@
     <div style="padding-top:20px">
         <img class="customGraphHor" src="{{$pieChartUrl}}">
         <img class="customGraphVer" src="{{$insuranceIndexUrl}}">
-        <img class="customGraphHor" src="{{$qualityIndexUrl}}">
+        <img class="customGraphHor center" src="{{$qualityIndexUrl}}">
     </div>
 
 </main>
