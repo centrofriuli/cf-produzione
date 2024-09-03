@@ -43,7 +43,7 @@ class CustomAuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect('../produzione');
+        return redirect('../consulenza');
     }
 
     public function create(array $data)
