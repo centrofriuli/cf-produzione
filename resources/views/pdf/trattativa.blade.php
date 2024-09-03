@@ -50,7 +50,7 @@
             display: block;
         }
 
-        .customGraphVert {
+        .customGraphVer {
             max-width: 50%;
             max-height: 60%;
             margin: 0 auto;
