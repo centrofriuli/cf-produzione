@@ -46,10 +46,11 @@
 
         .customGraph {
             max-width: 50%;
-            max-height: 60%;
             margin: 0 auto;
             display: block;
         }
+
+        .page_break { page-break-before: always; }
 
     </style>
     <meta charset="utf-8"/>
@@ -298,7 +299,9 @@
         </table>
     @endif
 
-    <div style="padding-top:10px">
+    <div class="page_break"></div>
+
+    <div style="padding-top:20px">
         <img class="customGraph" src="{{$pieChartUrl}}">
         <img class="customGraph" src="{{$insuranceIndexUrl}}">
         <img class="customGraph center" src="{{$qualityIndexUrl}}">
